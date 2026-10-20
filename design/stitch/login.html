@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Domine:wght@600;700&amp;family=Plus+Jakarta+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "caramel-gold": "#D9B77E",
+          "on-primary-fixed-variant": "#603f32",
+          "border-neutral": "#E5D8C3",
+          "secondary-fixed-dim": "#d2c5a9",
+          "primary-fixed": "#ffdbce",
+          "warning-amber": "#C47B27",
+          "on-secondary-fixed": "#211b08",
+          "card-bg-disabled": "#F3EFEA",
+          "on-secondary": "#ffffff",
+          "surface-tint": "#7b5648",
+          "on-tertiary-fixed-variant": "#5a4315",
+          "on-primary-container": "#ae8474",
+          "on-background": "#1c1c18",
+          "primary-container": "#3b1f14",
+          "on-error-container": "#93000a",
+          "outline": "#83746f",
+          "surface-dim": "#dcdad4",
+          "error-container": "#ffdad6",
+          "surface-bright": "#fcf9f3",
+          "tertiary-container": "#352300",
+          "accessible-red": "#C93B2B",
+          "on-surface": "#1c1c18",
+          "surface-container": "#f0eee8",
+          "surface": "#fcf9f3",
+          "surface-container-low": "#f6f3ed",
+          "matcha-green": "#78945B",
+          "tertiary": "#1a1000",
+          "tertiary-fixed-dim": "#e4c288",
+          "primary": "#220b03",
+          "on-primary": "#ffffff",
+          "on-primary-fixed": "#2e150a",
+          "inverse-surface": "#31312d",
+          "inverse-on-surface": "#f3f0eb",
+          "on-secondary-fixed-variant": "#4f4630",
+          "on-tertiary-container": "#a78954",
+          "secondary-container": "#efe1c3",
+          "tertiary-fixed": "#ffdea9",
+          "outline-variant": "#d5c3bd",
+          "surface-container-high": "#ebe8e2",
+          "inverse-primary": "#ecbcab",
+          "on-tertiary-fixed": "#271900",
+          "on-secondary-container": "#6d634c",
+          "secondary-fixed": "#efe1c3",
+          "on-surface-variant": "#504440",
+          "surface-container-lowest": "#ffffff",
+          "primary-fixed-dim": "#ecbcab",
+          "on-error": "#ffffff",
+          "surface-variant": "#e5e2dc",
+          "espresso-dark": "#29221D",
+          "error": "#ba1a1a",
+          "surface-container-highest": "#e5e2dc",
+          "on-tertiary": "#ffffff",
+          "secondary": "#675e46",
+          "text-muted": "#74685E",
+          "background": "#fcf9f3"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.25rem",
+          "lg": "0.5rem",
+          "xl": "0.75rem",
+          "full": "9999px"
+        },
+        "spacing": {
+          "margin": "1rem",
+          "space-xl": "2rem",
+          "space-md": "1rem",
+          "space-xs": "0.25rem",
+          "margin-desktop": "2rem",
+          "gutter": "1.25rem",
+          "space-sm": "0.5rem",
+          "space-lg": "1.5rem",
+          "gutter-desktop": "1.5rem"
+        },
+        "fontFamily": {
+          "label-sm": ["Plus Jakarta Sans"],
+          "title-sm": ["Plus Jakarta Sans"],
+          "title-md": ["Plus Jakarta Sans"],
+          "label-md": ["Plus Jakarta Sans"],
+          "headline-lg": ["Domine"],
+          "body-md": ["Plus Jakarta Sans"],
+          "headline-md": ["Domine"],
+          "body-sm": ["Plus Jakarta Sans"],
+          "headline-sm": ["Domine"],
+          "headline-lg-mobile": ["Domine"],
+          "headline-xl": ["Domine"],
+          "currency-display": ["Plus Jakarta Sans"],
+          "label-lg": ["Plus Jakarta Sans"],
+          "body-lg": ["Plus Jakarta Sans"]
+        },
+        "fontSize": {
+          "label-sm": ["11px", {"lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "700"}],
+          "title-sm": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+          "title-md": ["18px", {"lineHeight": "26px", "fontWeight": "600"}],
+          "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+          "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+          "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+          "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+          "body-sm": ["12px", {"lineHeight": "18px", "fontWeight": "400"}],
+          "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+          "headline-lg-mobile": ["26px", {"lineHeight": "34px", "fontWeight": "700"}],
+          "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+          "currency-display": ["22px", {"lineHeight": "28px", "fontWeight": "700"}],
+          "label-lg": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+          "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+        }
+      }
+    }
+  }</script></head><body class="bg-background font-body-md text-body-md text-on-surface antialiased"><header class="fixed top-0 left-0 right-0 z-40 bg-surface/90 backdrop-blur-md shadow-[0_1px_8px_rgba(41,34,29,0.06)]"><div class="h-20 max-w-[1280px] mx-auto px-margin-desktop flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md"><a class="flex items-center gap-space-sm group" data-path="home" href="#"><div class="w-11 h-11 rounded-full p-0.5 bg-caramel-gold/30 flex items-center justify-center"><div class="w-full h-full rounded-full overflow-hidden bg-primary-container flex items-center justify-center text-on-primary font-headline-sm text-headline-sm"><span class="text-caramel-gold font-headline-md text-headline-md">K</span></div></div><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-espresso-dark group-hover:text-primary transition-colors tracking-tight">M&amp;E Kape Cup</span><span class="font-label-sm text-label-sm text-text-muted tracking-wider uppercase">Artisanal Brew &amp; Comforts</span></div></a></div><nav class="hidden md:flex items-center gap-space-sm" data-active-classes="bg-secondary-container text-on-secondary-container font-bold rounded-lg shadow-sm"><a aria-current="page" class="px-space-md py-space-xs transition-colors bg-secondary-container text-on-secondary-container font-bold rounded-lg shadow-sm" data-path="home" href="#">Home</a><a class="px-space-md py-space-xs font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors" data-path="menu" href="#">Menu</a><a class="px-space-md py-space-xs font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors" data-path="order-status" href="#">Order Status</a><a class="px-space-md py-space-xs font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors" data-path="ordering-unavailable" href="#">Ordering Notice</a></nav><div class="flex items-center gap-space-md"><a class="relative flex items-center justify-center w-11 h-11 rounded-full bg-surface-container-high text-espresso-dark hover:bg-caramel-gold/20 hover:text-primary transition-colors" data-path="cart-drawer" href="#"><span class="material-symbols-outlined text-title-md">shopping_bag</span><span class="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-accessible-red text-on-error font-label-sm text-label-sm flex items-center justify-center font-bold">3</span></a><div class="flex items-center gap-space-xs pl-space-xs"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1WZ_qdg9H9b9Cse68XLjaKwt9slfnT8EbJGjWsOqdyPVCLUzqBOieqLlDAg_omVx0gsSxDTfU7ERbEfh7l7Sya73DGI9GKmoOcd62EO4D3_TENWjkuvLPbNAYUa0AhuQ755k0rqhrL_AW3iHgwzhqr9g6Sg-5PnlwVTmHGB7J6x_bcfRFFU5gZ6Aa2MJMmwFKx607ZPNFiy4l0MMkeSFAmL5axHYAJS2xEEBZDWOj_idHEB_NCE54e0VbikGtjVlgnTeICP7YiLHA"/></div></div></div></header><main class="w-full pt-20 bg-background min-h-screen"><div class="flex flex-col w-full py-space-xl px-margin-desktop items-center justify-center relative">
+<div class="absolute -top-12 left-1/2 -translate-x-1/2 w-[720px] h-[480px] bg-gradient-to-b from-caramel-gold/15 via-secondary-container/20 to-transparent rounded-full blur-3xl pointer-events-none -z-10"></div>
+<div class="w-full max-w-[540px] flex flex-col items-center">
+<div class="mb-space-md inline-flex items-center gap-space-xs px-space-md py-1 rounded-full bg-surface-container text-on-surface-variant shadow-sm">
+<span class="w-2 h-2 rounded-full bg-caramel-gold animate-pulse"></span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-text-muted">Terminal Access Control</span>
+<span class="text-outline-variant font-label-sm text-label-sm">•</span>
+<span class="font-label-sm text-label-sm text-text-muted">v2.4 POS Engine</span>
+</div>
+<div class="w-full bg-surface-container-lowest rounded-xl shadow-md p-space-xl flex flex-col items-center relative overflow-hidden">
+<div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-espresso-dark via-caramel-gold to-espresso-dark"></div>
+<div class="relative -mt-2 mb-space-md group">
+<div class="w-24 h-24 rounded-full p-1 bg-gradient-to-tr from-espresso-dark via-caramel-gold to-primary-container shadow-md flex items-center justify-center">
+<img alt="M&amp;E Kape Cup Mascot Badge" class="w-full h-full rounded-full object-cover bg-espresso-dark" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJg5n5gCoNeLxQFbxM5XyYP3i4jJB97Tu8dXwSlCj9TgOqPfbzsNzBOA6uZ3ErMK1vw4g4BNU4abGoc_aC31Em63OgI5Imxf2YhVfRSAyzCwz0RMvE5g3xy3wPnhzpcLvBNbXejXhBLuR3pjxDiwu1gas2bDJpu5NxhvJZt3NGztWjr_9L3AEeoM5I3ci5UmmneQ8WCRLbMQ3yowGLkP3ff3X7qdC4yFTcRVAV-IkkHEEWg_XN24CH8Xvbf0uu2t6rdA"/>
+</div>
+<div class="absolute -bottom-1 -right-1 w-7 h-7 rounded-full bg-surface-container-highest flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[16px] text-espresso-dark" style="font-variation-settings: 'FILL' 1;">badge</span>
+</div>
+</div>
+<div class="text-center mb-space-lg w-full">
+<h1 class="font-headline-md text-headline-md text-espresso-dark tracking-tight">Staff &amp; Admin Login</h1>
+<p class="font-body-md text-body-md text-text-muted mt-space-xs max-w-sm mx-auto">
+          Enter credentials to access the POS terminal and management dashboard
+        </p>
+</div>
+<div class="w-full mb-space-lg bg-error-container/60 rounded-lg p-space-md flex items-start gap-space-sm shadow-sm transition-all duration-300" id="authErrorAlert">
+<span class="material-symbols-outlined text-accessible-red shrink-0 text-title-md mt-0.5" style="font-variation-settings: 'FILL' 1;">error</span>
+<div class="flex-1">
+<p class="font-label-lg text-label-lg text-on-error-container font-semibold">Authentication Failed</p>
+<p class="font-body-sm text-body-sm text-on-error-container/90 mt-0.5">
+            Incorrect username or password. Please verify credentials or contact administrator.
+          </p>
+</div>
+<button class="text-on-error-container/60 hover:text-on-error-container p-0.5 transition-colors" onclick="document.getElementById('authErrorAlert').classList.add('hidden')" type="button">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+<form class="w-full flex flex-col gap-space-lg" id="posLoginForm" onsubmit="event.preventDefault(); triggerAuthSim();">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<label class="font-label-lg text-label-lg text-espresso-dark font-semibold" for="usernameInput">
+              Username or Email
+            </label>
+<span class="font-label-sm text-label-sm text-text-muted uppercase">Terminal ID / SSO</span>
+</div>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-space-md text-text-muted text-title-sm pointer-events-none">person</span>
+<input autocomplete="username" class="w-full bg-surface-container-low text-espresso-dark font-body-md text-body-md rounded-lg pl-11 pr-space-md py-3 focus:outline-none focus:bg-surface-container-lowest focus:shadow-[0_0_0_2px_#D9B77E] transition-all placeholder:text-outline-variant" id="usernameInput" placeholder="[Username / Email]" required="" type="text" value="barista.counter01"/>
+</div>
+</div>
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<label class="font-label-lg text-label-lg text-espresso-dark font-semibold" for="passwordInput">
+              Password
+            </label>
+<span class="font-label-sm text-label-sm text-text-muted">Station PIN</span>
+</div>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-space-md text-text-muted text-title-sm pointer-events-none">lock</span>
+<input autocomplete="current-password" class="w-full bg-surface-container-low text-espresso-dark font-body-md text-body-md rounded-lg pl-11 pr-12 py-3 focus:outline-none focus:bg-surface-container-lowest focus:shadow-[0_0_0_2px_#D9B77E] transition-all placeholder:text-outline-variant" id="passwordInput" placeholder="Enter station passkey" required="" type="password" value="coffeehouse2024"/>
+<button aria-label="Toggle password visibility" class="absolute right-space-md text-text-muted hover:text-espresso-dark transition-colors flex items-center justify-center p-1" id="togglePasswordBtn" onclick="togglePasswordVisibility()" type="button">
+<span class="material-symbols-outlined text-title-sm" id="passwordToggleIcon">visibility</span>
+</button>
+</div>
+</div>
+<div class="flex flex-col gap-space-sm pt-space-xs">
+<button class="w-full bg-primary-container hover:bg-espresso-dark text-on-primary font-label-lg text-label-lg py-3.5 px-space-md rounded-lg shadow-sm hover:shadow transition-all flex items-center justify-center gap-space-sm group cursor-pointer active:scale-[0.99]" id="primarySubmitBtn" type="submit">
+<span class="material-symbols-outlined text-[20px] transition-transform group-hover:translate-x-0.5">login</span>
+<span>Log In</span>
+</button>
+<div class="flex items-center gap-space-xs my-space-xs">
+<div class="flex-1 h-px bg-surface-container-high"></div>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline">State Examples</span>
+<div class="flex-1 h-px bg-surface-container-high"></div>
+</div>
+<button class="w-full bg-card-bg-disabled text-text-muted font-label-lg text-label-lg py-3 px-space-md rounded-lg shadow-none flex items-center justify-center gap-space-sm cursor-not-allowed select-none opacity-85" disabled="" type="button">
+<svg class="animate-spin h-4 w-4 text-text-muted" fill="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+<path class="opacity-75" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" fill="currentColor"></path>
+</svg>
+<span>Verifying Session (Loading State Preview)</span>
+</button>
+</div>
+</form>
+<div class="w-full mt-space-lg bg-surface-container-low rounded-lg p-space-md flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-warning-amber text-title-sm shrink-0 mt-0.5" style="font-variation-settings: 'FILL' 1;">alt_route</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-espresso-dark uppercase tracking-wide font-bold">Automatic Routing Matrix</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5 leading-relaxed">
+            Staff credentials route to the <strong class="text-espresso-dark font-semibold">Staff Order Queue POS</strong>; Administrator accounts route to the <strong class="text-espresso-dark font-semibold">Admin Oversight Dashboard</strong>.
+          </p>
+</div>
+</div>
+<div class="w-full mt-space-lg pt-space-md flex flex-col sm:flex-row items-center justify-between gap-space-sm">
+<a class="inline-flex items-center gap-space-xs font-label-md text-label-md text-text-muted hover:text-espresso-dark transition-colors group" data-path="home" href="#">
+<span class="material-symbols-outlined text-[16px] transition-transform group-hover:-translate-x-1">arrow_back</span>
+<span>Back to Customer Home</span>
+</a>
+<div class="flex items-center gap-1.5 px-space-sm py-1 rounded bg-surface-container font-label-sm text-label-sm text-text-muted">
+<span class="material-symbols-outlined text-[14px] text-caramel-gold">database</span>
+<span>Prototype login interface</span>
+</div>
+</div>
+</div>
+<div class="mt-space-lg flex items-center justify-center gap-space-lg text-center">
+<div class="flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-matcha-green"></span>
+<span class="font-body-sm text-body-sm text-text-muted">Station 01 • Main Counter Online</span>
+</div>
+<span class="text-surface-variant">•</span>
+<div class="font-body-sm text-body-sm text-text-muted">
+        Build #8841-KAPE
+      </div>
+</div>
+</div>
+</div>
+<script>
+  function togglePasswordVisibility() {
+    const passwordField = document.getElementById('passwordInput');
+    const toggleIcon = document.getElementById('passwordToggleIcon');
+    if (!passwordField || !toggleIcon) return;
+    
+    if (passwordField.type === 'password') {
+      passwordField.type = 'text';
+      toggleIcon.textContent = 'visibility_off';
+    } else {
+      passwordField.type = 'password';
+      toggleIcon.textContent = 'visibility';
+    }
+  }
+
+  function triggerAuthSim() {
+    const btn = document.getElementById('primarySubmitBtn');
+    const alertBox = document.getElementById('authErrorAlert');
+    if (!btn) return;
+    
+    const originalText = btn.innerHTML;
+    btn.disabled = true;
+    btn.classList.add('opacity-75');
+    btn.innerHTML = `
+      <svg class="animate-spin h-5 w-5 text-on-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+      </svg>
+      <span>Authenticating Station...</span>
+    `;
+
+    setTimeout(() => {
+      btn.disabled = false;
+      btn.classList.remove('opacity-75');
+      btn.innerHTML = originalText;
+      if (alertBox) {
+        alertBox.classList.remove('hidden');
+        alertBox.classList.add('animate-pulse');
+        setTimeout(() => alertBox.classList.remove('animate-pulse'), 1000);
+      }
+    }, 1200);
+  }
+</script></main><footer class="w-full bg-surface-container-low mt-space-xl shadow-[0_-1px_6px_rgba(41,34,29,0.03)]"><div class="max-w-[1280px] mx-auto px-margin-desktop py-space-xl flex flex-col md:flex-row items-center justify-between gap-space-md"><div class="flex flex-col items-center md:items-start gap-space-xs"><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm text-espresso-dark">M&amp;E Kape Cup</span><span class="px-space-xs py-0.5 rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm">Cafe &amp; Roastery</span></div><p class="font-body-sm text-body-sm text-text-muted">Warm roasts, timeless diner charm &amp; handcrafted coffee.</p><p class="font-label-sm text-label-sm text-text-muted mt-space-xs">[Contact details pending confirmation]</p></div><div class="flex flex-col md:flex-row items-center gap-space-lg"><div class="font-label-sm text-label-sm text-text-muted text-center md:text-right"><span class="inline-block px-space-xs py-0.5 rounded bg-surface-container text-text-muted">Prototype data (fictional)</span><p class="mt-1">© 2024 M&amp;E Kape Cup. All rights reserved.</p></div><a class="font-label-sm text-label-sm text-text-muted hover:text-espresso-dark transition-colors underline decoration-border-neutral underline-offset-4" data-path="staff-dashboard" href="#">Staff Login</a></div></div></footer></body></html>

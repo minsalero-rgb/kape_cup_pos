@@ -1,0 +1,540 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_standard" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Domine:wght@600;700&amp;family=Plus+Jakarta+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "caramel-gold": "#D9B77E",
+          "on-primary-fixed-variant": "#603f32",
+          "border-neutral": "#E5D8C3",
+          "secondary-fixed-dim": "#d2c5a9",
+          "primary-fixed": "#ffdbce",
+          "warning-amber": "#C47B27",
+          "on-secondary-fixed": "#211b08",
+          "card-bg-disabled": "#F3EFEA",
+          "on-secondary": "#ffffff",
+          "surface-tint": "#7b5648",
+          "on-tertiary-fixed-variant": "#5a4315",
+          "on-primary-container": "#ae8474",
+          "on-background": "#1c1c18",
+          "primary-container": "#3b1f14",
+          "on-error-container": "#93000a",
+          "outline": "#83746f",
+          "surface-dim": "#dcdad4",
+          "error-container": "#ffdad6",
+          "surface-bright": "#fcf9f3",
+          "tertiary-container": "#352300",
+          "accessible-red": "#C93B2B",
+          "on-surface": "#1c1c18",
+          "surface-container": "#f0eee8",
+          "surface": "#fcf9f3",
+          "surface-container-low": "#f6f3ed",
+          "matcha-green": "#78945B",
+          "tertiary": "#1a1000",
+          "tertiary-fixed-dim": "#e4c288",
+          "primary": "#220b03",
+          "on-primary": "#ffffff",
+          "on-primary-fixed": "#2e150a",
+          "inverse-surface": "#31312d",
+          "inverse-on-surface": "#f3f0eb",
+          "on-secondary-fixed-variant": "#4f4630",
+          "on-tertiary-container": "#a78954",
+          "secondary-container": "#efe1c3",
+          "tertiary-fixed": "#ffdea9",
+          "outline-variant": "#d5c3bd",
+          "surface-container-high": "#ebe8e2",
+          "inverse-primary": "#ecbcab",
+          "on-tertiary-fixed": "#271900",
+          "on-secondary-container": "#6d634c",
+          "secondary-fixed": "#efe1c3",
+          "on-surface-variant": "#504440",
+          "surface-container-lowest": "#ffffff",
+          "primary-fixed-dim": "#ecbcab",
+          "on-error": "#ffffff",
+          "surface-variant": "#e5e2dc",
+          "espresso-dark": "#29221D",
+          "error": "#ba1a1a",
+          "surface-container-highest": "#e5e2dc",
+          "on-tertiary": "#ffffff",
+          "secondary": "#675e46",
+          "text-muted": "#74685E",
+          "background": "#fcf9f3"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.25rem",
+          "lg": "0.5rem",
+          "xl": "0.75rem",
+          "full": "9999px"
+        },
+        "spacing": {
+          "margin": "1rem",
+          "space-xl": "2rem",
+          "space-md": "1rem",
+          "space-xs": "0.25rem",
+          "margin-desktop": "2rem",
+          "gutter": "1.25rem",
+          "space-sm": "0.5rem",
+          "space-lg": "1.5rem",
+          "gutter-desktop": "1.5rem"
+        },
+        "fontFamily": {
+          "label-sm": ["Plus Jakarta Sans"],
+          "title-sm": ["Plus Jakarta Sans"],
+          "title-md": ["Plus Jakarta Sans"],
+          "label-md": ["Plus Jakarta Sans"],
+          "headline-lg": ["Domine"],
+          "body-md": ["Plus Jakarta Sans"],
+          "headline-md": ["Domine"],
+          "body-sm": ["Plus Jakarta Sans"],
+          "headline-sm": ["Domine"],
+          "headline-lg-mobile": ["Domine"],
+          "headline-xl": ["Domine"],
+          "currency-display": ["Plus Jakarta Sans"],
+          "label-lg": ["Plus Jakarta Sans"],
+          "body-lg": ["Plus Jakarta Sans"]
+        },
+        "fontSize": {
+          "label-sm": ["11px", {"lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "700"}],
+          "title-sm": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+          "title-md": ["18px", {"lineHeight": "26px", "fontWeight": "600"}],
+          "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+          "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+          "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+          "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+          "body-sm": ["12px", {"lineHeight": "18px", "fontWeight": "400"}],
+          "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+          "headline-lg-mobile": ["26px", {"lineHeight": "34px", "fontWeight": "700"}],
+          "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+          "currency-display": ["22px", {"lineHeight": "28px", "fontWeight": "700"}],
+          "label-lg": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+          "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+        }
+      }
+    }
+  }</script></head><body class="bg-background font-body-md text-body-md text-on-surface antialiased"><header class="fixed top-0 left-0 right-0 z-40 bg-surface/90 backdrop-blur-md shadow-[0_1px_8px_rgba(41,34,29,0.06)]"><div class="h-20 max-w-[1280px] mx-auto px-margin-desktop flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md"><a class="flex items-center gap-space-sm group" data-path="home" href="#"><div class="w-11 h-11 rounded-full p-0.5 bg-caramel-gold/30 flex items-center justify-center"><div class="w-full h-full rounded-full overflow-hidden bg-primary-container flex items-center justify-center text-on-primary font-headline-sm text-headline-sm"><span class="text-caramel-gold font-headline-md text-headline-md">K</span></div></div><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-espresso-dark group-hover:text-primary transition-colors tracking-tight">M&amp;E Kape Cup</span><span class="font-label-sm text-label-sm text-text-muted tracking-wider uppercase">Artisanal Brew &amp; Comforts</span></div></a></div><nav class="hidden md:flex items-center gap-space-sm" data-active-classes="bg-secondary-container text-on-secondary-container font-bold rounded-lg shadow-sm"><a aria-current="page" class="px-space-md py-space-xs transition-colors bg-secondary-container text-on-secondary-container font-bold rounded-lg shadow-sm" data-path="home" href="#">Home</a><a class="px-space-md py-space-xs font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors" data-path="menu" href="#">Menu</a><a class="px-space-md py-space-xs font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors" data-path="order-status" href="#">Order Status</a><a class="px-space-md py-space-xs font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors" data-path="ordering-unavailable" href="#">Ordering Notice</a></nav><div class="flex items-center gap-space-md"><a class="relative flex items-center justify-center w-11 h-11 rounded-full bg-surface-container-high text-espresso-dark hover:bg-caramel-gold/20 hover:text-primary transition-colors" data-path="cart-drawer" href="#"><span class="material-symbols-outlined text-title-md">shopping_bag</span><span class="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-accessible-red text-on-error font-label-sm text-label-sm flex items-center justify-center font-bold">3</span></a><div class="flex items-center gap-space-xs pl-space-xs"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1WZ_qdg9H9b9Cse68XLjaKwt9slfnT8EbJGjWsOqdyPVCLUzqBOieqLlDAg_omVx0gsSxDTfU7ERbEfh7l7Sya73DGI9GKmoOcd62EO4D3_TENWjkuvLPbNAYUa0AhuQ755k0rqhrL_AW3iHgwzhqr9g6Sg-5PnlwVTmHGB7J6x_bcfRFFU5gZ6Aa2MJMmwFKx607ZPNFiy4l0MMkeSFAmL5axHYAJS2xEEBZDWOj_idHEB_NCE54e0VbikGtjVlgnTeICP7YiLHA"></div></div></div></header><main class="w-full pt-20 bg-background min-h-screen"><div class="flex flex-col w-full">
+<!-- Top Prototype Badge & Operational Ribbon -->
+<div class="w-full bg-surface-container py-space-xs px-margin md:px-margin-desktop">
+<div class="max-w-[1280px] mx-auto flex items-center justify-between">
+<div class="flex items-center gap-space-xs text-text-muted">
+<span class="material-symbols-outlined text-body-sm text-caramel-gold">info</span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider">Prototype data (fictional)</span>
+</div>
+<div class="hidden sm:flex items-center gap-space-md text-text-muted">
+<span class="font-label-sm text-label-sm flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-matcha-green inline-block"></span> Espresso Bar Open • Fresh Brews Ready
+        </span>
+</div>
+</div>
+</div>
+<!-- Hero Section Bleeding With Warm Artisanal Contrast -->
+<section class="relative w-full bg-espresso-dark overflow-hidden text-surface-bright py-space-xl md:py-24">
+<!-- Ambient Roastery Glow & Texture -->
+<div class="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-caramel-gold/15 blur-3xl pointer-events-none"></div>
+<div class="absolute top-1/2 -right-24 w-80 h-80 rounded-full bg-primary-fixed-dim/10 blur-3xl pointer-events-none"></div>
+<div class="max-w-[1280px] mx-auto px-margin md:px-margin-desktop relative z-10">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-center">
+<!-- Left Hero Copy & Intent -->
+<div class="lg:col-span-6 flex flex-col gap-space-md">
+<div class="inline-flex items-center gap-space-xs self-start px-space-sm py-1 rounded-full bg-surface-bright/10 text-caramel-gold">
+<span class="material-symbols-outlined text-title-sm" style="font-variation-settings: 'FILL' 1;">local_cafe</span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest">Handcrafted Roastery &amp; Diner</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-surface-bright tracking-tight leading-tight">
+            Your Daily Cup of Happiness
+          </h1>
+<p class="font-body-lg text-body-lg text-surface-container-high max-w-xl">
+            Welcome to M&amp;E Kape Cup. Step into nostalgic cafe warmth where rich artisan roasts, handcrafted layered matcha, refreshing fizzy sodas, and hearty diner comfort plates are prepared fresh for your day.
+          </p>
+<div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-space-md pt-space-sm">
+<a class="inline-flex items-center justify-center gap-space-xs px-space-lg py-space-md rounded-lg bg-caramel-gold hover:bg-caramel-gold/90 text-espresso-dark font-label-lg text-label-lg transition-transform active:scale-95 shadow-md" data-path="menu" href="#">
+<span class="material-symbols-outlined text-title-sm">restaurant_menu</span>
+<span>Order Now</span>
+</a>
+<a class="inline-flex items-center justify-center gap-space-xs px-space-md py-space-md rounded-lg bg-surface-bright/10 hover:bg-surface-bright/20 text-surface-bright font-label-lg text-label-lg transition-colors" href="#how-to-order">
+<span class="material-symbols-outlined text-title-sm">explore</span>
+<span>Explore The Flow</span>
+</a>
+</div>
+<!-- Quick Trust Metrics & Diner Note -->
+<div class="grid grid-cols-3 gap-space-sm pt-space-lg">
+<div class="bg-surface-bright/5 rounded-lg p-space-sm">
+<p class="font-headline-sm text-headline-sm text-caramel-gold">100%</p>
+<p class="font-label-sm text-label-sm text-surface-container">Fresh Ground</p>
+</div>
+<div class="bg-surface-bright/5 rounded-lg p-space-sm">
+<p class="font-headline-sm text-headline-sm text-caramel-gold">8</p>
+<p class="font-label-sm text-label-sm text-surface-container">Craft Series</p>
+</div>
+<div class="bg-surface-bright/5 rounded-lg p-space-sm">
+<p class="font-headline-sm text-headline-sm text-matcha-green">∼10m</p>
+<p class="font-label-sm text-label-sm text-surface-container">Fast Counter Pickup</p>
+</div>
+</div>
+</div>
+<!-- Right Promotional Showcase with User Photo Asset -->
+<div class="lg:col-span-6 relative flex justify-center items-center">
+<div class="relative w-full max-w-[520px] rounded-2xl overflow-hidden shadow-2xl bg-primary-container">
+<!-- Decorative badge overlay -->
+<div class="absolute top-4 left-4 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full bg-espresso-dark/90 backdrop-blur-sm text-caramel-gold shadow-md">
+<span class="material-symbols-outlined text-title-sm">verified</span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider">House Specialties</span>
+</div>
+<!-- Featured Promotional Trio Image -->
+<img alt="M&amp;E Kape Cup Signature Trio: Blue Soda, Layered Green Matcha, and Chilled Iced Americano" class="w-full h-auto object-cover transform hover:scale-105 transition-transform duration-500 ease-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqnCnNZLA7cZNLwPNu2FYjBX7h3VErWCN6g4n1-Sdw48hepf0fUNufyTIjOwmTyl2zQH_xjW10hW3DFcPgJH2NY4yaSItLFD7wF0pwVXNLq-GVzbcLSIzVU8EkdMwkxlUsVv-Pzq3h31IPhWwKvtvXzhlsAW3-gmYkpq6V4vhTTQvhFawQSB0fDCT9CyvsNllirgqNpJnJPHp78DGzQNiiisNjjSJ7snlUv2wCrcbHxjUxNlflbuOJ-KpmRtKsFMdiOw">
+<!-- Vignette bottom banner -->
+<div class="absolute bottom-0 inset-x-0 p-space-md bg-gradient-to-t from-espresso-dark via-espresso-dark/80 to-transparent flex items-center justify-between">
+<div>
+<p class="font-title-sm text-title-sm text-surface-bright">Soda • Matcha • Coffee</p>
+<p class="font-label-sm text-label-sm text-caramel-gold">Crafted with signature syrups &amp; roasts</p>
+</div>
+<span class="px-space-xs py-0.5 rounded bg-caramel-gold/20 text-caramel-gold font-label-sm text-label-sm">Original Diner Recipe</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Restrained Category Navigation Section (Strictly 8 Approved Categories) -->
+<section class="w-full py-space-xl bg-surface">
+<div class="max-w-[1280px] mx-auto px-margin md:px-margin-desktop">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-sm mb-space-lg">
+<div>
+<div class="flex items-center gap-space-xs text-warning-amber">
+<span class="material-symbols-outlined text-body-sm">menu_book</span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider">Digital Catalog</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-espresso-dark mt-1">Browse by Category</h2>
+<p class="font-body-md text-body-md text-text-muted max-w-xl">
+            Select a series below to enter our real-time digital counter menu. Handcrafted coffee, velvety matchas, and hearty diner platters.
+          </p>
+</div>
+<div class="text-right">
+<span class="inline-block px-space-sm py-1 rounded bg-surface-container font-label-sm text-label-sm text-text-muted">
+            8 Official Cafe Categories
+          </span>
+</div>
+</div>
+<!-- Categories Grid - Exact approved order, strictly links (no prices/products) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md">
+<!-- 1. Coffee Series -->
+<a class="group relative rounded-xl bg-surface-container-low hover:bg-secondary-container/40 p-space-md shadow-sm transition-all duration-200 flex flex-col justify-between" data-path="menu" href="#">
+<div class="flex items-start justify-between">
+<div class="w-12 h-12 rounded-lg bg-primary-container text-caramel-gold flex items-center justify-center group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-headline-sm" style="font-variation-settings: 'FILL' 1;">coffee</span>
+</div>
+<span class="font-label-sm text-label-sm text-text-muted">01</span>
+</div>
+<div class="mt-space-lg">
+<h3 class="font-title-md text-title-md text-espresso-dark group-hover:text-primary transition-colors flex items-center justify-between">
+              Coffee Series
+              <span class="material-symbols-outlined text-title-sm text-caramel-gold group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</h3>
+<p class="font-body-sm text-body-sm text-text-muted mt-space-xs">Espresso, Americano, Spanish Lattes, &amp; signature cold brews.</p>
+</div>
+</a>
+<!-- 2. Matcha Series -->
+<a class="group relative rounded-xl bg-surface-container-low hover:bg-secondary-container/40 p-space-md shadow-sm transition-all duration-200 flex flex-col justify-between" data-path="menu" href="#">
+<div class="flex items-start justify-between">
+<div class="w-12 h-12 rounded-lg bg-matcha-green/20 text-matcha-green flex items-center justify-center group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-headline-sm" style="font-variation-settings: 'FILL' 1;">eco</span>
+</div>
+<span class="font-label-sm text-label-sm text-text-muted">02</span>
+</div>
+<div class="mt-space-lg">
+<h3 class="font-title-md text-title-md text-espresso-dark group-hover:text-primary transition-colors flex items-center justify-between">
+              Matcha Series
+              <span class="material-symbols-outlined text-title-sm text-caramel-gold group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</h3>
+<p class="font-body-sm text-body-sm text-text-muted mt-space-xs">Ceremonial grade green tea whisked with silky textured milk.</p>
+</div>
+</a>
+<!-- 3. Fruit Milk -->
+<a class="group relative rounded-xl bg-surface-container-low hover:bg-secondary-container/40 p-space-md shadow-sm transition-all duration-200 flex flex-col justify-between" data-path="menu" href="#">
+<div class="flex items-start justify-between">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high text-warning-amber flex items-center justify-center group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-headline-sm" style="font-variation-settings: 'FILL' 1;">water_drop</span>
+</div>
+<span class="font-label-sm text-label-sm text-text-muted">03</span>
+</div>
+<div class="mt-space-lg">
+<h3 class="font-title-md text-title-md text-espresso-dark group-hover:text-primary transition-colors flex items-center justify-between">
+              Fruit Milk
+              <span class="material-symbols-outlined text-title-sm text-caramel-gold group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</h3>
+<p class="font-body-sm text-body-sm text-text-muted mt-space-xs">Infused pure dairy with slow-simmered strawberry &amp; mango purées.</p>
+</div>
+</a>
+<!-- 4. Soda -->
+<a class="group relative rounded-xl bg-surface-container-low hover:bg-secondary-container/40 p-space-md shadow-sm transition-all duration-200 flex flex-col justify-between" data-path="menu" href="#">
+<div class="flex items-start justify-between">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high text-primary flex items-center justify-center group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-headline-sm" style="font-variation-settings: 'FILL' 1;">local_bar</span>
+</div>
+<span class="font-label-sm text-label-sm text-text-muted">04</span>
+</div>
+<div class="mt-space-lg">
+<h3 class="font-title-md text-title-md text-espresso-dark group-hover:text-primary transition-colors flex items-center justify-between">
+              Soda
+              <span class="material-symbols-outlined text-title-sm text-caramel-gold group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</h3>
+<p class="font-body-sm text-body-sm text-text-muted mt-space-xs">Sparkling citrus coolers, blue curacao spritz, and iced botanicals.</p>
+</div>
+</a>
+<!-- 5. Fruit Shake -->
+<a class="group relative rounded-xl bg-surface-container-low hover:bg-secondary-container/40 p-space-md shadow-sm transition-all duration-200 flex flex-col justify-between" data-path="menu" href="#">
+<div class="flex items-start justify-between">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high text-caramel-gold flex items-center justify-center group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-headline-sm" style="font-variation-settings: 'FILL' 1;">blender</span>
+</div>
+<span class="font-label-sm text-label-sm text-text-muted">05</span>
+</div>
+<div class="mt-space-lg">
+<h3 class="font-title-md text-title-md text-espresso-dark group-hover:text-primary transition-colors flex items-center justify-between">
+              Fruit Shake
+              <span class="material-symbols-outlined text-title-sm text-caramel-gold group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</h3>
+<p class="font-body-sm text-body-sm text-text-muted mt-space-xs">Blended ice refreshments made with chilled seasonal harvests.</p>
+</div>
+</a>
+<!-- 6. Latte Series with Whipped Cream -->
+<a class="group relative rounded-xl bg-surface-container-low hover:bg-secondary-container/40 p-space-md shadow-sm transition-all duration-200 flex flex-col justify-between" data-path="menu" href="#">
+<div class="flex items-start justify-between">
+<div class="w-12 h-12 rounded-lg bg-secondary-container text-on-secondary-container flex items-center justify-center group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-headline-sm" style="font-variation-settings: 'FILL' 1;">icecream</span>
+</div>
+<span class="font-label-sm text-label-sm text-text-muted">06</span>
+</div>
+<div class="mt-space-lg">
+<h3 class="font-title-md text-title-md text-espresso-dark group-hover:text-primary transition-colors flex items-center justify-between">
+              Latte Series with Whipped Cream
+              <span class="material-symbols-outlined text-title-sm text-caramel-gold group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</h3>
+<p class="font-body-sm text-body-sm text-text-muted mt-space-xs">Indulgent confectionery lattes topped with fresh velvety rosettes.</p>
+</div>
+</a>
+<!-- 7. Main Courses -->
+<a class="group relative rounded-xl bg-surface-container-low hover:bg-secondary-container/40 p-space-md shadow-sm transition-all duration-200 flex flex-col justify-between" data-path="menu" href="#">
+<div class="flex items-start justify-between">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high text-espresso-dark flex items-center justify-center group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-headline-sm" style="font-variation-settings: 'FILL' 1;">dinner_dining</span>
+</div>
+<span class="font-label-sm text-label-sm text-text-muted">07</span>
+</div>
+<div class="mt-space-lg">
+<h3 class="font-title-md text-title-md text-espresso-dark group-hover:text-primary transition-colors flex items-center justify-between">
+              Main Courses
+              <span class="material-symbols-outlined text-title-sm text-caramel-gold group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</h3>
+<p class="font-body-sm text-body-sm text-text-muted mt-space-xs">Chicken rice meals, savory beef, pork, chicken, and tender fish.</p>
+</div>
+</a>
+<!-- 8. Snacks -->
+<a class="group relative rounded-xl bg-surface-container-low hover:bg-secondary-container/40 p-space-md shadow-sm transition-all duration-200 flex flex-col justify-between" data-path="menu" href="#">
+<div class="flex items-start justify-between">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high text-espresso-dark flex items-center justify-center group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-headline-sm" style="font-variation-settings: 'FILL' 1;">bakery_dining</span>
+</div>
+<span class="font-label-sm text-label-sm text-text-muted">08</span>
+</div>
+<div class="mt-space-lg">
+<h3 class="font-title-md text-title-md text-espresso-dark group-hover:text-primary transition-colors flex items-center justify-between">
+              Snacks
+              <span class="material-symbols-outlined text-title-sm text-caramel-gold group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</h3>
+<p class="font-body-sm text-body-sm text-text-muted mt-space-xs">Warm pastries, diner toasts, savory sides, and finger bites.</p>
+</div>
+</a>
+</div>
+</div>
+</section>
+<!-- Introductory Ordering Experience (The Process) -->
+<section class="w-full py-space-xl bg-surface-container-low" id="how-to-order">
+<div class="max-w-[1280px] mx-auto px-margin md:px-margin-desktop">
+<div class="text-center max-w-2xl mx-auto mb-space-xl">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-caramel-gold bg-primary-container px-space-sm py-1 rounded-full">
+          Frictionless Service
+        </span>
+<h2 class="font-headline-lg text-headline-lg text-espresso-dark mt-space-sm">
+          How to Order at M&amp;E Kape Cup
+        </h2>
+<p class="font-body-md text-body-md text-text-muted mt-space-xs">
+          Built for speedy counter service and relaxed table orders alike. Follow our simple three-step forward pipeline.
+        </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-lg">
+<!-- Step 1 -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-space-md">
+<div class="w-10 h-10 rounded-full bg-secondary-container text-on-secondary-container font-headline-sm text-headline-sm flex items-center justify-center">
+                1
+              </div>
+<span class="material-symbols-outlined text-title-md text-caramel-gold">touch_app</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-espresso-dark">Select Your Sips &amp; Plates</h3>
+<p class="font-body-md text-body-md text-text-muted mt-space-sm">
+              Explore our 8 signature categories. Customize sweetness, milk alternatives, ice density, or double up on your espresso shots.
+            </p>
+</div>
+<div class="mt-space-lg pt-space-sm">
+<span class="inline-flex items-center gap-1 font-label-sm text-label-sm text-matcha-green">
+<span class="material-symbols-outlined text-title-sm">check_circle</span> Live modifier availability
+            </span>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-space-md">
+<div class="w-10 h-10 rounded-full bg-secondary-container text-on-secondary-container font-headline-sm text-headline-sm flex items-center justify-center">
+                2
+              </div>
+<span class="material-symbols-outlined text-title-md text-caramel-gold">payments</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-espresso-dark">Instant Digital Checkout</h3>
+<p class="font-body-md text-body-md text-text-muted mt-space-sm">
+              Confirm your cart with seamless options: GCash, card capture, or pay upon physical counter collection with cash.
+            </p>
+</div>
+<div class="mt-space-lg pt-space-sm">
+<span class="inline-flex items-center gap-1 font-label-sm text-label-sm text-matcha-green">
+<span class="material-symbols-outlined text-title-sm">receipt_long</span> Paperless token generated
+            </span>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-space-md">
+<div class="w-10 h-10 rounded-full bg-secondary-container text-on-secondary-container font-headline-sm text-headline-sm flex items-center justify-center">
+                3
+              </div>
+<span class="material-symbols-outlined text-title-md text-caramel-gold">notifications_active</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-espresso-dark">Track Live Preparation</h3>
+<p class="font-body-md text-body-md text-text-muted mt-space-sm">
+              Monitor your ticket in real time from <span class="font-bold">Pending</span> to <span class="font-bold">Preparing</span> until your barista calls your number for pickup.
+            </p>
+</div>
+<div class="mt-space-lg pt-space-sm">
+<span class="inline-flex items-center gap-1 font-label-sm text-label-sm text-matcha-green">
+<span class="material-symbols-outlined text-title-sm">hourglass_top</span> Real-time queue tracker
+            </span>
+</div>
+</div>
+</div>
+<!-- Experience Highlight Banner -->
+<div class="mt-space-xl rounded-2xl bg-primary-container text-surface-bright p-space-lg md:p-space-xl shadow-lg flex flex-col md:flex-row items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<div class="w-14 h-14 rounded-full bg-caramel-gold/20 flex items-center justify-center text-caramel-gold shrink-0">
+<span class="material-symbols-outlined text-headline-lg">storefront</span>
+</div>
+<div>
+<h4 class="font-headline-sm text-headline-sm text-surface-bright">Dining In or On The Go?</h4>
+<p class="font-body-md text-body-md text-surface-container-high mt-0.5">
+              Select pickup at counter or enter your booth number upon checkout. We will bring the fresh mugs directly to your table.
+            </p>
+</div>
+</div>
+<a class="w-full md:w-auto inline-flex items-center justify-center gap-space-xs px-space-lg py-space-sm rounded-lg bg-caramel-gold text-espresso-dark font-label-lg text-label-lg hover:bg-caramel-gold/90 transition-transform active:scale-95 shrink-0" data-path="menu" href="#">
+<span>Start Order</span>
+<span class="material-symbols-outlined text-title-sm">arrow_forward</span>
+</a>
+</div>
+</div>
+</section>
+<!-- Atmosphere / Artisan Craftsmanship Storytelling Mosaic -->
+<section class="w-full py-space-xl bg-surface">
+<div class="max-w-[1280px] mx-auto px-margin md:px-margin-desktop">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-center">
+<div class="lg:col-span-5 flex flex-col gap-space-sm">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-warning-amber">The M&amp;E Philosophy</span>
+<h2 class="font-headline-lg text-headline-lg text-espresso-dark">
+            Crafted with Heart, Brewed with Patience
+          </h2>
+<p class="font-body-md text-body-md text-text-muted">
+            From our vintage brass portafilters to the ice-cold soda fountain, every order at M&amp;E Kape Cup is curated to bring comfort into everyday life. Whether you need a quick caffeine boost or a quiet booth to enjoy chicken rice meals, you're always welcome here.
+          </p>
+<div class="flex flex-col gap-space-xs mt-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-matcha-green text-title-sm">check</span>
+<span class="font-body-sm text-body-sm text-espresso-dark">Locally sourced beans roasted in small batches</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-matcha-green text-title-sm">check</span>
+<span class="font-body-sm text-body-sm text-espresso-dark">House-made syrups without synthetic preservatives</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-matcha-green text-title-sm">check</span>
+<span class="font-body-sm text-body-sm text-espresso-dark">Homestyle diner comfort food prepared to order</span>
+</div>
+</div>
+<div class="pt-space-md">
+<a class="inline-flex items-center gap-space-xs font-label-lg text-label-lg text-primary hover:text-caramel-gold transition-colors" data-path="menu" href="#">
+<span>View full drink &amp; meal menu</span>
+<span class="material-symbols-outlined text-title-sm">arrow_forward</span>
+</a>
+</div>
+</div>
+<div class="lg:col-span-7 grid grid-cols-2 gap-space-md">
+<div class="flex flex-col gap-space-md">
+<div class="rounded-xl overflow-hidden shadow-sm bg-surface-container h-48 md:h-64">
+<img class="w-full h-full object-cover" data-alt="A warm barista pulling an espresso shot into a ceramic cup on a rustic wooden cafe bar with soft golden ambient light and vintage diner accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlTQ8jovPfp3CXCdoicwHacdVTVQ19HG45tYlMW_KZrnPqJlB9D7SwfPJ9itQsowwa9NHk6iO1BIAqN5WoWgDx2cfEetO3Pf0HCpxYSnllxpQ_5TrqoUfJeGrRwt2xfimtFmX0UrdNXdgN2l6WFPdXtaYPwHeFF9mLNnH5tYcRlre3y2dXE-b3X9WmNAvJPmHIja0sc6Lavi0ttOEJR_U8cXJDRUx4r9RiTZGVw_fuqJwyfysDKDJ5">
+</div>
+<div class="bg-surface-container-high rounded-xl p-space-md flex flex-col justify-center">
+<p class="font-headline-sm text-headline-sm text-espresso-dark">Artisanal Roast</p>
+<p class="font-body-sm text-body-sm text-text-muted mt-1">Caramelized notes, rich crema, balanced acidity.</p>
+</div>
+</div>
+<div class="flex flex-col gap-space-md -mt-4 md:-mt-8">
+<div class="bg-secondary-container rounded-xl p-space-md flex flex-col justify-center">
+<p class="font-headline-sm text-headline-sm text-on-secondary-container">Crisp &amp; Fizzy</p>
+<p class="font-body-sm text-body-sm text-on-secondary-variant mt-1">Hand-shaken sparkling sodas with citrus slices.</p>
+</div>
+<div class="rounded-xl overflow-hidden shadow-sm bg-surface-container h-48 md:h-64">
+<img class="w-full h-full object-cover" data-alt="A rustic diner table with a steaming plate of chicken rice meal alongside an iced matcha latte and retro tableware in a cozy cafe setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAn6uOk3rIcpRfHlE8HEk8IEv_9bG4LbFmCaQYmiKlRtL2ABsUBuJ66kRIqUisulS4CfuD4fiZB0GkyYCD50ixL4GmA4I_dgoBaH7C-QrWnA8oju_uu7ogtML5G2HsQSqu5zV-TDoWFxlP_BfLtq-MlyXCGyFlJ8gPnxHlNfIsdOrdETiqTET6VNcjYft4F05pyjDt_rfwdEcamnNrSMM0nmpuwylwtFCjLCEjUuTWkwqYnQnYnhmG2">
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Final Call to Action Strip -->
+<section class="w-full bg-surface-container py-space-xl">
+<div class="max-w-[1280px] mx-auto px-margin md:px-margin-desktop text-center flex flex-col items-center gap-space-md">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-text-muted">Fast • Fresh • Nostalgic</span>
+<h2 class="font-headline-lg text-headline-lg text-espresso-dark max-w-xl">
+        Ready for your next favorite cup?
+      </h2>
+<p class="font-body-md text-body-md text-text-muted max-w-md">
+        Skip the waiting line. Place your ticket digitally and pick up your beverages freshly poured.
+      </p>
+<div class="pt-space-xs">
+<a class="inline-flex items-center gap-space-xs px-space-xl py-space-md rounded-lg bg-espresso-dark hover:bg-primary-container text-surface-bright font-label-lg text-label-lg transition-transform active:scale-95 shadow-md" data-path="menu" href="#">
+<span class="material-symbols-outlined text-title-sm">local_mall</span>
+<span>Order Now • View Menu</span>
+</a>
+</div>
+<p class="font-label-sm text-label-sm text-text-muted mt-space-xs">
+        All simulated items and test transactions are marked: <span class="font-bold">Prototype data (fictional)</span>
+</p>
+</div>
+</section>
+</div>
+<script>
+  // Simple micro-interaction for scroll link smooth animation
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      const targetId = this.getAttribute('href');
+      if (targetId && targetId !== '#') {
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          e.preventDefault();
+          targetElement.scrollIntoView({
+            behavior: 'smooth'
+          });
+        }
+      }
+    });
+  });
+</script></main><footer class="w-full bg-surface-container-low mt-space-xl shadow-[0_-1px_6px_rgba(41,34,29,0.03)]"><div class="max-w-[1280px] mx-auto px-margin-desktop py-space-xl flex flex-col md:flex-row items-center justify-between gap-space-md"><div class="flex flex-col items-center md:items-start gap-space-xs"><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm text-espresso-dark">M&amp;E Kape Cup</span><span class="px-space-xs py-0.5 rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm">Cafe &amp; Roastery</span></div><p class="font-body-sm text-body-sm text-text-muted">Warm roasts, timeless diner charm &amp; handcrafted coffee.</p><p class="font-label-sm text-label-sm text-text-muted mt-space-xs">[Contact details pending confirmation]</p></div><div class="flex flex-col md:flex-row items-center gap-space-lg"><div class="font-label-sm text-label-sm text-text-muted text-center md:text-right"><span class="inline-block px-space-xs py-0.5 rounded bg-surface-container text-text-muted">Prototype data (fictional)</span><p class="mt-1">© 2024 M&amp;E Kape Cup. All rights reserved.</p></div><a class="font-label-sm text-label-sm text-text-muted hover:text-espresso-dark transition-colors underline decoration-border-neutral underline-offset-4" data-path="staff-dashboard" href="#">Staff Login</a></div></div></footer></body></html>

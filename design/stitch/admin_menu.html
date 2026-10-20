@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Domine:wght@600;700&amp;family=Plus+Jakarta+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "caramel-gold": "#D9B77E",
+          "on-primary-fixed-variant": "#603f32",
+          "border-neutral": "#E5D8C3",
+          "secondary-fixed-dim": "#d2c5a9",
+          "primary-fixed": "#ffdbce",
+          "warning-amber": "#C47B27",
+          "on-secondary-fixed": "#211b08",
+          "card-bg-disabled": "#F3EFEA",
+          "on-secondary": "#ffffff",
+          "surface-tint": "#7b5648",
+          "on-tertiary-fixed-variant": "#5a4315",
+          "on-primary-container": "#ae8474",
+          "on-background": "#1c1c18",
+          "primary-container": "#3b1f14",
+          "on-error-container": "#93000a",
+          "outline": "#83746f",
+          "surface-dim": "#dcdad4",
+          "error-container": "#ffdad6",
+          "surface-bright": "#fcf9f3",
+          "tertiary-container": "#352300",
+          "accessible-red": "#C93B2B",
+          "on-surface": "#1c1c18",
+          "surface-container": "#f0eee8",
+          "surface": "#fcf9f3",
+          "surface-container-low": "#f6f3ed",
+          "matcha-green": "#78945B",
+          "tertiary": "#1a1000",
+          "tertiary-fixed-dim": "#e4c288",
+          "primary": "#220b03",
+          "on-primary": "#ffffff",
+          "on-primary-fixed": "#2e150a",
+          "inverse-surface": "#31312d",
+          "inverse-on-surface": "#f3f0eb",
+          "on-secondary-fixed-variant": "#4f4630",
+          "on-tertiary-container": "#a78954",
+          "secondary-container": "#efe1c3",
+          "tertiary-fixed": "#ffdea9",
+          "outline-variant": "#d5c3bd",
+          "surface-container-high": "#ebe8e2",
+          "inverse-primary": "#ecbcab",
+          "on-tertiary-fixed": "#271900",
+          "on-secondary-container": "#6d634c",
+          "secondary-fixed": "#efe1c3",
+          "on-surface-variant": "#504440",
+          "surface-container-lowest": "#ffffff",
+          "primary-fixed-dim": "#ecbcab",
+          "on-error": "#ffffff",
+          "surface-variant": "#e5e2dc",
+          "espresso-dark": "#29221D",
+          "error": "#ba1a1a",
+          "surface-container-highest": "#e5e2dc",
+          "on-tertiary": "#ffffff",
+          "secondary": "#675e46",
+          "text-muted": "#74685E",
+          "background": "#fcf9f3"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.25rem",
+          "lg": "0.5rem",
+          "xl": "0.75rem",
+          "full": "9999px"
+        },
+        "spacing": {
+          "margin": "1rem",
+          "space-xl": "2rem",
+          "space-md": "1rem",
+          "space-xs": "0.25rem",
+          "margin-desktop": "2rem",
+          "gutter": "1.25rem",
+          "space-sm": "0.5rem",
+          "space-lg": "1.5rem",
+          "gutter-desktop": "1.5rem"
+        },
+        "fontFamily": {
+          "label-sm": ["Plus Jakarta Sans"],
+          "title-sm": ["Plus Jakarta Sans"],
+          "title-md": ["Plus Jakarta Sans"],
+          "label-md": ["Plus Jakarta Sans"],
+          "headline-lg": ["Domine"],
+          "body-md": ["Plus Jakarta Sans"],
+          "headline-md": ["Domine"],
+          "body-sm": ["Plus Jakarta Sans"],
+          "headline-sm": ["Domine"],
+          "headline-lg-mobile": ["Domine"],
+          "headline-xl": ["Domine"],
+          "currency-display": ["Plus Jakarta Sans"],
+          "label-lg": ["Plus Jakarta Sans"],
+          "body-lg": ["Plus Jakarta Sans"]
+        },
+        "fontSize": {
+          "label-sm": ["11px", {"lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "700"}],
+          "title-sm": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+          "title-md": ["18px", {"lineHeight": "26px", "fontWeight": "600"}],
+          "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+          "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+          "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+          "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+          "body-sm": ["12px", {"lineHeight": "18px", "fontWeight": "400"}],
+          "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+          "headline-lg-mobile": ["26px", {"lineHeight": "34px", "fontWeight": "700"}],
+          "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+          "currency-display": ["22px", {"lineHeight": "28px", "fontWeight": "700"}],
+          "label-lg": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+          "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+        }
+      }
+    }
+  }</script></head><body class="bg-background font-body-md text-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-[260px] bg-primary-container z-50 flex flex-col justify-between shadow-[2px_0_12px_rgba(34,11,3,0.12)]"><div class="flex flex-col"><div class="p-space-lg flex items-center gap-space-sm bg-espresso-dark/40"><div class="w-10 h-10 rounded-full p-0.5 bg-caramel-gold/40 flex items-center justify-center shrink-0"><div class="w-full h-full rounded-full bg-primary flex items-center justify-center text-caramel-gold font-headline-md text-headline-md">K</div></div><div class="flex flex-col min-w-0"><span class="font-headline-sm text-headline-sm text-surface truncate tracking-tight">M&amp;E Kape Cup</span><span class="font-label-sm text-label-sm text-caramel-gold uppercase tracking-wider">POS &amp; Floor Core</span></div></div><div class="px-space-md py-space-sm bg-primary/40 flex items-center justify-between"><div class="flex items-center gap-space-xs"><span class="w-2 h-2 rounded-full bg-matcha-green animate-pulse"></span><span class="font-label-sm text-label-sm text-surface font-semibold">Shift: Morning Active</span></div><span class="font-label-sm text-label-sm px-space-xs py-0.5 rounded bg-caramel-gold/20 text-caramel-gold font-bold">Station 01</span></div><nav class="flex flex-col gap-1 p-space-md overflow-y-auto max-h-[calc(100vh-250px)]" data-active-classes="bg-caramel-gold text-espresso-dark font-bold rounded-lg shadow-sm"><div class="px-space-sm py-1 font-label-sm text-label-sm uppercase tracking-wider text-primary-fixed-dim/70">Floor Operations</div><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-primary-fixed-dim hover:bg-espresso-dark hover:text-surface transition-all" data-path="staff-dashboard" href="#"><span class="material-symbols-outlined text-title-sm">speed</span><span class="font-label-lg text-label-lg">Staff Dashboard</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-primary-fixed-dim hover:bg-espresso-dark hover:text-surface transition-all" data-path="order-oversight" href="#"><span class="material-symbols-outlined text-title-sm">receipt_long</span><span class="font-label-lg text-label-lg">Order Oversight</span></a><div class="mt-space-sm px-space-sm py-1 font-label-sm text-label-sm uppercase tracking-wider text-caramel-gold/80">Admin &amp; Catalog</div><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-primary-fixed-dim hover:bg-espresso-dark hover:text-surface transition-all" data-path="admin-dashboard" href="#"><span class="material-symbols-outlined text-title-sm">admin_panel_settings</span><span class="font-label-lg text-label-lg">Admin Dashboard</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-primary-fixed-dim hover:bg-espresso-dark hover:text-surface transition-all" data-path="menu-categories" href="#"><span class="material-symbols-outlined text-title-sm">category</span><span class="font-label-lg text-label-lg">Menu Categories</span></a><a aria-current="page" class="flex items-center gap-space-sm px-space-sm py-2 transition-all bg-caramel-gold text-espresso-dark font-bold rounded-lg shadow-sm" data-path="menu-items" href="#"><span class="material-symbols-outlined text-title-sm">menu_book</span><span class="font-label-lg text-label-lg">Menu Items</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-primary-fixed-dim hover:bg-espresso-dark hover:text-surface transition-all" data-path="modifier-groups" href="#"><span class="material-symbols-outlined text-title-sm">tune</span><span class="font-label-lg text-label-lg">Modifier Groups</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-primary-fixed-dim hover:bg-espresso-dark hover:text-surface transition-all" data-path="staff-management" href="#"><span class="material-symbols-outlined text-title-sm">badge</span><span class="font-label-lg text-label-lg">Staff Management</span></a><div class="mt-space-sm px-space-sm py-1 font-label-sm text-label-sm uppercase tracking-wider text-caramel-gold/80">Audit &amp; Intelligence</div><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-primary-fixed-dim hover:bg-espresso-dark hover:text-surface transition-all" data-path="duty-session-records" href="#"><span class="material-symbols-outlined text-title-sm">history_toggle_off</span><span class="font-label-lg text-label-lg">Duty Session Records</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-primary-fixed-dim hover:bg-espresso-dark hover:text-surface transition-all" data-path="sales-reports" href="#"><span class="material-symbols-outlined text-title-sm">insights</span><span class="font-label-lg text-label-lg">Sales Reports</span></a></nav></div><div class="p-space-md bg-espresso-dark/70 flex flex-col gap-space-xs"><div class="flex items-center justify-between"><span class="font-label-sm text-label-sm text-caramel-gold font-bold">Admin / Supervisor</span><span class="font-label-sm text-label-sm text-primary-fixed-dim">[Prototype user]</span></div><a class="flex items-center justify-center gap-space-xs py-1.5 px-space-sm rounded bg-surface/10 hover:bg-surface/20 text-surface text-label-sm font-label-sm transition-colors" data-path="home" href="#"><span class="material-symbols-outlined text-label-md">storefront</span><span>Switch to Customer Storefront</span></a></div></aside><div class="pl-[260px]"><header class="fixed top-0 left-[260px] right-0 h-16 bg-surface/90 backdrop-blur-md z-40 px-margin-desktop flex items-center justify-between shadow-[0_1px_8px_rgba(41,34,29,0.04)]"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs px-space-sm py-1 rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm"><span class="material-symbols-outlined text-title-sm text-matcha-green">schedule</span><span>Shift Session: #DS-2024-0418</span></div><span class="hidden lg:inline-block font-label-sm text-label-sm text-text-muted">Prototype data (fictional)</span></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs"><span class="px-2 py-0.5 rounded-full bg-matcha-green/20 text-matcha-green font-label-sm text-label-sm font-bold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-matcha-green"></span>POS Online</span><div class="hidden sm:flex flex-col text-right"><span class="font-label-sm text-label-sm text-espresso-dark font-semibold">Counter Barista • Admin</span><span class="font-label-sm text-label-sm text-text-muted">Terminal #1</span></div></div><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1WZ_qdg9H9b9Cse68XLjaKwt9slfnT8EbJGjWsOqdyPVCLUzqBOieqLlDAg_omVx0gsSxDTfU7ERbEfh7l7Sya73DGI9GKmoOcd62EO4D3_TENWjkuvLPbNAYUa0AhuQ755k0rqhrL_AW3iHgwzhqr9g6Sg-5PnlwVTmHGB7J6x_bcfRFFU5gZ6Aa2MJMmwFKx607ZPNFiy4l0MMkeSFAmL5axHYAJS2xEEBZDWOj_idHEB_NCE54e0VbikGtjVlgnTeICP7YiLHA"/></div></header><main class="relative pt-16 bg-background min-h-screen w-full px-margin-desktop py-space-lg"><div class="flex flex-col w-full">
+<!-- Top Operational Banner & Stats Ribbon -->
+<div class="relative overflow-hidden rounded-xl bg-surface-container p-space-lg mb-space-lg shadow-sm">
+<div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-space-lg">
+<div class="flex flex-col max-w-xl">
+<div class="flex items-center gap-space-xs text-caramel-gold mb-1">
+<span class="material-symbols-outlined text-title-sm">local_cafe</span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary font-bold">Catalog Management • Admin Workspace</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-espresso-dark tracking-tight">Menu Items Catalog</h1>
+<p class="font-body-md text-body-md text-text-muted mt-1">Configure cafe offerings, price matrices, size variations, and availability. Past orders retain preserved historical snapshots upon deactivation.</p>
+</div>
+<!-- Quick Metrics Strip -->
+<div class="grid grid-cols-3 gap-space-md bg-surface-container-low p-space-md rounded-lg shadow-sm">
+<div class="flex flex-col px-space-xs">
+<span class="font-label-sm text-label-sm text-text-muted uppercase">Active SKUs</span>
+<div class="flex items-baseline gap-1 mt-0.5">
+<span class="font-headline-md text-headline-md text-espresso-dark font-bold">34</span>
+<span class="font-label-sm text-label-sm text-matcha-green font-semibold">Live</span>
+</div>
+</div>
+<div class="flex flex-col px-space-xs">
+<span class="font-label-sm text-label-sm text-text-muted uppercase">Seasonal</span>
+<div class="flex items-baseline gap-1 mt-0.5">
+<span class="font-headline-md text-headline-md text-warning-amber font-bold">04</span>
+<span class="font-label-sm text-label-sm text-text-muted">Sched</span>
+</div>
+</div>
+<div class="flex flex-col px-space-xs">
+<span class="font-label-sm text-label-sm text-text-muted uppercase">Pending Sign-off</span>
+<div class="flex items-baseline gap-1 mt-0.5">
+<span class="font-headline-md text-headline-md text-accessible-red font-bold">02</span>
+<span class="font-label-sm text-label-sm text-caramel-gold font-bold">Review</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Decorative Coffee bean ring diagram -->
+<div class="absolute -right-12 -bottom-16 w-56 h-56 rounded-full bg-caramel-gold/15 pointer-events-none blur-2xl"></div>
+</div>
+<!-- Search, Filter & Action Bar -->
+<div class="bg-surface-container-low rounded-xl p-space-md mb-space-lg shadow-sm flex flex-col md:flex-row items-stretch md:items-center justify-between gap-space-md">
+<div class="flex flex-wrap items-center gap-space-sm flex-1">
+<!-- Search Input -->
+<div class="relative flex-1 min-w-[240px]">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-muted text-title-sm pointer-events-none">search</span>
+<input class="w-full bg-surface-container-lowest text-espresso-dark pl-9 pr-3 py-2 rounded-lg font-body-md text-body-md outline-none focus:bg-surface focus:shadow-sm transition-all" id="itemSearch" placeholder="Search by SKU name, recipe note, or ID..." type="text"/>
+</div>
+<!-- Approved Categories Dropdown (8 standard categories) -->
+<div class="relative">
+<select class="appearance-none bg-surface-container-lowest text-espresso-dark font-label-lg text-label-lg pl-3 pr-8 py-2 rounded-lg cursor-pointer outline-none hover:bg-surface transition-colors shadow-sm" id="categoryFilter">
+<option value="all">All Categories (8)</option>
+<option value="espresso">1. Hot Espresso &amp; Classics</option>
+<option value="cold-brew">2. Signature Cold Brews</option>
+<option value="frappes">3. Blended Frappés</option>
+<option value="tea-matcha">4. Artisan Teas &amp; Matcha</option>
+<option value="pastries">5. Fresh Viennoiserie &amp; Pastries</option>
+<option value="all-day-breakfast">6. All-Day Breakfast Bowls</option>
+<option value="toast-panini">7. Grilled Panini &amp; Sandwiches</option>
+<option value="bottled-beans">8. Packaged Roasted Beans</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-text-muted text-title-sm pointer-events-none">expand_more</span>
+</div>
+<!-- Status Filter -->
+<div class="relative">
+<select class="appearance-none bg-surface-container-lowest text-espresso-dark font-label-lg text-label-lg pl-3 pr-8 py-2 rounded-lg cursor-pointer outline-none hover:bg-surface transition-colors shadow-sm" id="statusFilter">
+<option value="all">All Statuses</option>
+<option value="active">Active Only</option>
+<option value="seasonal">Seasonal Active</option>
+<option value="deactivated">Deactivated</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-text-muted text-title-sm pointer-events-none">expand_more</span>
+</div>
+</div>
+<!-- Primary Action -->
+<div class="flex items-center gap-space-sm shrink-0">
+<button class="flex items-center justify-center gap-space-xs bg-primary hover:bg-espresso-dark text-on-primary font-label-lg text-label-lg px-space-lg py-2.5 rounded-lg shadow-sm transition-transform active:scale-95" onclick="openDrawer('new')" type="button">
+<span class="material-symbols-outlined text-title-sm">add_circle</span>
+<span>Add Menu Item</span>
+</button>
+</div>
+</div>
+<!-- Primary Menu Items Table Container -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden mb-space-lg">
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="bg-surface-container text-text-muted font-label-md text-label-md uppercase tracking-wider">
+<th class="py-3 px-space-lg">Item Name &amp; Visual</th>
+<th class="py-3 px-space-md">Category</th>
+<th class="py-3 px-space-md text-right">Base Price (₱)</th>
+<th class="py-3 px-space-md">Status</th>
+<th class="py-3 px-space-md">Owner Clearance</th>
+<th class="py-3 px-space-lg text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-high/60 font-body-md text-body-md text-espresso-dark" id="menuItemsTableBody">
+<!-- Row 1: Active Classic Espresso -->
+<tr class="hover:bg-surface-container-low/70 transition-colors group">
+<td class="py-3 px-space-lg">
+<div class="flex items-center gap-space-md">
+<div class="w-12 h-12 rounded-lg overflow-hidden shrink-0 bg-surface-container shadow-sm">
+<img class="w-full h-full object-cover" data-alt="Warm artisanal flat white with velvety textured microfoam latte art in a speckled rustic ceramic cup on a natural wooden cafe counter, soft amber morning sunlight, studio product photography" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHwO-z6NtYNCiqqu8yhd5j3ITpngD21DNikz-n08QumwYtCWahO5DhBIGP0tcdcwYrqxtOi3WjTQ3UMQrylreiHfKn4ub8hhR0fbVJQLs6uwCB15vX21_inigWre9swd4muH_8yXaZz4qcqLYGDdI0EMb00Xj-23Sz4kxDXGEnwMpo366wCbbhTZc7hfL6Xas30vrgLsR94_qzcJ3Mph7j0_QoMr1TRTHeSo2WQt2mRhOuj91IYCKz"/>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-sm text-title-sm text-espresso-dark font-bold group-hover:text-primary transition-colors">Barista Flat White</span>
+<span class="font-body-sm text-body-sm text-text-muted truncate max-w-xs">Double ristretto with silky microfoam milk (8oz standard)</span>
+</div>
+</div>
+</td>
+<td class="py-3 px-space-md">
+<span class="px-2 py-1 rounded bg-surface-container font-label-sm text-label-sm text-on-surface-variant font-medium">Hot Espresso &amp; Classics</span>
+</td>
+<td class="py-3 px-space-md text-right font-currency-display text-currency-display text-espresso-dark">
+              ₱145.00
+            </td>
+<td class="py-3 px-space-md">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-matcha-green/20 text-matcha-green font-label-sm text-label-sm font-bold">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                Active
+              </span>
+</td>
+<td class="py-3 px-space-md">
+<span class="inline-flex items-center gap-1 font-label-sm text-label-sm text-matcha-green font-semibold">
+<span class="material-symbols-outlined text-[16px]">verified</span> Approved
+              </span>
+</td>
+<td class="py-3 px-space-lg text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<button class="p-1.5 rounded-lg text-text-muted hover:text-espresso-dark hover:bg-surface-container transition-colors" onclick="editItem('Barista Flat White', 'Hot Espresso &amp; Classics', '145.00', 'Double ristretto with silky microfoam milk', 'active', false)" title="Edit Menu Item" type="button">
+<span class="material-symbols-outlined text-title-sm">edit</span>
+</button>
+<button class="p-1.5 rounded-lg text-text-muted hover:text-accessible-red hover:bg-error-container/40 transition-colors" onclick="promptDeactivate('Barista Flat White', '₱145.00')" title="Safely Deactivate Item" type="button">
+<span class="material-symbols-outlined text-title-sm">archive</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2: Seasonal Signature Brew -->
+<tr class="hover:bg-surface-container-low/70 transition-colors group">
+<td class="py-3 px-space-lg">
+<div class="flex items-center gap-space-md">
+<div class="w-12 h-12 rounded-lg overflow-hidden shrink-0 bg-surface-container shadow-sm">
+<img class="w-full h-full object-cover" data-alt="Iced Spanish latte with condensed milk separation in a faceted vintage highball glass, garnished with cinnamon dust and clear artisan ice, golden hour illumination" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDoHgm0Wz1R7cwvwgrbrxZGykMuN1Gr3I2uJOz2mp21uQKjp8j0dJTHeTXWwboYgIWZdn522Wz10qzhxRsdt2JHaN3CuZxN6LOuMlOZnVpm5uILNf-DLUA60hKIINPWYiYQhxkYDoWRuGHhbaYRT8A9ZnVnwIXuvBvUV_wC3_LkrZpiOYMdh5jm87PJARlLVhQ5pExv3xZKteXElK1HFneVkpLxEHFZ4dOaGdbenBq5nq2bVyVQBvLF"/>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-sm text-title-sm text-espresso-dark font-bold group-hover:text-primary transition-colors">Iced Brown Butter Spanish Latte</span>
+<span class="font-body-sm text-body-sm text-text-muted truncate max-w-xs">Slow-dripped dark roast blended with browned caramelised condensed milk</span>
+</div>
+</div>
+</td>
+<td class="py-3 px-space-md">
+<span class="px-2 py-1 rounded bg-surface-container font-label-sm text-label-sm text-on-surface-variant font-medium">Signature Cold Brews</span>
+</td>
+<td class="py-3 px-space-md text-right font-currency-display text-currency-display text-espresso-dark">
+              ₱185.00
+            </td>
+<td class="py-3 px-space-md">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-caramel-gold/30 text-primary-container font-label-sm text-label-sm font-bold">
+<span class="material-symbols-outlined text-[14px]">event_repeat</span>
+                Seasonal
+              </span>
+</td>
+<td class="py-3 px-space-md">
+<span class="inline-flex items-center gap-1 font-label-sm text-label-sm text-matcha-green font-semibold">
+<span class="material-symbols-outlined text-[16px]">verified</span> Approved
+              </span>
+</td>
+<td class="py-3 px-space-lg text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<button class="p-1.5 rounded-lg text-text-muted hover:text-espresso-dark hover:bg-surface-container transition-colors" onclick="editItem('Iced Brown Butter Spanish Latte', 'Signature Cold Brews', '185.00', 'Slow-dripped dark roast blended with browned caramelised condensed milk', 'seasonal', false)" title="Edit Menu Item" type="button">
+<span class="material-symbols-outlined text-title-sm">edit</span>
+</button>
+<button class="p-1.5 rounded-lg text-text-muted hover:text-accessible-red hover:bg-error-container/40 transition-colors" onclick="promptDeactivate('Iced Brown Butter Spanish Latte', '₱185.00')" title="Safely Deactivate Item" type="button">
+<span class="material-symbols-outlined text-title-sm">archive</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3: Pending Confirmation Item -->
+<tr class="hover:bg-surface-container-low/70 transition-colors group bg-amber-50/20">
+<td class="py-3 px-space-lg">
+<div class="flex items-center gap-space-md">
+<div class="w-12 h-12 rounded-lg overflow-hidden shrink-0 bg-surface-container shadow-sm">
+<img class="w-full h-full object-cover" data-alt="Matcha ceremonial grade cold cloud drink in glass with dense sweet vanilla cream foam layer on top, soft green tones, cafe counter minimalist background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVg-zPwnMW7Nt__BksmoVFPMww7imNc1RqUPilNVSClaIH3C_CgszwDZAqg_YCvS6i_gfqBtMU6HAs0PfnWZD6zVwpJAlxYRlUUDYNCgqeENbAlgkc1xN0_s5W94a3yRbiDLBvj4ZDOTnTK9ZZamSyPrkyoeeOaOO6tRu-mA-rb84UBuiNZy-Gjop6uFQYepArlEFEz-kbeaddF3nOTlkiW-A4wIU8tGzm_gbGJTb6Ad9pfDrvD9-E"/>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-2">
+<span class="font-title-sm text-title-sm text-espresso-dark font-bold group-hover:text-primary transition-colors">Uji Cloud Matcha Float</span>
+<span class="px-1.5 py-0.2 rounded bg-tertiary-fixed text-tertiary-container font-label-sm text-label-sm font-bold">New Proposal</span>
+</div>
+<span class="font-body-sm text-body-sm text-text-muted truncate max-w-xs">First-harvest Uji ceremonial matcha poured over vanilla oat cream</span>
+</div>
+</div>
+</td>
+<td class="py-3 px-space-md">
+<span class="px-2 py-1 rounded bg-surface-container font-label-sm text-label-sm text-on-surface-variant font-medium">Artisan Teas &amp; Matcha</span>
+</td>
+<td class="py-3 px-space-md text-right font-currency-display text-currency-display text-espresso-dark">
+              ₱210.00
+            </td>
+<td class="py-3 px-space-md">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-bold">
+<span class="material-symbols-outlined text-[14px]">hourglass_empty</span>
+                Temp Unavail
+              </span>
+</td>
+<td class="py-3 px-space-md">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-warning-amber/15 text-warning-amber font-label-sm text-label-sm font-bold">
+<span class="material-symbols-outlined text-[14px]">pending</span> Pending Sign-off
+              </span>
+</td>
+<td class="py-3 px-space-lg text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<button class="p-1.5 rounded-lg text-text-muted hover:text-espresso-dark hover:bg-surface-container transition-colors" onclick="editItem('Uji Cloud Matcha Float', 'Artisan Teas &amp; Matcha', '210.00', 'First-harvest Uji ceremonial matcha poured over vanilla oat cream', 'temp', true)" title="Edit Menu Item" type="button">
+<span class="material-symbols-outlined text-title-sm">edit</span>
+</button>
+<button class="p-1.5 rounded-lg text-text-muted hover:text-accessible-red hover:bg-error-container/40 transition-colors" onclick="promptDeactivate('Uji Cloud Matcha Float', '₱210.00')" title="Safely Deactivate Item" type="button">
+<span class="material-symbols-outlined text-title-sm">archive</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4: Pastry Item -->
+<tr class="hover:bg-surface-container-low/70 transition-colors group">
+<td class="py-3 px-space-lg">
+<div class="flex items-center gap-space-md">
+<div class="w-12 h-12 rounded-lg overflow-hidden shrink-0 bg-surface-container shadow-sm">
+<img class="w-full h-full object-cover" data-alt="Freshly baked flaky almond croissant sprinkled with roasted sliced almonds and powdered sugar on brown vintage parchment paper, bright cafe ambient light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAH0foWGhYFCqh3c270h-DmILB3WfBFXccsQZqdIKGlvDWTCkOZ6dNtIE7GTa37CZMsVDxh3SptTUetnsIkZhrA16ztY4PvQx3W5WRB6_mR9RB0bW3VYbHc-OyU4zhvKeLIOE1VDQmhAqpgUUbpxeGCCAp2S3RdfqV8rPDMsTjKndLms8IULwX4vADH9bIb2SeWV2Qf2j9NofHe_0tPJIuVI4U6iINOJ8m-E4fjHwEXxZSr5TNIDHwY"/>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-sm text-title-sm text-espresso-dark font-bold group-hover:text-primary transition-colors">Twice-Baked Almond Croissant</span>
+<span class="font-body-sm text-body-sm text-text-muted truncate max-w-xs">French butter laminations with frangipane paste &amp; toasted almonds</span>
+</div>
+</div>
+</td>
+<td class="py-3 px-space-md">
+<span class="px-2 py-1 rounded bg-surface-container font-label-sm text-label-sm text-on-surface-variant font-medium">Fresh Viennoiserie &amp; Pastries</span>
+</td>
+<td class="py-3 px-space-md text-right font-currency-display text-currency-display text-espresso-dark">
+              ₱130.00
+            </td>
+<td class="py-3 px-space-md">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-matcha-green/20 text-matcha-green font-label-sm text-label-sm font-bold">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                Active
+              </span>
+</td>
+<td class="py-3 px-space-md">
+<span class="inline-flex items-center gap-1 font-label-sm text-label-sm text-matcha-green font-semibold">
+<span class="material-symbols-outlined text-[16px]">verified</span> Approved
+              </span>
+</td>
+<td class="py-3 px-space-lg text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<button class="p-1.5 rounded-lg text-text-muted hover:text-espresso-dark hover:bg-surface-container transition-colors" onclick="editItem('Twice-Baked Almond Croissant', 'Fresh Viennoiserie &amp; Pastries', '130.00', 'French butter laminations with frangipane paste', 'active', false)" title="Edit Menu Item" type="button">
+<span class="material-symbols-outlined text-title-sm">edit</span>
+</button>
+<button class="p-1.5 rounded-lg text-text-muted hover:text-accessible-red hover:bg-error-container/40 transition-colors" onclick="promptDeactivate('Twice-Baked Almond Croissant', '₱130.00')" title="Safely Deactivate Item" type="button">
+<span class="material-symbols-outlined text-title-sm">archive</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 5: Deactivated Item (Past Records Guarded) -->
+<tr class="bg-card-bg-disabled/40 opacity-75 hover:opacity-100 transition-opacity">
+<td class="py-3 px-space-lg">
+<div class="flex items-center gap-space-md">
+<div class="w-12 h-12 rounded-lg overflow-hidden shrink-0 bg-surface-dim flex items-center justify-center text-text-muted">
+<span class="material-symbols-outlined text-title-md">inventory_2</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-sm text-title-sm text-text-muted font-bold line-through">Smoked Truffle Ham Panini</span>
+<span class="font-body-sm text-body-sm text-text-muted truncate max-w-xs">Sourdough melt with artisan ham and truffle aioli</span>
+</div>
+</div>
+</td>
+<td class="py-3 px-space-md">
+<span class="px-2 py-1 rounded bg-surface-container font-label-sm text-label-sm text-text-muted font-medium">Grilled Panini &amp; Sandwiches</span>
+</td>
+<td class="py-3 px-space-md text-right font-currency-display text-currency-display text-text-muted">
+              ₱260.00
+            </td>
+<td class="py-3 px-space-md">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-surface-dim text-text-muted font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[14px]">block</span>
+                Deactivated
+              </span>
+</td>
+<td class="py-3 px-space-md">
+<span class="font-label-sm text-label-sm text-text-muted">Archived</span>
+</td>
+<td class="py-3 px-space-lg text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<button class="font-label-sm text-label-sm px-2.5 py-1 rounded bg-caramel-gold/30 hover:bg-caramel-gold text-espresso-dark font-bold transition-colors" onclick="reactivateItem('Smoked Truffle Ham Panini')" type="button">
+                  Restore
+                </button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Mandatory Prototype Verification Notice & Table Footer -->
+<div class="p-space-md bg-surface-container-low flex flex-col sm:flex-row items-center justify-between gap-space-sm text-text-muted font-body-sm text-body-sm">
+<div class="flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-matcha-green"></span>
+<span>Showing 5 of 40 catalog items • Catalog Version 2.8.4</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="px-2 py-0.5 rounded bg-surface-container font-label-sm text-label-sm uppercase tracking-wide font-bold text-on-surface-variant">Prototype data (fictional)</span>
+</div>
+</div>
+</div>
+<!-- Non-destructive Deactivation Confirmation Modal -->
+<div class="fixed inset-0 z-50 flex items-center justify-center p-space-md bg-espresso-dark/60 backdrop-blur-sm hidden" id="deactivateModal">
+<div class="bg-surface-container-lowest max-w-lg w-full rounded-xl shadow-xl overflow-hidden p-space-lg transform transition-all">
+<div class="flex items-start gap-space-md mb-space-md">
+<div class="w-12 h-12 rounded-full bg-error-container text-accessible-red flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-headline-sm">warning</span>
+</div>
+<div class="flex flex-col">
+<h2 class="font-headline-sm text-headline-sm text-espresso-dark">Deactivate Menu Item?</h2>
+<span class="font-label-lg text-label-lg text-caramel-gold font-bold mt-0.5" id="targetItemSummary">Item: [Item Name]</span>
+</div>
+</div>
+<!-- Specific Operational Guardrail Message -->
+<div class="bg-surface-container rounded-lg p-space-md mb-space-lg text-espresso-dark font-body-md text-body-md">
+<p class="font-bold mb-1">Audit Trail Protection Guarantee:</p>
+<p class="text-text-muted leading-relaxed">
+          Historical past orders will retain their original item name and pricing records. The item will no longer be visible to customers on the digital menu.
+        </p>
+</div>
+<div class="flex items-center justify-end gap-space-md">
+<button class="px-space-lg py-2 rounded-lg bg-surface-container text-espresso-dark font-label-lg text-label-lg hover:bg-surface-container-high transition-colors" onclick="closeDeactivateModal()" type="button">
+          Cancel
+        </button>
+<button class="px-space-lg py-2 rounded-lg bg-accessible-red hover:bg-accessible-red/90 text-on-error font-label-lg text-label-lg shadow-sm transition-transform active:scale-95" onclick="confirmDeactivation()" type="button">
+          Confirm Deactivation
+        </button>
+</div>
+</div>
+</div>
+<!-- Add / Edit Menu Item Drawer -->
+<div class="fixed inset-0 z-40 bg-espresso-dark/50 backdrop-blur-[2px] hidden" id="editDrawerOverlay" onclick="closeDrawer()"></div>
+<aside class="fixed top-0 right-0 h-full w-full max-w-2xl bg-surface-container-lowest shadow-2xl z-50 overflow-y-auto transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col justify-between" id="editDrawer">
+<div class="p-space-lg">
+<!-- Drawer Header -->
+<div class="flex items-center justify-between pb-space-md mb-space-lg border-b border-surface-container">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-caramel-gold uppercase tracking-wider font-bold">Catalog Model Schema</span>
+<h2 class="font-headline-md text-headline-md text-espresso-dark" id="drawerTitle">Add Menu Item</h2>
+</div>
+<button class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-text-muted hover:text-espresso-dark hover:bg-surface-container-high transition-colors" onclick="closeDrawer()" type="button">
+<span class="material-symbols-outlined text-title-sm">close</span>
+</button>
+</div>
+<!-- Item Formulation Form -->
+<form class="flex flex-col gap-space-lg" id="itemForm" onsubmit="event.preventDefault(); saveForm();">
+<!-- Field 1: Category Dropdown (1 of 8 Approved) -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-espresso-dark font-bold flex items-center gap-1">
+<span>Category</span>
+<span class="text-accessible-red">*</span>
+<span class="text-text-muted font-normal">(One of 8 approved cafe categories)</span>
+</label>
+<div class="relative">
+<select class="w-full appearance-none bg-surface-container text-espresso-dark px-3 py-2.5 rounded-lg font-body-md text-body-md outline-none focus:ring-2 focus:ring-caramel-gold" id="formCategory" required="">
+<option disabled="" selected="" value="">Select approved category</option>
+<option value="Hot Espresso &amp; Classics">Hot Espresso &amp; Classics</option>
+<option value="Signature Cold Brews">Signature Cold Brews</option>
+<option value="Blended Frappés">Blended Frappés</option>
+<option value="Artisan Teas &amp; Matcha">Artisan Teas &amp; Matcha</option>
+<option value="Fresh Viennoiserie &amp; Pastries">Fresh Viennoiserie &amp; Pastries</option>
+<option value="All-Day Breakfast Bowls">All-Day Breakfast Bowls</option>
+<option value="Grilled Panini &amp; Sandwiches">Grilled Panini &amp; Sandwiches</option>
+<option value="Packaged Roasted Beans">Packaged Roasted Beans</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-text-muted pointer-events-none">unfold_more</span>
+</div>
+</div>
+<!-- Field 2: Product Name -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-espresso-dark font-bold flex items-center gap-1">
+<span>Product Name</span>
+<span class="text-accessible-red">*</span>
+</label>
+<input class="w-full bg-surface-container text-espresso-dark px-3 py-2.5 rounded-lg font-body-md text-body-md outline-none focus:ring-2 focus:ring-caramel-gold" id="formProductName" placeholder="[Product name]" required="" type="text"/>
+</div>
+<!-- Field 3: Base Price & Description Split -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-espresso-dark font-bold flex items-center gap-1">
+<span>Base Price</span>
+<span class="text-accessible-red">*</span>
+</label>
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 font-title-sm text-title-sm text-text-muted font-bold">₱</span>
+<input class="w-full bg-surface-container text-espresso-dark pl-8 pr-3 py-2.5 rounded-lg font-currency-display text-currency-display outline-none focus:ring-2 focus:ring-caramel-gold" id="formBasePrice" min="0" placeholder="₱[Base price]" required="" step="0.01" type="number"/>
+</div>
+</div>
+<div class="md:col-span-2 flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-espresso-dark font-bold">
+              Description <span class="text-text-muted font-normal">(optional)</span>
+</label>
+<input class="w-full bg-surface-container text-espresso-dark px-3 py-2.5 rounded-lg font-body-md text-body-md outline-none focus:ring-2 focus:ring-caramel-gold" id="formDescription" placeholder="e.g. Medium roast single-origin beans infused with Madagascar vanilla" type="text"/>
+</div>
+</div>
+<!-- Field 4: Availability Selector + Schedule Notes -->
+<div class="p-space-md bg-surface-container-low rounded-xl flex flex-col gap-space-md">
+<label class="font-label-md text-label-md text-espresso-dark font-bold">Availability Lifecycle Status</label>
+<div class="grid grid-cols-3 gap-space-sm">
+<label class="flex flex-col items-center justify-center p-space-sm rounded-lg bg-surface-container cursor-pointer hover:bg-surface-container-high transition-colors has-[:checked]:bg-caramel-gold/30 has-[:checked]:ring-2 has-[:checked]:ring-caramel-gold">
+<input checked="" class="sr-only" name="availability" type="radio" value="Currently Offered"/>
+<span class="material-symbols-outlined text-title-sm text-matcha-green mb-1">check_circle</span>
+<span class="font-label-sm text-label-sm text-espresso-dark font-bold text-center">Currently Offered</span>
+</label>
+<label class="flex flex-col items-center justify-center p-space-sm rounded-lg bg-surface-container cursor-pointer hover:bg-surface-container-high transition-colors has-[:checked]:bg-caramel-gold/30 has-[:checked]:ring-2 has-[:checked]:ring-caramel-gold">
+<input class="sr-only" name="availability" type="radio" value="Temporarily Unavailable"/>
+<span class="material-symbols-outlined text-title-sm text-warning-amber mb-1">pause_circle</span>
+<span class="font-label-sm text-label-sm text-espresso-dark font-bold text-center">Temporarily Unavailable</span>
+</label>
+<label class="flex flex-col items-center justify-center p-space-sm rounded-lg bg-surface-container cursor-pointer hover:bg-surface-container-high transition-colors has-[:checked]:bg-caramel-gold/30 has-[:checked]:ring-2 has-[:checked]:ring-caramel-gold">
+<input class="sr-only" name="availability" type="radio" value="Seasonal"/>
+<span class="material-symbols-outlined text-title-sm text-tertiary-container mb-1">event</span>
+<span class="font-label-sm text-label-sm text-espresso-dark font-bold text-center">Seasonal Schedule</span>
+</label>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-text-muted">Seasonal window / shift schedule notes</label>
+<input class="w-full bg-surface-container text-espresso-dark px-3 py-2 rounded-lg font-body-sm text-body-sm outline-none focus:ring-1 focus:ring-caramel-gold" placeholder="e.g. Available every day 06:00 - 11:30 or Oct 1 - Nov 30 holiday run" type="text"/>
+</div>
+</div>
+<!-- Field 5: Size Options Sub-Table -->
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-title-sm text-caramel-gold">straighten</span>
+<span class="font-label-md text-label-md text-espresso-dark font-bold">Size Options &amp; Price Deltas</span>
+</div>
+<label class="flex items-center gap-space-xs cursor-pointer">
+<input class="rounded text-primary focus:ring-caramel-gold w-4 h-4" id="toggleNoSizes" onchange="toggleSizeSubtable(this.checked)" type="checkbox"/>
+<span class="font-label-sm text-label-sm text-text-muted">None (No sizes for this item)</span>
+</label>
+</div>
+<div class="bg-surface-container-low rounded-lg p-space-sm" id="sizesContainer">
+<div class="grid grid-cols-12 gap-2 pb-2 px-2 font-label-sm text-label-sm text-text-muted uppercase">
+<div class="col-span-4">Size Name</div>
+<div class="col-span-3">Price (₱)</div>
+<div class="col-span-4">Availability / Notes</div>
+<div class="col-span-1 text-right">Del</div>
+</div>
+<div class="flex flex-col gap-2">
+<div class="grid grid-cols-12 gap-2 items-center bg-surface-container-lowest p-2 rounded-lg">
+<input class="col-span-4 bg-transparent font-body-sm text-body-sm text-espresso-dark outline-none font-semibold" type="text" value="Regular (12oz)"/>
+<input class="col-span-3 bg-transparent font-currency-display text-[14px] text-espresso-dark outline-none font-bold" type="text" value="₱145.00"/>
+<input class="col-span-4 bg-transparent font-body-sm text-body-sm text-text-muted outline-none" type="text" value="Standard Pour"/>
+<button class="col-span-1 text-right text-text-muted hover:text-accessible-red" type="button"><span class="material-symbols-outlined text-[18px]">close</span></button>
+</div>
+<div class="grid grid-cols-12 gap-2 items-center bg-surface-container-lowest p-2 rounded-lg">
+<input class="col-span-4 bg-transparent font-body-sm text-body-sm text-espresso-dark outline-none font-semibold" type="text" value="Large (16oz)"/>
+<input class="col-span-3 bg-transparent font-currency-display text-[14px] text-espresso-dark outline-none font-bold" type="text" value="₱175.00"/>
+<input class="col-span-4 bg-transparent font-body-sm text-body-sm text-text-muted outline-none" type="text" value="+4oz milk &amp; extra shot"/>
+<button class="col-span-1 text-right text-text-muted hover:text-accessible-red" type="button"><span class="material-symbols-outlined text-[18px]">close</span></button>
+</div>
+</div>
+<button class="mt-2 text-primary font-label-sm text-label-sm font-bold flex items-center gap-1 hover:underline" type="button">
+<span class="material-symbols-outlined text-[16px]">add</span> Add Size Variant
+            </button>
+</div>
+</div>
+<!-- Field 6: Modifier Groups Sub-Selector -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-md text-label-md text-espresso-dark font-bold flex items-center justify-between">
+<span>Attached Modifier Groups</span>
+<span class="font-label-sm text-label-sm text-text-muted font-normal">Milk choice, sweet levels, roast beans</span>
+</label>
+<div class="grid grid-cols-2 gap-space-sm">
+<label class="flex items-center gap-2 p-space-sm bg-surface-container rounded-lg cursor-pointer hover:bg-surface-container-high transition-colors">
+<input checked="" class="rounded text-primary focus:ring-caramel-gold w-4 h-4" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-espresso-dark font-medium">Dairy &amp; Plant Milk Alternatives</span>
+</label>
+<label class="flex items-center gap-2 p-space-sm bg-surface-container rounded-lg cursor-pointer hover:bg-surface-container-high transition-colors">
+<input checked="" class="rounded text-primary focus:ring-caramel-gold w-4 h-4" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-espresso-dark font-medium">Sweetness Degree (0% to 100%)</span>
+</label>
+<label class="flex items-center gap-2 p-space-sm bg-surface-container rounded-lg cursor-pointer hover:bg-surface-container-high transition-colors">
+<input class="rounded text-primary focus:ring-caramel-gold w-4 h-4" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-espresso-dark font-medium">Espresso Bean Roast (Benguet vs Dark)</span>
+</label>
+<label class="flex items-center gap-2 p-space-sm bg-surface-container rounded-lg cursor-pointer hover:bg-surface-container-high transition-colors">
+<input class="rounded text-primary focus:ring-caramel-gold w-4 h-4" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-espresso-dark font-medium">None (Attach No Modifiers)</span>
+</label>
+</div>
+</div>
+<!-- Field 7: Pending Owner Confirmation Marker Checkbox -->
+<div class="p-space-md bg-secondary-container/40 rounded-xl flex items-start gap-space-sm">
+<input class="mt-1 rounded text-primary focus:ring-caramel-gold w-4 h-4" id="formPendingConfirmation" type="checkbox"/>
+<div class="flex flex-col">
+<label class="font-label-md text-label-md text-espresso-dark font-bold cursor-pointer" for="formPendingConfirmation">
+              Mark as "Pending Owner Confirmation"
+            </label>
+<span class="font-body-sm text-body-sm text-text-muted">
+              Puts product in staged state. Requires formal sign-off from supervisor/owner before synchronising to guest-facing storefront kiosks.
+            </span>
+</div>
+</div>
+<!-- Drawer Action Footer -->
+<div class="pt-space-md flex items-center justify-end gap-space-md border-t border-surface-container">
+<button class="px-space-lg py-2.5 rounded-lg bg-surface-container text-espresso-dark font-label-lg text-label-lg hover:bg-surface-container-high transition-colors" onclick="closeDrawer()" type="button">
+            Cancel
+          </button>
+<button class="px-space-xl py-2.5 rounded-lg bg-primary hover:bg-espresso-dark text-on-primary font-label-lg text-label-lg shadow-sm transition-transform active:scale-95" type="submit">
+            Save Catalog Record
+          </button>
+</div>
+</form>
+</div>
+</aside>
+<!-- Notification Toast for feedback -->
+<div class="fixed bottom-6 right-6 z-50 bg-espresso-dark text-surface px-space-lg py-space-sm rounded-lg shadow-xl flex items-center gap-space-sm transform translate-y-20 opacity-0 transition-all pointer-events-none" id="toastNotification">
+<span class="material-symbols-outlined text-matcha-green" id="toastIcon">check_circle</span>
+<span class="font-body-md text-body-md font-semibold" id="toastMessage">Catalog updated successfully</span>
+</div>
+</div>
+<script>
+  let currentTargetItem = '';
+
+  function openDrawer(mode) {
+    const drawer = document.getElementById('editDrawer');
+    const overlay = document.getElementById('editDrawerOverlay');
+    const title = document.getElementById('drawerTitle');
+    const form = document.getElementById('itemForm');
+
+    if (mode === 'new') {
+      title.innerText = 'Add Menu Item';
+      form.reset();
+      document.getElementById('toggleNoSizes').checked = false;
+      document.getElementById('sizesContainer').style.opacity = '1';
+      document.getElementById('sizesContainer').style.pointerEvents = 'auto';
+    }
+
+    overlay.classList.remove('hidden');
+    drawer.classList.remove('translate-x-full');
+  }
+
+  function closeDrawer() {
+    const drawer = document.getElementById('editDrawer');
+    const overlay = document.getElementById('editDrawerOverlay');
+    drawer.classList.add('translate-x-full');
+    setTimeout(() => {
+      overlay.classList.add('hidden');
+    }, 250);
+  }
+
+  function editItem(name, category, price, desc, avail, isPending) {
+    const title = document.getElementById('drawerTitle');
+    title.innerText = 'Edit Menu Item: ' + name;
+
+    document.getElementById('formProductName').value = name;
+    document.getElementById('formCategory').value = category;
+    document.getElementById('formBasePrice').value = price;
+    document.getElementById('formDescription').value = desc;
+    document.getElementById('formPendingConfirmation').checked = isPending;
+
+    const radios = document.getElementsByName('availability');
+    if (avail === 'seasonal') {
+      radios[2].checked = true;
+    } else if (avail === 'temp') {
+      radios[1].checked = true;
+    } else {
+      radios[0].checked = true;
+    }
+
+    openDrawer('edit');
+  }
+
+  function toggleSizeSubtable(noSizesChecked) {
+    const container = document.getElementById('sizesContainer');
+    if (noSizesChecked) {
+      container.style.opacity = '0.4';
+      container.style.pointerEvents = 'none';
+    } else {
+      container.style.opacity = '1';
+      container.style.pointerEvents = 'auto';
+    }
+  }
+
+  function promptDeactivate(itemName, price) {
+    currentTargetItem = itemName;
+    document.getElementById('targetItemSummary').innerText = `Item: ${itemName} (${price})`;
+    document.getElementById('deactivateModal').classList.remove('hidden');
+  }
+
+  function closeDeactivateModal() {
+    document.getElementById('deactivateModal').classList.add('hidden');
+  }
+
+  function confirmDeactivation() {
+    closeDeactivateModal();
+    showToast(`"${currentTargetItem}" safely deactivated. Historical order logs preserved.`);
+  }
+
+  function reactivateItem(itemName) {
+    showToast(`"${itemName}" restored to active digital menu.`);
+  }
+
+  function saveForm() {
+    const name = document.getElementById('formProductName').value;
+    closeDrawer();
+    showToast(`Saved "${name}" to M&E Kape Cup catalog.`);
+  }
+
+  function showToast(message) {
+    const toast = document.getElementById('toastNotification');
+    const text = document.getElementById('toastMessage');
+    text.innerText = message;
+    toast.classList.remove('translate-y-20', 'opacity-0');
+    setTimeout(() => {
+      toast.classList.add('translate-y-20', 'opacity-0');
+    }, 3800);
+  }
+
+  // Client-side quick filter emulation for prototype responsiveness
+  document.getElementById('itemSearch').addEventListener('input', function(e) {
+    const query = e.target.value.toLowerCase();
+    const rows = document.querySelectorAll('#menuItemsTableBody tr');
+    rows.forEach(row => {
+      const text = row.innerText.toLowerCase();
+      row.style.display = text.includes(query) ? '' : 'none';
+    });
+  });
+</script></main></div></body></html>

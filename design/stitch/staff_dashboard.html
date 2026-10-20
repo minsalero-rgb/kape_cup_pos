@@ -1,0 +1,775 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_dashboard" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Domine:wght@600;700&amp;family=Plus+Jakarta+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "caramel-gold": "#D9B77E",
+          "on-primary-fixed-variant": "#603f32",
+          "border-neutral": "#E5D8C3",
+          "secondary-fixed-dim": "#d2c5a9",
+          "primary-fixed": "#ffdbce",
+          "warning-amber": "#C47B27",
+          "on-secondary-fixed": "#211b08",
+          "card-bg-disabled": "#F3EFEA",
+          "on-secondary": "#ffffff",
+          "surface-tint": "#7b5648",
+          "on-tertiary-fixed-variant": "#5a4315",
+          "on-primary-container": "#ae8474",
+          "on-background": "#1c1c18",
+          "primary-container": "#3b1f14",
+          "on-error-container": "#93000a",
+          "outline": "#83746f",
+          "surface-dim": "#dcdad4",
+          "error-container": "#ffdad6",
+          "surface-bright": "#fcf9f3",
+          "tertiary-container": "#352300",
+          "accessible-red": "#C93B2B",
+          "on-surface": "#1c1c18",
+          "surface-container": "#f0eee8",
+          "surface": "#fcf9f3",
+          "surface-container-low": "#f6f3ed",
+          "matcha-green": "#78945B",
+          "tertiary": "#1a1000",
+          "tertiary-fixed-dim": "#e4c288",
+          "primary": "#220b03",
+          "on-primary": "#ffffff",
+          "on-primary-fixed": "#2e150a",
+          "inverse-surface": "#31312d",
+          "inverse-on-surface": "#f3f0eb",
+          "on-secondary-fixed-variant": "#4f4630",
+          "on-tertiary-container": "#a78954",
+          "secondary-container": "#efe1c3",
+          "tertiary-fixed": "#ffdea9",
+          "outline-variant": "#d5c3bd",
+          "surface-container-high": "#ebe8e2",
+          "inverse-primary": "#ecbcab",
+          "on-tertiary-fixed": "#271900",
+          "on-secondary-container": "#6d634c",
+          "secondary-fixed": "#efe1c3",
+          "on-surface-variant": "#504440",
+          "surface-container-lowest": "#ffffff",
+          "primary-fixed-dim": "#ecbcab",
+          "on-error": "#ffffff",
+          "surface-variant": "#e5e2dc",
+          "espresso-dark": "#29221D",
+          "error": "#ba1a1a",
+          "surface-container-highest": "#e5e2dc",
+          "on-tertiary": "#ffffff",
+          "secondary": "#675e46",
+          "text-muted": "#74685E",
+          "background": "#fcf9f3"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.25rem",
+          "lg": "0.5rem",
+          "xl": "0.75rem",
+          "full": "9999px"
+        },
+        "spacing": {
+          "margin": "1rem",
+          "space-xl": "2rem",
+          "space-md": "1rem",
+          "space-xs": "0.25rem",
+          "margin-desktop": "2rem",
+          "gutter": "1.25rem",
+          "space-sm": "0.5rem",
+          "space-lg": "1.5rem",
+          "gutter-desktop": "1.5rem"
+        },
+        "fontFamily": {
+          "label-sm": ["Plus Jakarta Sans"],
+          "title-sm": ["Plus Jakarta Sans"],
+          "title-md": ["Plus Jakarta Sans"],
+          "label-md": ["Plus Jakarta Sans"],
+          "headline-lg": ["Domine"],
+          "body-md": ["Plus Jakarta Sans"],
+          "headline-md": ["Domine"],
+          "body-sm": ["Plus Jakarta Sans"],
+          "headline-sm": ["Domine"],
+          "headline-lg-mobile": ["Domine"],
+          "headline-xl": ["Domine"],
+          "currency-display": ["Plus Jakarta Sans"],
+          "label-lg": ["Plus Jakarta Sans"],
+          "body-lg": ["Plus Jakarta Sans"]
+        },
+        "fontSize": {
+          "label-sm": ["11px", {"lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "700"}],
+          "title-sm": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+          "title-md": ["18px", {"lineHeight": "26px", "fontWeight": "600"}],
+          "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+          "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+          "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+          "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+          "body-sm": ["12px", {"lineHeight": "18px", "fontWeight": "400"}],
+          "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+          "headline-lg-mobile": ["26px", {"lineHeight": "34px", "fontWeight": "700"}],
+          "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+          "currency-display": ["22px", {"lineHeight": "28px", "fontWeight": "700"}],
+          "label-lg": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+          "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+        }
+      }
+    }
+  }</script></head><body class="bg-background font-body-md text-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-[260px] bg-primary-container z-50 flex flex-col justify-between shadow-[2px_0_12px_rgba(34,11,3,0.12)]"><div class="flex flex-col"><div class="p-space-lg flex items-center gap-space-sm bg-espresso-dark/40"><div class="w-10 h-10 rounded-full p-0.5 bg-caramel-gold/40 flex items-center justify-center shrink-0"><div class="w-full h-full rounded-full bg-primary flex items-center justify-center text-caramel-gold font-headline-md text-headline-md">K</div></div><div class="flex flex-col min-w-0"><span class="font-headline-sm text-headline-sm text-surface truncate tracking-tight">M&amp;E Kape Cup</span><span class="font-label-sm text-label-sm text-caramel-gold uppercase tracking-wider">POS &amp; Floor Core</span></div></div><div class="px-space-md py-space-sm bg-primary/40 flex items-center justify-between"><div class="flex items-center gap-space-xs"><span class="w-2 h-2 rounded-full bg-matcha-green animate-pulse"></span><span class="font-label-sm text-label-sm text-surface font-semibold">Shift: Morning Active</span></div><span class="font-label-sm text-label-sm px-space-xs py-0.5 rounded bg-caramel-gold/20 text-caramel-gold font-bold">Station 01</span></div><nav class="flex flex-col gap-1 p-space-md overflow-y-auto max-h-[calc(100vh-250px)]" data-active-classes="bg-caramel-gold text-espresso-dark font-bold rounded-lg shadow-sm"><div class="px-space-sm py-1 font-label-sm text-label-sm uppercase tracking-wider text-primary-fixed-dim/70">Floor Operations</div><a aria-current="page" class="flex items-center gap-space-sm px-space-sm py-2 transition-all bg-caramel-gold text-espresso-dark font-bold rounded-lg shadow-sm" data-path="staff-dashboard" href="#"><span class="material-symbols-outlined text-title-sm">speed</span><span class="font-label-lg text-label-lg">Staff Dashboard</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-primary-fixed-dim hover:bg-espresso-dark hover:text-surface transition-all" data-path="order-oversight" href="#"><span class="material-symbols-outlined text-title-sm">receipt_long</span><span class="font-label-lg text-label-lg">Order Oversight</span></a><div class="mt-space-sm px-space-sm py-1 font-label-sm text-label-sm uppercase tracking-wider text-caramel-gold/80">Admin &amp; Catalog</div><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-primary-fixed-dim hover:bg-espresso-dark hover:text-surface transition-all" data-path="admin-dashboard" href="#"><span class="material-symbols-outlined text-title-sm">admin_panel_settings</span><span class="font-label-lg text-label-lg">Admin Dashboard</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-primary-fixed-dim hover:bg-espresso-dark hover:text-surface transition-all" data-path="menu-categories" href="#"><span class="material-symbols-outlined text-title-sm">category</span><span class="font-label-lg text-label-lg">Menu Categories</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-primary-fixed-dim hover:bg-espresso-dark hover:text-surface transition-all" data-path="menu-items" href="#"><span class="material-symbols-outlined text-title-sm">menu_book</span><span class="font-label-lg text-label-lg">Menu Items</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-primary-fixed-dim hover:bg-espresso-dark hover:text-surface transition-all" data-path="modifier-groups" href="#"><span class="material-symbols-outlined text-title-sm">tune</span><span class="font-label-lg text-label-lg">Modifier Groups</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-primary-fixed-dim hover:bg-espresso-dark hover:text-surface transition-all" data-path="staff-management" href="#"><span class="material-symbols-outlined text-title-sm">badge</span><span class="font-label-lg text-label-lg">Staff Management</span></a><div class="mt-space-sm px-space-sm py-1 font-label-sm text-label-sm uppercase tracking-wider text-caramel-gold/80">Audit &amp; Intelligence</div><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-primary-fixed-dim hover:bg-espresso-dark hover:text-surface transition-all" data-path="duty-session-records" href="#"><span class="material-symbols-outlined text-title-sm">history_toggle_off</span><span class="font-label-lg text-label-lg">Duty Session Records</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-primary-fixed-dim hover:bg-espresso-dark hover:text-surface transition-all" data-path="sales-reports" href="#"><span class="material-symbols-outlined text-title-sm">insights</span><span class="font-label-lg text-label-lg">Sales Reports</span></a></nav></div><div class="p-space-md bg-espresso-dark/70 flex flex-col gap-space-xs"><div class="flex items-center justify-between"><span class="font-label-sm text-label-sm text-caramel-gold font-bold">Admin / Supervisor</span><span class="font-label-sm text-label-sm text-primary-fixed-dim">[Prototype user]</span></div><a class="flex items-center justify-center gap-space-xs py-1.5 px-space-sm rounded bg-surface/10 hover:bg-surface/20 text-surface text-label-sm font-label-sm transition-colors" data-path="home" href="#"><span class="material-symbols-outlined text-label-md">storefront</span><span>Switch to Customer Storefront</span></a></div></aside><div class="pl-[260px]"><header class="fixed top-0 left-[260px] right-0 h-16 bg-surface/90 backdrop-blur-md z-40 px-margin-desktop flex items-center justify-between shadow-[0_1px_8px_rgba(41,34,29,0.04)]"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs px-space-sm py-1 rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm"><span class="material-symbols-outlined text-title-sm text-matcha-green">schedule</span><span>Shift Session: #DS-2024-0418</span></div><span class="hidden lg:inline-block font-label-sm text-label-sm text-text-muted">Prototype data (fictional)</span></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs"><span class="px-2 py-0.5 rounded-full bg-matcha-green/20 text-matcha-green font-label-sm text-label-sm font-bold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-matcha-green"></span>POS Online</span><div class="hidden sm:flex flex-col text-right"><span class="font-label-sm text-label-sm text-espresso-dark font-semibold">Counter Barista • Admin</span><span class="font-label-sm text-label-sm text-text-muted">Terminal #1</span></div></div><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1WZ_qdg9H9b9Cse68XLjaKwt9slfnT8EbJGjWsOqdyPVCLUzqBOieqLlDAg_omVx0gsSxDTfU7ERbEfh7l7Sya73DGI9GKmoOcd62EO4D3_TENWjkuvLPbNAYUa0AhuQ755k0rqhrL_AW3iHgwzhqr9g6Sg-5PnlwVTmHGB7J6x_bcfRFFU5gZ6Aa2MJMmwFKx607ZPNFiy4l0MMkeSFAmL5axHYAJS2xEEBZDWOj_idHEB_NCE54e0VbikGtjVlgnTeICP7YiLHA"></div></header><main class="relative pt-16 bg-background min-h-screen w-full px-margin-desktop py-space-lg"><div class="flex flex-col w-full">
+<!-- Top Operational Banner / Shift Control -->
+<section class="mb-space-lg w-full">
+<div class="bg-surface-container-low rounded-xl p-space-md shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md min-w-0">
+<div class="w-12 h-12 rounded-lg bg-primary-container text-caramel-gold flex items-center justify-center shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-headline-sm" style="font-variation-settings: 'FILL' 1;">timer</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-sm flex-wrap">
+<span class="font-headline-sm text-headline-sm text-espresso-dark font-bold tracking-tight">Active Floor Duty</span>
+<span class="px-2 py-0.5 rounded-full bg-matcha-green/20 text-matcha-green font-label-sm text-label-sm font-bold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-matcha-green"></span>
+              Open • Session #104
+            </span>
+</div>
+<p class="font-body-sm text-body-sm text-text-muted mt-0.5">
+            Shift started today at <span class="text-espresso-dark font-semibold">08:30 AM</span> • Cash drawer float initialized • Station 01
+          </p>
+</div>
+</div>
+<div class="flex items-center gap-space-sm shrink-0">
+<button class="px-space-md py-2 rounded-lg bg-surface-container text-espresso-dark hover:bg-surface-container-high transition-colors font-label-lg text-label-lg flex items-center gap-1.5" onclick="alert('Prototype: Shift handover summary generated.')" type="button">
+<span class="material-symbols-outlined text-title-sm">point_of_sale</span>
+<span>Float Count</span>
+</button>
+<button class="px-space-md py-2 rounded-lg bg-accessible-red text-on-error hover:bg-error transition-colors font-label-lg text-label-lg shadow-sm flex items-center gap-1.5" onclick="document.getElementById('end-shift-modal').classList.remove('hidden')" type="button">
+<span class="material-symbols-outlined text-title-sm">lock_clock</span>
+<span>End Shift</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Dual-Pane Core Operational Layout (60% Queue / 40% Detail Ticket) -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-space-lg w-full items-start">
+<!-- LEFT PANE: Order Queue & Stream (7 Cols on XL) -->
+<section class="xl:col-span-7 flex flex-col gap-space-md min-w-0">
+<!-- Search, Summary KPIs & Status Filter Pill Strip -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-space-sm">
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-text-muted text-title-sm">search</span>
+<input class="w-full pl-9 pr-space-md py-2 rounded-lg bg-surface-container-low text-on-surface placeholder:text-text-muted text-body-md font-body-md outline-none focus:bg-surface-container-lowest focus:shadow-inner transition-all" id="order-search" placeholder="Search order reference (e.g. #ORD-1092) or guest..." type="text">
+</div>
+<div class="flex items-center gap-space-xs bg-surface-container-low px-space-sm py-1.5 rounded-lg text-text-muted font-label-sm text-label-sm shrink-0">
+<span class="material-symbols-outlined text-label-md text-caramel-gold">notifications_active</span>
+<span class="text-espresso-dark font-bold">4 Live Tickets</span>
+</div>
+</div>
+<!-- Filter Segment Bar -->
+<div class="flex items-center gap-1.5 overflow-x-auto pt-1 pb-0.5">
+<button class="queue-tab-btn px-3 py-1 rounded-md text-label-sm font-label-sm bg-primary-container text-caramel-gold shadow-sm whitespace-nowrap" data-filter="all" onclick="filterQueue('all')" type="button">
+            All (4)
+          </button>
+<button class="queue-tab-btn px-3 py-1 rounded-md text-label-sm font-label-sm bg-surface-container-low text-text-muted hover:text-espresso-dark whitespace-nowrap flex items-center gap-1" data-filter="pending" onclick="filterQueue('pending')" type="button">
+<span class="w-2 h-2 rounded-full bg-caramel-gold"></span>
+            Pending (1)
+          </button>
+<button class="queue-tab-btn px-3 py-1 rounded-md text-label-sm font-label-sm bg-surface-container-low text-text-muted hover:text-espresso-dark whitespace-nowrap flex items-center gap-1" data-filter="paid" onclick="filterQueue('paid')" type="button">
+<span class="w-2 h-2 rounded-full bg-warning-amber"></span>
+            Paid (1)
+          </button>
+<button class="queue-tab-btn px-3 py-1 rounded-md text-label-sm font-label-sm bg-surface-container-low text-text-muted hover:text-espresso-dark whitespace-nowrap flex items-center gap-1" data-filter="preparing" onclick="filterQueue('preparing')" type="button">
+<span class="w-2 h-2 rounded-full bg-surface-tint"></span>
+            Preparing (1)
+          </button>
+<button class="queue-tab-btn px-3 py-1 rounded-md text-label-sm font-label-sm bg-surface-container-low text-text-muted hover:text-espresso-dark whitespace-nowrap flex items-center gap-1" data-filter="completed" onclick="filterQueue('completed')" type="button">
+<span class="w-2 h-2 rounded-full bg-matcha-green"></span>
+            Completed (1)
+          </button>
+</div>
+</div>
+<!-- Queue List Stream -->
+<div class="flex flex-col gap-space-sm" id="queue-container">
+<!-- Ticket 1 (PENDING - SELECTED BY DEFAULT) -->
+<div class="order-queue-card cursor-pointer rounded-xl p-space-md transition-all shadow-sm bg-surface-container-lowest bg-gradient-to-r from-caramel-gold/15 via-transparent to-transparent" id="ticket-card-1092" onclick="selectOrder('1092')">
+<div class="flex items-start justify-between gap-space-sm mb-2">
+<div class="flex items-center gap-space-sm">
+<span class="font-headline-sm text-headline-sm text-espresso-dark font-bold">#ORD-1092</span>
+<span class="text-text-muted font-body-sm text-body-sm flex items-center gap-0.5">
+<span class="material-symbols-outlined text-label-md">schedule</span> 09:14 AM (3m ago)
+              </span>
+</div>
+<!-- Status Badge: Pending -->
+<span class="px-2.5 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-label-md">pending</span>
+              Pending
+            </span>
+</div>
+<div class="flex items-center justify-between text-body-md font-body-md text-espresso-dark mb-3">
+<span class="font-medium line-clamp-1 text-on-surface">2x Spanish Latte, 1x Uji Matcha Espresso</span>
+<span class="font-currency-display text-currency-display text-espresso-dark shrink-0 ml-2">₱320.00</span>
+</div>
+<div class="flex flex-wrap items-center justify-between pt-2 bg-surface-container-low/60 rounded-lg px-space-sm py-1.5 gap-2">
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm text-text-muted uppercase">Method:</span>
+<span class="px-2 py-0.5 rounded bg-surface text-espresso-dark font-label-sm text-label-sm font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-label-md text-matcha-green">payments</span> Cash Counter
+              </span>
+</div>
+<div class="flex items-center gap-1 text-warning-amber font-label-sm text-label-sm font-bold">
+<span class="material-symbols-outlined text-label-md animate-pulse">hourglass_top</span>
+<span>Awaiting Cash Tender</span>
+</div>
+</div>
+</div>
+<!-- Ticket 2 (PAID) -->
+<div class="order-queue-card cursor-pointer rounded-xl p-space-md transition-all shadow-sm bg-surface-container-lowest hover:bg-surface-container-low" id="ticket-card-1091" onclick="selectOrder('1091')">
+<div class="flex items-start justify-between gap-space-sm mb-2">
+<div class="flex items-center gap-space-sm">
+<span class="font-headline-sm text-headline-sm text-espresso-dark font-bold">#ORD-1091</span>
+<span class="text-text-muted font-body-sm text-body-sm flex items-center gap-0.5">
+<span class="material-symbols-outlined text-label-md">schedule</span> 09:08 AM (9m ago)
+              </span>
+</div>
+<!-- Status Badge: Paid -->
+<span class="px-2.5 py-1 rounded-full bg-caramel-gold/30 text-espresso-dark font-label-sm text-label-sm font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-label-md text-espresso-dark">check_circle</span>
+              Paid
+            </span>
+</div>
+<div class="flex items-center justify-between text-body-md font-body-md text-espresso-dark mb-3">
+<span class="font-medium line-clamp-1 text-on-surface">1x Sea Salt Cold Brew, 1x Butter Croissant</span>
+<span class="font-currency-display text-currency-display text-espresso-dark shrink-0 ml-2">₱245.00</span>
+</div>
+<div class="flex flex-wrap items-center justify-between pt-2 bg-surface-container-low/60 rounded-lg px-space-sm py-1.5 gap-2">
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm text-text-muted uppercase">Method:</span>
+<span class="px-2 py-0.5 rounded bg-surface text-espresso-dark font-label-sm text-label-sm font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-label-md text-primary">qr_code_2</span> GCash QR
+              </span>
+</div>
+<div class="flex items-center gap-1 text-matcha-green font-label-sm text-label-sm font-bold">
+<span class="material-symbols-outlined text-label-md">verified</span>
+<span>Settled (Ref #GC-9018)</span>
+</div>
+</div>
+</div>
+<!-- Ticket 3 (PREPARING) -->
+<div class="order-queue-card cursor-pointer rounded-xl p-space-md transition-all shadow-sm bg-surface-container-lowest hover:bg-surface-container-low" id="ticket-card-1090" onclick="selectOrder('1090')">
+<div class="flex items-start justify-between gap-space-sm mb-2">
+<div class="flex items-center gap-space-sm">
+<span class="font-headline-sm text-headline-sm text-espresso-dark font-bold">#ORD-1090</span>
+<span class="text-text-muted font-body-sm text-body-sm flex items-center gap-0.5">
+<span class="material-symbols-outlined text-label-md">schedule</span> 08:59 AM (18m ago)
+              </span>
+</div>
+<!-- Status Badge: Preparing -->
+<span class="px-2.5 py-1 rounded-full bg-secondary-fixed text-espresso-dark font-label-sm text-label-sm font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-label-md text-warning-amber">skillet</span>
+              Preparing
+            </span>
+</div>
+<div class="flex items-center justify-between text-body-md font-body-md text-espresso-dark mb-3">
+<span class="font-medium line-clamp-1 text-on-surface">3x Brown Sugar Boba Espresso, 2x Choco Muffin</span>
+<span class="font-currency-display text-currency-display text-espresso-dark shrink-0 ml-2">₱580.00</span>
+</div>
+<div class="flex flex-wrap items-center justify-between pt-2 bg-surface-container-low/60 rounded-lg px-space-sm py-1.5 gap-2">
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm text-text-muted uppercase">Method:</span>
+<span class="px-2 py-0.5 rounded bg-surface text-espresso-dark font-label-sm text-label-sm font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-label-md text-espresso-dark">credit_card</span> Credit Card
+              </span>
+</div>
+<div class="flex items-center gap-1 text-espresso-dark font-label-sm text-label-sm font-bold">
+<span class="material-symbols-outlined text-label-md text-warning-amber">local_cafe</span>
+<span>Barista Barista Bar active</span>
+</div>
+</div>
+</div>
+<!-- Ticket 4 (COMPLETED) -->
+<div class="order-queue-card cursor-pointer rounded-xl p-space-md transition-all shadow-sm bg-surface-container-lowest hover:bg-surface-container-low opacity-80" id="ticket-card-1089" onclick="selectOrder('1089')">
+<div class="flex items-start justify-between gap-space-sm mb-2">
+<div class="flex items-center gap-space-sm">
+<span class="font-headline-sm text-headline-sm text-text-muted font-bold line-through">#ORD-1089</span>
+<span class="text-text-muted font-body-sm text-body-sm flex items-center gap-0.5">
+<span class="material-symbols-outlined text-label-md">check</span> 08:42 AM
+              </span>
+</div>
+<!-- Status Badge: Completed -->
+<span class="px-2.5 py-1 rounded-full bg-matcha-green/20 text-matcha-green font-label-sm text-label-sm font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-label-md">task_alt</span>
+              Completed
+            </span>
+</div>
+<div class="flex items-center justify-between text-body-md font-body-md text-text-muted mb-3">
+<span class="line-clamp-1">1x Americano (Iced), 1x Cinnamon Roll</span>
+<span class="font-currency-display text-currency-display text-espresso-dark shrink-0 ml-2">₱195.00</span>
+</div>
+<div class="flex flex-wrap items-center justify-between pt-2 bg-surface-container-low/40 rounded-lg px-space-sm py-1.5 gap-2">
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm text-text-muted uppercase">Method:</span>
+<span class="px-2 py-0.5 rounded bg-surface text-text-muted font-label-sm text-label-sm font-semibold">Cash</span>
+</div>
+<span class="font-label-sm text-label-sm text-matcha-green font-bold">Picked Up at Counter</span>
+</div>
+</div>
+</div>
+<!-- Queue Footer Disclaimer -->
+<div class="p-space-sm bg-surface-container-low rounded-lg text-center font-label-sm text-label-sm text-text-muted">
+        Prototype data (fictional) • Synchronized with Local POS SQLite Runtime • Auto-refreshing 5s
+      </div>
+</section>
+<!-- RIGHT PANE: Selected Order Details & Progressive Step Control (5 Cols on XL) -->
+<aside class="xl:col-span-5 sticky top-20 flex flex-col gap-space-md">
+<div class="bg-surface-container-lowest rounded-xl shadow-md p-space-lg flex flex-col" id="ticket-inspect-panel">
+<!-- Header: Ticket ID & Time -->
+<div class="flex items-start justify-between pb-space-md mb-space-md bg-surface-container-low -mx-space-lg -mt-space-lg p-space-lg rounded-t-xl">
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm text-caramel-gold uppercase tracking-wider font-bold">Counter Ticket</span>
+<span class="px-2 py-0.5 rounded bg-espresso-dark text-caramel-gold font-label-sm text-label-sm font-bold">Dine-In #04</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-espresso-dark tracking-tight mt-1" id="inspect-title">#ORD-1092</h2>
+<span class="font-body-sm text-body-sm text-text-muted mt-0.5" id="inspect-time">Placed at 09:14:22 AM • Counter Register #1</span>
+</div>
+<div id="inspect-badge-container">
+<span class="px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-bold flex items-center gap-1.5 shadow-sm">
+<span class="material-symbols-outlined text-title-sm">pending</span>
+              Pending
+            </span>
+</div>
+</div>
+<!-- Itemized Breakdown with Modifiers -->
+<div class="flex flex-col gap-space-sm mb-space-md">
+<span class="font-label-sm text-label-sm text-text-muted uppercase tracking-wider font-bold">Order Items Breakdown</span>
+<div class="flex flex-col gap-2.5" id="inspect-items-list">
+<!-- Item 1 -->
+<div class="p-space-sm rounded-lg bg-surface-container-low/70 flex flex-col gap-1">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-2">
+<span class="w-6 h-6 rounded-md bg-espresso-dark text-surface font-label-md text-label-md font-bold flex items-center justify-center shrink-0">2x</span>
+<span class="font-title-sm text-title-sm text-espresso-dark font-bold">Spanish Latte (16oz)</span>
+</div>
+<span class="font-currency-display text-body-lg text-espresso-dark font-bold">₱220.00</span>
+</div>
+<div class="pl-8 flex flex-col text-body-sm font-body-sm text-text-muted">
+<span>• Oat Milk Sub (+₱20/ea)</span>
+<span>• Sweetness: 50% Less Sweet</span>
+<span>• Serving: Extra Cold • Cube Ice</span>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="p-space-sm rounded-lg bg-surface-container-low/70 flex flex-col gap-1">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-2">
+<span class="w-6 h-6 rounded-md bg-espresso-dark text-surface font-label-md text-label-md font-bold flex items-center justify-center shrink-0">1x</span>
+<span class="font-title-sm text-title-sm text-espresso-dark font-bold">Uji Matcha Espresso</span>
+</div>
+<span class="font-currency-display text-body-lg text-espresso-dark font-bold">₱100.00</span>
+</div>
+<div class="pl-8 flex flex-col text-body-sm font-body-sm text-text-muted">
+<span>• Standard Full Cream Dairy</span>
+<span>• Sweetness: Regular 100%</span>
+<span>• Shot: Double Barista Blend</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Financial Summary & Separate Payment Information -->
+<div class="p-space-md bg-surface-container rounded-xl flex flex-col gap-2 mb-space-lg">
+<div class="flex items-center justify-between text-body-sm font-body-sm text-text-muted">
+<span>Subtotal (3 items)</span>
+<span>₱300.00</span>
+</div>
+<div class="flex items-center justify-between text-body-sm font-body-sm text-text-muted">
+<span>Add-on Oat Milk adjustments</span>
+<span>₱20.00</span>
+</div>
+<div class="flex items-center justify-between text-body-sm font-body-sm text-text-muted">
+<span>VAT (12% Included)</span>
+<span>₱34.29</span>
+</div>
+<div class="h-px bg-surface-dim my-1"></div>
+<div class="flex items-center justify-between">
+<span class="font-title-md text-title-md text-espresso-dark font-bold">Payable Total</span>
+<span class="font-headline-md text-headline-md text-espresso-dark font-bold" id="inspect-total">₱320.00</span>
+</div>
+<!-- Strict Visually Separate Payment Info block -->
+<div class="mt-space-sm pt-space-sm bg-surface-container-lowest p-space-sm rounded-lg flex items-center justify-between gap-2 shadow-inner">
+<div class="flex items-center gap-2 min-w-0">
+<div class="w-8 h-8 rounded-full bg-caramel-gold/20 flex items-center justify-center shrink-0 text-espresso-dark">
+<span class="material-symbols-outlined text-title-sm" id="inspect-paymethod-icon">payments</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-sm text-label-sm text-text-muted uppercase">Payment Tender</span>
+<span class="font-label-lg text-label-lg text-espresso-dark font-bold truncate" id="inspect-paymethod">Cash (Counter Tender)</span>
+</div>
+</div>
+<div class="px-2.5 py-1 rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-bold shrink-0" id="inspect-paystatus">
+              Awaiting Verification
+            </div>
+</div>
+</div>
+<!-- FORWARD-ONLY PROGRESSION CONTROLLER (One definitive action only) -->
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-sm text-label-sm text-text-muted uppercase tracking-wider font-bold">Single-Action Workflow Step</span>
+<div id="inspect-action-container">
+<!-- Currently for Pending Order 1092 -->
+<button class="w-full py-3.5 px-space-md rounded-lg bg-primary-container text-on-primary hover:bg-espresso-dark font-title-sm text-title-sm transition-all shadow-md flex items-center justify-center gap-2" id="workflow-action-btn" onclick="triggerWorkflowAction()" type="button">
+<span class="material-symbols-outlined text-title-md text-caramel-gold">price_check</span>
+<span>Mark as Paid</span>
+</button>
+</div>
+<p class="font-body-sm text-body-sm text-text-muted text-center mt-1" id="inspect-action-hint">
+            Accepting ₱320.00 cash tender will verify and push ticket to Barista Prep Queue.
+          </p>
+</div>
+</div>
+</aside>
+</div>
+<!-- MODAL 1: Payment Settlement Confirmation (Triggered on 'Mark as Paid') -->
+<div class="fixed inset-0 z-50 bg-espresso-dark/60 backdrop-blur-sm hidden flex items-center justify-center p-space-md" id="payment-modal">
+<div class="bg-surface-container-lowest rounded-xl shadow-2xl max-w-md w-full p-space-lg flex flex-col gap-space-md transform transition-all">
+<div class="flex items-center justify-between pb-space-sm bg-surface-container-low -mx-space-lg -mt-space-lg p-space-lg rounded-t-xl">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-full bg-caramel-gold/30 text-espresso-dark flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-headline-sm">point_of_sale</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-espresso-dark font-bold">Confirm Payment Tender</h3>
+<span class="font-label-sm text-label-sm text-text-muted">Register 01 • Immediate Settlement</span>
+</div>
+</div>
+<button class="text-text-muted hover:text-espresso-dark p-1 rounded-md" onclick="closePaymentModal()" type="button">
+<span class="material-symbols-outlined text-title-sm">close</span>
+</button>
+</div>
+<div class="p-space-md bg-surface-container rounded-xl flex flex-col gap-2 text-center">
+<span class="font-label-sm text-label-sm text-text-muted uppercase tracking-wider font-semibold">Tender Amount to Verify</span>
+<span class="font-headline-xl text-headline-xl text-espresso-dark font-bold" id="modal-amount-display">₱320.00</span>
+<span class="font-body-sm text-body-sm text-text-muted">Order Reference: <strong class="text-espresso-dark font-bold" id="modal-order-ref">#ORD-1092</strong></span>
+</div>
+<div class="space-y-2 text-body-sm font-body-sm text-text-muted">
+<label class="flex items-center gap-2 p-2 rounded-lg bg-surface-container-low cursor-pointer">
+<input checked="" class="accent-caramel-gold w-4 h-4 rounded" type="checkbox">
+<span class="text-espresso-dark font-medium">Cash bills verified in drawer float</span>
+</label>
+<p class="text-body-sm font-body-sm text-text-muted px-1">
+          Once confirmed, this order status advances to <strong class="text-espresso-dark font-bold">Paid</strong> and alerts the coffee preparation counter.
+        </p>
+</div>
+<div class="flex items-center gap-space-sm pt-space-xs">
+<button class="flex-1 py-2.5 px-space-md rounded-lg bg-surface-container text-espresso-dark hover:bg-surface-container-high font-label-lg text-label-lg transition-colors" onclick="closePaymentModal()" type="button">
+          Cancel
+        </button>
+<button class="flex-1 py-2.5 px-space-md rounded-lg bg-primary-container text-surface hover:bg-espresso-dark font-label-lg text-label-lg transition-colors shadow-sm flex items-center justify-center gap-1.5" onclick="confirmPaymentAndProgress()" type="button">
+<span class="material-symbols-outlined text-title-sm text-caramel-gold">check_circle</span>
+<span>Confirm &amp; Mark as Paid</span>
+</button>
+</div>
+<div class="text-center font-label-sm text-label-sm text-text-muted">
+        Prototype data (fictional)
+      </div>
+</div>
+</div>
+<!-- MODAL 2: End Shift Confirmation Modal -->
+<div class="fixed inset-0 z-50 bg-espresso-dark/60 backdrop-blur-sm hidden flex items-center justify-center p-space-md" id="end-shift-modal">
+<div class="bg-surface-container-lowest rounded-xl shadow-2xl max-w-md w-full p-space-lg flex flex-col gap-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-full bg-accessible-red/20 text-accessible-red flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-headline-sm">warning</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-espresso-dark font-bold">Close Out Active Shift?</h3>
+<span class="font-label-sm text-label-sm text-text-muted">Session #104 • Morning Counter</span>
+</div>
+</div>
+<p class="font-body-md text-body-md text-text-muted">
+        Are you sure you want to end Shift #104? There is currently <strong class="text-espresso-dark">1 Pending</strong> and <strong class="text-espresso-dark">1 Preparing</strong> order in the active station queue.
+      </p>
+<div class="p-space-sm rounded-lg bg-surface-container-low text-body-sm font-body-sm text-espresso-dark flex flex-col gap-1">
+<div class="flex justify-between">
+<span class="text-text-muted">Logged Cash Float:</span>
+<span class="font-bold">₱3,000.00</span>
+</div>
+<div class="flex justify-between">
+<span class="text-text-muted">Total Shift Gross (Session):</span>
+<span class="font-bold">₱1,340.00</span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm pt-space-xs">
+<button class="flex-1 py-2 px-space-md rounded-lg bg-surface-container text-espresso-dark hover:bg-surface-container-high font-label-lg text-label-lg transition-colors" onclick="document.getElementById('end-shift-modal').classList.add('hidden')" type="button">
+          Stay on Floor
+        </button>
+<button class="flex-1 py-2 px-space-md rounded-lg bg-accessible-red text-on-error hover:bg-error font-label-lg text-label-lg transition-colors shadow-sm" onclick="finalizeEndShift()" type="button">
+          Confirm End Shift
+        </button>
+</div>
+<div class="text-center font-label-sm text-label-sm text-text-muted">
+        Prototype data (fictional)
+      </div>
+</div>
+</div>
+</div>
+<!-- Vanilla Interactive POS Controller -->
+<script>
+  // Prototype Orders Data Store
+  const ordersDatabase = {
+    '1092': {
+      ref: '#ORD-1092',
+      time: 'Placed at 09:14:22 AM • Counter Register #1',
+      status: 'pending',
+      statusLabel: 'Pending',
+      statusIcon: 'pending',
+      badgeClass: 'bg-secondary-container text-on-secondary-container',
+      method: 'Cash (Counter Tender)',
+      methodIcon: 'payments',
+      paymentStatus: 'Awaiting Verification',
+      paymentClass: 'bg-secondary-container text-on-secondary-container',
+      total: '₱320.00',
+      actionText: 'Mark as Paid',
+      actionIcon: 'price_check',
+      actionHint: 'Accepting ₱320.00 cash tender will verify and push ticket to Barista Prep Queue.',
+      items: [
+        { qty: '2x', name: 'Spanish Latte (16oz)', price: '₱220.00', mods: ['• Oat Milk Sub (+₱20/ea)', '• Sweetness: 50% Less Sweet', '• Serving: Extra Cold • Cube Ice'] },
+        { qty: '1x', name: 'Uji Matcha Espresso', price: '₱100.00', mods: ['• Standard Full Cream Dairy', '• Sweetness: Regular 100%', '• Shot: Double Barista Blend'] }
+      ]
+    },
+    '1091': {
+      ref: '#ORD-1091',
+      time: 'Placed at 09:08:15 AM • GCash Online QR',
+      status: 'paid',
+      statusLabel: 'Paid',
+      statusIcon: 'check_circle',
+      badgeClass: 'bg-caramel-gold/30 text-espresso-dark',
+      method: 'GCash QR Transfer',
+      methodIcon: 'qr_code_2',
+      paymentStatus: 'Verified (Ref #GC-9018)',
+      paymentClass: 'bg-matcha-green/20 text-matcha-green',
+      total: '₱245.00',
+      actionText: 'Start Preparing',
+      actionIcon: 'skillet',
+      actionHint: 'Payment is confirmed. Tap to notify baristas to commence drink extraction and plating.',
+      items: [
+        { qty: '1x', name: 'Sea Salt Cold Brew', price: '₱150.00', mods: ['• Cold Foam Layered', '• Vanilla Syrup (1 Pump)'] },
+        { qty: '1x', name: 'Butter Croissant (Warmed)', price: '₱95.00', mods: ['• Toast Level: Golden Brown', '• Butter & Jam Pack'] }
+      ]
+    },
+    '1090': {
+      ref: '#ORD-1090',
+      time: 'Placed at 08:59:44 AM • Card Terminal #2',
+      status: 'preparing',
+      statusLabel: 'Preparing',
+      statusIcon: 'skillet',
+      badgeClass: 'bg-secondary-fixed text-espresso-dark',
+      method: 'MasterCard / Visa Tap',
+      methodIcon: 'credit_card',
+      paymentStatus: 'Authorized & Settled',
+      paymentClass: 'bg-matcha-green/20 text-matcha-green',
+      total: '₱580.00',
+      actionText: 'Mark as Completed',
+      actionIcon: 'task_alt',
+      actionHint: 'Beverages and pastries are assembled on tray. Tap to finish ticket.',
+      items: [
+        { qty: '3x', name: 'Brown Sugar Boba Espresso', price: '₱420.00', mods: ['• Warm Boba pearls', '• Half Sugar'] },
+        { qty: '2x', name: 'Artisan Choco Muffin', price: '₱160.00', mods: ['• Preheated', '• Paper cup liner'] }
+      ]
+    },
+    '1089': {
+      ref: '#ORD-1089',
+      time: 'Placed at 08:42:00 AM • Completed 08:49 AM',
+      status: 'completed',
+      statusLabel: 'Completed',
+      statusIcon: 'task_alt',
+      badgeClass: 'bg-matcha-green/20 text-matcha-green',
+      method: 'Cash (Counter Tender)',
+      methodIcon: 'payments',
+      paymentStatus: 'Closed & Archived',
+      paymentClass: 'bg-matcha-green/20 text-matcha-green',
+      total: '₱195.00',
+      actionText: 'Order Completed - No further actions',
+      actionIcon: 'done_all',
+      actionHint: 'This ticket is finalized and cleared from active floor workflow.',
+      items: [
+        { qty: '1x', name: 'Americano (Iced 16oz)', price: '₱110.00', mods: ['• Extra Ice', '• Sugar syrup on side'] },
+        { qty: '1x', name: 'Cinnamon Roll', price: '₱85.00', mods: ['• Cream Cheese Glaze'] }
+      ]
+    }
+  };
+
+  let currentlySelectedId = '1092';
+
+  function selectOrder(orderId) {
+    const order = ordersDatabase[orderId];
+    if (!order) return;
+    currentlySelectedId = orderId;
+
+    // Highlight selected card visually
+    document.querySelectorAll('.order-queue-card').forEach(card => {
+      card.classList.remove('bg-gradient-to-r', 'from-caramel-gold/15', 'via-transparent', 'to-transparent', 'shadow-md');
+      card.classList.add('bg-surface-container-lowest');
+    });
+
+    const activeCard = document.getElementById(`ticket-card-${orderId}`);
+    if (activeCard) {
+      activeCard.classList.add('bg-gradient-to-r', 'from-caramel-gold/15', 'via-transparent', 'to-transparent', 'shadow-md');
+    }
+
+    // Update Right Detail Panel
+    document.getElementById('inspect-title').textContent = order.ref;
+    document.getElementById('inspect-time').textContent = order.time;
+    document.getElementById('inspect-total').textContent = order.total;
+    document.getElementById('inspect-paymethod').textContent = order.method;
+    document.getElementById('inspect-paymethod-icon').textContent = order.methodIcon;
+    
+    // Status Badge
+    const badgeContainer = document.getElementById('inspect-badge-container');
+    badgeContainer.innerHTML = `
+      <span class="px-3 py-1 rounded-full ${order.badgeClass} font-label-sm text-label-sm font-bold flex items-center gap-1.5 shadow-sm">
+        <span class="material-symbols-outlined text-title-sm">${order.statusIcon}</span>
+        ${order.statusLabel}
+      </span>
+    `;
+
+    // Payment Status badge
+    const payStatusEl = document.getElementById('inspect-paystatus');
+    payStatusEl.textContent = order.paymentStatus;
+    payStatusEl.className = `px-2.5 py-1 rounded font-label-sm text-label-sm font-bold shrink-0 ${order.paymentClass}`;
+
+    // Itemized list
+    const itemsList = document.getElementById('inspect-items-list');
+    itemsList.innerHTML = order.items.map(it => `
+      <div class="p-space-sm rounded-lg bg-surface-container-low/70 flex flex-col gap-1">
+        <div class="flex items-start justify-between">
+          <div class="flex items-center gap-2">
+            <span class="w-6 h-6 rounded-md bg-espresso-dark text-surface font-label-md text-label-md font-bold flex items-center justify-center shrink-0">${it.qty}</span>
+            <span class="font-title-sm text-title-sm text-espresso-dark font-bold">${it.name}</span>
+          </div>
+          <span class="font-currency-display text-body-lg text-espresso-dark font-bold">${it.price}</span>
+        </div>
+        <div class="pl-8 flex flex-col text-body-sm font-body-sm text-text-muted">
+          ${it.mods.map(m => `<span>${m}</span>`).join('')}
+        </div>
+      </div>
+    `).join('');
+
+    // Forward-only Action Button Rendering
+    const actionContainer = document.getElementById('inspect-action-container');
+    const hintEl = document.getElementById('inspect-action-hint');
+    hintEl.textContent = order.actionHint;
+
+    if (order.status === 'completed') {
+      actionContainer.innerHTML = `
+        <button disabled type="button" class="w-full py-3.5 px-space-md rounded-lg bg-card-bg-disabled text-text-muted font-title-sm text-title-sm cursor-not-allowed flex items-center justify-center gap-2">
+          <span class="material-symbols-outlined text-title-md">done_all</span>
+          <span>Order Completed - No further actions</span>
+        </button>
+      `;
+    } else {
+      actionContainer.innerHTML = `
+        <button id="workflow-action-btn" type="button" onclick="triggerWorkflowAction()" class="w-full py-3.5 px-space-md rounded-lg bg-primary-container text-on-primary hover:bg-espresso-dark font-title-sm text-title-sm transition-all shadow-md flex items-center justify-center gap-2">
+          <span class="material-symbols-outlined text-title-md text-caramel-gold">${order.actionIcon}</span>
+          <span>${order.actionText}</span>
+        </button>
+      `;
+    }
+  }
+
+  function triggerWorkflowAction() {
+    const order = ordersDatabase[currentlySelectedId];
+    if (!order) return;
+
+    if (order.status === 'pending') {
+      // Trigger confirmation dialog modal
+      document.getElementById('modal-order-ref').textContent = order.ref;
+      document.getElementById('modal-amount-display').textContent = order.total;
+      document.getElementById('payment-modal').classList.remove('hidden');
+    } else if (order.status === 'paid') {
+      // Advance to Preparing
+      advanceOrderStatus(currentlySelectedId, 'preparing');
+    } else if (order.status === 'preparing') {
+      // Advance to Completed
+      advanceOrderStatus(currentlySelectedId, 'completed');
+    }
+  }
+
+  function closePaymentModal() {
+    document.getElementById('payment-modal').classList.add('hidden');
+  }
+
+  function confirmPaymentAndProgress() {
+    closePaymentModal();
+    advanceOrderStatus(currentlySelectedId, 'paid');
+  }
+
+  function advanceOrderStatus(orderId, newStatus) {
+    const order = ordersDatabase[orderId];
+    if (!order) return;
+
+    if (newStatus === 'paid') {
+      order.status = 'paid';
+      order.statusLabel = 'Paid';
+      order.statusIcon = 'check_circle';
+      order.badgeClass = 'bg-caramel-gold/30 text-espresso-dark';
+      order.paymentStatus = 'Verified (Paid at Register)';
+      order.paymentClass = 'bg-matcha-green/20 text-matcha-green';
+      order.actionText = 'Start Preparing';
+      order.actionIcon = 'skillet';
+      order.actionHint = 'Payment verified in cash float. Tap to initiate espresso grinding and steam prep.';
+    } else if (newStatus === 'preparing') {
+      order.status = 'preparing';
+      order.statusLabel = 'Preparing';
+      order.statusIcon = 'skillet';
+      order.badgeClass = 'bg-secondary-fixed text-espresso-dark';
+      order.actionText = 'Mark as Completed';
+      order.actionIcon = 'task_alt';
+      order.actionHint = 'Baristas are finishing beverage assembly. Tap when placed at pickup counter.';
+    } else if (newStatus === 'completed') {
+      order.status = 'completed';
+      order.statusLabel = 'Completed';
+      order.statusIcon = 'task_alt';
+      order.badgeClass = 'bg-matcha-green/20 text-matcha-green';
+      order.actionText = 'Order Completed - No further actions';
+      order.actionIcon = 'done_all';
+      order.actionHint = 'Order finished and handed over to customer.';
+    }
+
+    // Re-render UI for selected order
+    selectOrder(orderId);
+  }
+
+  function filterQueue(status) {
+    // Update active tab buttons
+    document.querySelectorAll('.queue-tab-btn').forEach(btn => {
+      if (btn.getAttribute('data-filter') === status) {
+        btn.className = 'queue-tab-btn px-3 py-1 rounded-md text-label-sm font-label-sm bg-primary-container text-caramel-gold shadow-sm whitespace-nowrap';
+      } else {
+        btn.className = 'queue-tab-btn px-3 py-1 rounded-md text-label-sm font-label-sm bg-surface-container-low text-text-muted hover:text-espresso-dark whitespace-nowrap flex items-center gap-1';
+      }
+    });
+
+    // Toggle card visibility in the left list
+    Object.keys(ordersDatabase).forEach(id => {
+      const card = document.getElementById(`ticket-card-${id}`);
+      if (!card) return;
+      if (status === 'all' || ordersDatabase[id].status === status) {
+        card.style.display = 'block';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+
+  function finalizeEndShift() {
+    document.getElementById('end-shift-modal').classList.add('hidden');
+    alert('Shift #104 has been closed successfully. Cash float drawer locked. (Prototype data)');
+  }
+
+  // Quick live search filtering
+  document.getElementById('order-search').addEventListener('input', function(e) {
+    const q = e.target.value.toLowerCase();
+    Object.keys(ordersDatabase).forEach(id => {
+      const card = document.getElementById(`ticket-card-${id}`);
+      const order = ordersDatabase[id];
+      if (!card) return;
+      const match = order.ref.toLowerCase().includes(q) || 
+                    order.items.some(i => i.name.toLowerCase().includes(q));
+      card.style.display = match ? 'block' : 'none';
+    });
+  });
+</script></main></div></body></html>

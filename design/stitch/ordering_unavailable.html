@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Domine:wght@600;700&amp;family=Plus+Jakarta+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "caramel-gold": "#D9B77E",
+          "on-primary-fixed-variant": "#603f32",
+          "border-neutral": "#E5D8C3",
+          "secondary-fixed-dim": "#d2c5a9",
+          "primary-fixed": "#ffdbce",
+          "warning-amber": "#C47B27",
+          "on-secondary-fixed": "#211b08",
+          "card-bg-disabled": "#F3EFEA",
+          "on-secondary": "#ffffff",
+          "surface-tint": "#7b5648",
+          "on-tertiary-fixed-variant": "#5a4315",
+          "on-primary-container": "#ae8474",
+          "on-background": "#1c1c18",
+          "primary-container": "#3b1f14",
+          "on-error-container": "#93000a",
+          "outline": "#83746f",
+          "surface-dim": "#dcdad4",
+          "error-container": "#ffdad6",
+          "surface-bright": "#fcf9f3",
+          "tertiary-container": "#352300",
+          "accessible-red": "#C93B2B",
+          "on-surface": "#1c1c18",
+          "surface-container": "#f0eee8",
+          "surface": "#fcf9f3",
+          "surface-container-low": "#f6f3ed",
+          "matcha-green": "#78945B",
+          "tertiary": "#1a1000",
+          "tertiary-fixed-dim": "#e4c288",
+          "primary": "#220b03",
+          "on-primary": "#ffffff",
+          "on-primary-fixed": "#2e150a",
+          "inverse-surface": "#31312d",
+          "inverse-on-surface": "#f3f0eb",
+          "on-secondary-fixed-variant": "#4f4630",
+          "on-tertiary-container": "#a78954",
+          "secondary-container": "#efe1c3",
+          "tertiary-fixed": "#ffdea9",
+          "outline-variant": "#d5c3bd",
+          "surface-container-high": "#ebe8e2",
+          "inverse-primary": "#ecbcab",
+          "on-tertiary-fixed": "#271900",
+          "on-secondary-container": "#6d634c",
+          "secondary-fixed": "#efe1c3",
+          "on-surface-variant": "#504440",
+          "surface-container-lowest": "#ffffff",
+          "primary-fixed-dim": "#ecbcab",
+          "on-error": "#ffffff",
+          "surface-variant": "#e5e2dc",
+          "espresso-dark": "#29221D",
+          "error": "#ba1a1a",
+          "surface-container-highest": "#e5e2dc",
+          "on-tertiary": "#ffffff",
+          "secondary": "#675e46",
+          "text-muted": "#74685E",
+          "background": "#fcf9f3"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.25rem",
+          "lg": "0.5rem",
+          "xl": "0.75rem",
+          "full": "9999px"
+        },
+        "spacing": {
+          "margin": "1rem",
+          "space-xl": "2rem",
+          "space-md": "1rem",
+          "space-xs": "0.25rem",
+          "margin-desktop": "2rem",
+          "gutter": "1.25rem",
+          "space-sm": "0.5rem",
+          "space-lg": "1.5rem",
+          "gutter-desktop": "1.5rem"
+        },
+        "fontFamily": {
+          "label-sm": ["Plus Jakarta Sans"],
+          "title-sm": ["Plus Jakarta Sans"],
+          "title-md": ["Plus Jakarta Sans"],
+          "label-md": ["Plus Jakarta Sans"],
+          "headline-lg": ["Domine"],
+          "body-md": ["Plus Jakarta Sans"],
+          "headline-md": ["Domine"],
+          "body-sm": ["Plus Jakarta Sans"],
+          "headline-sm": ["Domine"],
+          "headline-lg-mobile": ["Domine"],
+          "headline-xl": ["Domine"],
+          "currency-display": ["Plus Jakarta Sans"],
+          "label-lg": ["Plus Jakarta Sans"],
+          "body-lg": ["Plus Jakarta Sans"]
+        },
+        "fontSize": {
+          "label-sm": ["11px", {"lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "700"}],
+          "title-sm": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+          "title-md": ["18px", {"lineHeight": "26px", "fontWeight": "600"}],
+          "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+          "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+          "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+          "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+          "body-sm": ["12px", {"lineHeight": "18px", "fontWeight": "400"}],
+          "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+          "headline-lg-mobile": ["26px", {"lineHeight": "34px", "fontWeight": "700"}],
+          "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+          "currency-display": ["22px", {"lineHeight": "28px", "fontWeight": "700"}],
+          "label-lg": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+          "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+        }
+      }
+    }
+  }</script></head><body class="bg-background font-body-md text-body-md text-on-surface antialiased"><header class="fixed top-0 left-0 right-0 z-40 bg-surface/90 backdrop-blur-md shadow-[0_1px_8px_rgba(41,34,29,0.06)]"><div class="h-20 max-w-[1280px] mx-auto px-margin-desktop flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md"><a class="flex items-center gap-space-sm group" data-path="home" href="#"><div class="w-11 h-11 rounded-full p-0.5 bg-caramel-gold/30 flex items-center justify-center"><div class="w-full h-full rounded-full overflow-hidden bg-primary-container flex items-center justify-center text-on-primary font-headline-sm text-headline-sm"><span class="text-caramel-gold font-headline-md text-headline-md">K</span></div></div><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-espresso-dark group-hover:text-primary transition-colors tracking-tight">M&amp;E Kape Cup</span><span class="font-label-sm text-label-sm text-text-muted tracking-wider uppercase">Artisanal Brew &amp; Comforts</span></div></a></div><nav class="hidden md:flex items-center gap-space-sm" data-active-classes="bg-secondary-container text-on-secondary-container font-bold rounded-lg shadow-sm"><a class="px-space-md py-space-xs font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors" data-path="home" href="#">Home</a><a class="px-space-md py-space-xs font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors" data-path="menu" href="#">Menu</a><a class="px-space-md py-space-xs font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors" data-path="order-status" href="#">Order Status</a><a aria-current="page" class="px-space-md py-space-xs transition-colors bg-secondary-container text-on-secondary-container font-bold rounded-lg shadow-sm" data-path="ordering-unavailable" href="#">Ordering Notice</a></nav><div class="flex items-center gap-space-md"><a class="relative flex items-center justify-center w-11 h-11 rounded-full bg-surface-container-high text-espresso-dark hover:bg-caramel-gold/20 hover:text-primary transition-colors" data-path="cart-drawer" href="#"><span class="material-symbols-outlined text-title-md">shopping_bag</span><span class="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-accessible-red text-on-error font-label-sm text-label-sm flex items-center justify-center font-bold">3</span></a><div class="flex items-center gap-space-xs pl-space-xs"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1WZ_qdg9H9b9Cse68XLjaKwt9slfnT8EbJGjWsOqdyPVCLUzqBOieqLlDAg_omVx0gsSxDTfU7ERbEfh7l7Sya73DGI9GKmoOcd62EO4D3_TENWjkuvLPbNAYUa0AhuQ755k0rqhrL_AW3iHgwzhqr9g6Sg-5PnlwVTmHGB7J6x_bcfRFFU5gZ6Aa2MJMmwFKx607ZPNFiy4l0MMkeSFAmL5axHYAJS2xEEBZDWOj_idHEB_NCE54e0VbikGtjVlgnTeICP7YiLHA"/></div></div></div></header><main class="w-full pt-20 bg-background min-h-screen"><div class="flex flex-col w-full">
+<!-- Notice Pill / Mode Tracker Bar -->
+<section class="w-full bg-surface-container-high py-2.5 px-margin-desktop shadow-sm">
+<div class="max-w-[1280px] mx-auto flex flex-wrap items-center justify-between gap-space-sm text-text-muted font-label-sm text-label-sm">
+<div class="flex items-center gap-space-xs">
+<span class="inline-flex w-2 h-2 rounded-full bg-warning-amber animate-pulse"></span>
+<span class="tracking-wider uppercase font-bold text-espresso-dark">Browsing Menu Only</span>
+<span class="text-text-muted/60">•</span>
+<span>Online ticketing channel paused</span>
+</div>
+<div class="flex items-center gap-space-md">
+<span class="bg-surface px-space-xs py-0.5 rounded text-text-muted shadow-sm">Prototype data (fictional)</span>
+<span class="hidden sm:inline-flex items-center gap-1 text-on-surface-variant font-medium">
+<span class="material-symbols-outlined text-sm">storefront</span>
+          Counter Service In-Store
+        </span>
+</div>
+</div>
+</section>
+<!-- Hero Alert Banner -->
+<section class="w-full px-margin md:px-margin-desktop py-space-xl">
+<div class="max-w-[1280px] mx-auto">
+<div class="relative overflow-hidden rounded-xl bg-surface-container-low shadow-md p-space-lg md:p-space-xl">
+<!-- Vintage ornamental background elements -->
+<div class="absolute -right-12 -bottom-12 w-64 h-64 rounded-full bg-secondary-container/40 blur-2xl pointer-events-none"></div>
+<div class="absolute top-0 left-0 w-2 h-full bg-caramel-gold"></div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-center relative z-10">
+<!-- Icon & Status Column -->
+<div class="lg:col-span-8 flex flex-col sm:flex-row items-start sm:items-center gap-space-lg">
+<div class="relative shrink-0">
+<div class="w-20 h-20 rounded-xl bg-secondary-container text-primary-container flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[40px]" style="font-variation-settings: 'FILL' 1;">coffee</span>
+</div>
+<div class="absolute -bottom-2 -right-2 w-8 h-8 rounded-full bg-espresso-dark text-caramel-gold flex items-center justify-center shadow-md">
+<span class="material-symbols-outlined text-title-sm">schedule</span>
+</div>
+</div>
+<div class="flex flex-col gap-space-xs">
+<div class="inline-flex items-center gap-1.5 self-start px-space-xs py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm uppercase tracking-wider">
+<span class="material-symbols-outlined text-[13px]">info</span>
+                Kitchen &amp; Bar Alert
+              </div>
+<h1 class="font-headline-lg text-headline-lg text-espresso-dark tracking-tight">
+                Ordering is temporarily unavailable.
+              </h1>
+<p class="font-body-lg text-body-lg text-text-muted max-w-2xl">
+                We are currently not accepting new orders at this moment. You are welcome to browse our handcrafted menu items. Please check back shortly or visit our counter.
+              </p>
+</div>
+</div>
+<!-- Counter Card Info (Customer-safe: No internal staff IDs or shift schedules) -->
+<div class="lg:col-span-4 bg-surface rounded-xl p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between pb-space-xs">
+<span class="font-label-md text-label-md uppercase tracking-wider text-text-muted">In-Store Status</span>
+<span class="px-space-xs py-0.5 rounded-full bg-secondary-container/60 text-espresso-dark font-label-sm text-label-sm font-semibold">Walk-in Welcome</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Visiting in person? Our physical cafe registers can still fulfill fresh bakes and pour-overs subject to on-site queue availability.
+            </p>
+<div class="flex items-center justify-between pt-space-xs mt-1">
+<div class="flex items-center gap-1.5 text-text-muted font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-sm">schedule</span>
+<span>Real-time Sync Active</span>
+</div>
+<button class="flex items-center gap-1 font-label-sm text-label-sm text-espresso-dark hover:text-caramel-gold transition-colors font-semibold" id="refreshNoticeBtn">
+<span class="material-symbols-outlined text-sm animate-spin-hover">sync</span>
+                Check Again
+              </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Sticky Notification Strip for Cart & Checkout Lock -->
+<div class="w-full bg-surface-container px-margin-desktop py-space-xs shadow-sm sticky top-20 z-30 backdrop-blur-md">
+<div class="max-w-[1280px] mx-auto flex items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-sm text-espresso-dark font-label-md text-label-md">
+<span class="material-symbols-outlined text-warning-amber text-title-sm">lock_clock</span>
+<span>Digital bag checkout is paused. Current selections in cart are saved for your next visit.</span>
+</div>
+<button class="font-label-sm text-label-sm text-text-muted hover:text-espresso-dark underline underline-offset-2 transition-colors" onclick="toggleNoticeModal(true)">
+        Read Policy
+      </button>
+</div>
+</div>
+<!-- Main Browsing Canvas -->
+<section class="w-full px-margin md:px-margin-desktop py-space-lg flex-1">
+<div class="max-w-[1280px] mx-auto flex flex-col gap-space-xl">
+<!-- Category Filter Tabs & Atmosphere Teaser -->
+<div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md pb-space-sm">
+<div>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-text-muted">Artisanal Catalog</span>
+<h2 class="font-headline-md text-headline-md text-espresso-dark mt-0.5">Explore Our Brews &amp; Comforts</h2>
+</div>
+<!-- Filter Pills -->
+<div class="flex items-center gap-space-xs overflow-x-auto w-full md:w-auto pb-1 md:pb-0 scrollbar-none">
+<button class="px-space-md py-space-xs rounded-full bg-espresso-dark text-on-primary font-label-md text-label-md whitespace-nowrap shadow-sm">
+            All Creations
+          </button>
+<button class="px-space-md py-space-xs rounded-full bg-surface-container-high text-on-surface-variant hover:text-espresso-dark font-label-md text-label-md whitespace-nowrap transition-colors">
+            Signature Espresso
+          </button>
+<button class="px-space-md py-space-xs rounded-full bg-surface-container-high text-on-surface-variant hover:text-espresso-dark font-label-md text-label-md whitespace-nowrap transition-colors">
+            Slow Drip &amp; Cold Brew
+          </button>
+<button class="px-space-md py-space-xs rounded-full bg-surface-container-high text-on-surface-variant hover:text-espresso-dark font-label-md text-label-md whitespace-nowrap transition-colors">
+            Matcha &amp; Botanicals
+          </button>
+<button class="px-space-md py-space-xs rounded-full bg-surface-container-high text-on-surface-variant hover:text-espresso-dark font-label-md text-label-md whitespace-nowrap transition-colors">
+            Oven Pastries
+          </button>
+</div>
+</div>
+<!-- Category Section: Signature Espresso -->
+<div class="flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="w-2.5 h-2.5 rounded-full bg-caramel-gold"></span>
+<h3 class="font-headline-sm text-headline-sm text-espresso-dark">Signature Espresso &amp; Lattes</h3>
+</div>
+<span class="font-label-sm text-label-sm text-text-muted">Single-origin roasts &amp; velvety steamed milk</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-lg">
+<!-- Product Card 1 -->
+<div class="group bg-surface rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+<div class="relative">
+<img class="w-full h-48 object-cover group-hover:scale-[1.02] transition-transform duration-300" data-alt="A cup of Spanish Latte with rich microfoam dusted with cinnamon resting on a rustic wooden diner coaster in warm moody natural lighting with coffee beans in background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpro4IgfWPfS9khv5_qgXe5gaFeOqLcFVYEUEtlB6svsyL2_Uxu4PBGokA9plmcGywlF1em_5YCzdCfv91xZ69X2zhB6am_WAeAKYmQCbXfydo9DHdDB_5-V-Op4vc-EsW4lV-mnX3fL7jJlZYsf-hMDftSP_XbJ1cXH87oosVhRxSf7o94fDLTaJ5HfNSoTn8AeLfSM30fKpjJ_-MwWBaCnLYYbjM-VUfVVqWm7mQCxKgvIGTO_zP"/>
+<span class="absolute top-3 left-3 px-space-xs py-0.5 rounded bg-surface/90 backdrop-blur text-espresso-dark font-label-sm text-label-sm shadow-sm">House Favorite</span>
+<div class="absolute inset-0 bg-espresso-dark/10 group-hover:bg-transparent transition-colors"></div>
+</div>
+<div class="p-space-md flex flex-col gap-space-sm flex-1">
+<div class="flex items-baseline justify-between gap-space-xs">
+<h4 class="font-title-sm text-title-sm text-espresso-dark group-hover:text-primary transition-colors">Spanish Latte Reserve</h4>
+<span class="font-currency-display text-currency-display text-espresso-dark tracking-tight">₱165</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-muted line-clamp-2">
+                Espresso layered with sweet condensed milk, whole milk, and a delicate kiss of Ceylon cinnamon.
+              </p>
+<!-- Disabled CTA Replacement -->
+<div class="pt-space-sm mt-auto flex items-center justify-between gap-space-sm">
+<span class="font-label-sm text-label-sm text-text-muted flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-text-muted">coffee_maker</span>
+                  Hot or Iced 16oz
+                </span>
+<button aria-disabled="true" class="cursor-not-allowed px-space-md py-space-xs rounded-lg bg-card-bg-disabled text-text-muted font-label-md text-label-md flex items-center gap-1.5 shadow-none transition-none" disabled="">
+<span class="material-symbols-outlined text-[16px]">do_not_disturb_on</span>
+                  Ordering Unavailable
+                </button>
+</div>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="group bg-surface rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+<div class="relative">
+<img class="w-full h-48 object-cover group-hover:scale-[1.02] transition-transform duration-300" data-alt="Dark iced Americano poured over crystalline clear ice cubes in a heavy ribbed retro glassware on a warm marble counter with warm golden sunlight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDast1LxosulDBMx2F51rAHEwygidPnTgWmOPK99YOm-2x5HT8cov7hZvLktAwoELjyG8nYBJpSQdgcrRNf9x-2ikMQDWFHHj3aO06x4JgeVk6wTqubt0ccIrPRKOnGGpb8RAaeMZCzvtrHZOa6CpHnK3zaW6MG057JaCOXTAHID3UZ17DC2Ft64BVXfe7vl4wr-lyd67M2cq0VN-Mu7y1h9rhqxB6VtddhrH2kTiEfyg4BZblrkYJt"/>
+<span class="absolute top-3 left-3 px-space-xs py-0.5 rounded bg-surface/90 backdrop-blur text-espresso-dark font-label-sm text-label-sm shadow-sm">Double Shot</span>
+</div>
+<div class="p-space-md flex flex-col gap-space-sm flex-1">
+<div class="flex items-baseline justify-between gap-space-xs">
+<h4 class="font-title-sm text-title-sm text-espresso-dark group-hover:text-primary transition-colors">Barista Classic Americano</h4>
+<span class="font-currency-display text-currency-display text-espresso-dark tracking-tight">₱130</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-muted line-clamp-2">
+                Bold extraction pulled from Benguet Arabica beans, finished over chilled mineral water.
+              </p>
+<!-- Disabled CTA Replacement -->
+<div class="pt-space-sm mt-auto flex items-center justify-between gap-space-sm">
+<span class="font-label-sm text-label-sm text-text-muted flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-text-muted">water_drop</span>
+                  Crisp &amp; Balanced
+                </span>
+<button aria-disabled="true" class="cursor-not-allowed px-space-md py-space-xs rounded-lg bg-card-bg-disabled text-text-muted font-label-md text-label-md flex items-center gap-1.5 shadow-none transition-none" disabled="">
+<span class="material-symbols-outlined text-[16px]">do_not_disturb_on</span>
+                  Ordering Unavailable
+                </button>
+</div>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="group bg-surface rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+<div class="relative">
+<img class="w-full h-48 object-cover group-hover:scale-[1.02] transition-transform duration-300" data-alt="Toffee Nut Caramel Macchiato with luscious caramel drizzle swirl over dense white milk froth inside a ceramic cafe mug with retro coffeehouse aesthetics" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkVvczJ5QPY5kYcKaM8o4MnylqXeQ_EmpaLcN_u5PeG5yE_DRpYmfX53qwnK-6CCYZnR0oDJ6j9AmTYW8pM7_V286w5XTAPhngPPMHtsDeFaogELS5ifvzO9oniSZSImflmk3jEEDYU5Qbd4jimIuzKGUtFktYlxchWPwCz8OLWiAe16VnrTDHPohtMNE2jPJLmEYRFdAaefHBw5ud3FPLvepp91hQ0nYaazXhDXMpNNVo4gXoTCnJ"/>
+<span class="absolute top-3 left-3 px-space-xs py-0.5 rounded bg-caramel-gold/40 backdrop-blur text-espresso-dark font-label-sm text-label-sm shadow-sm font-bold">Seasonal</span>
+</div>
+<div class="p-space-md flex flex-col gap-space-sm flex-1">
+<div class="flex items-baseline justify-between gap-space-xs">
+<h4 class="font-title-sm text-title-sm text-espresso-dark group-hover:text-primary transition-colors">Caramelised Macchiato</h4>
+<span class="font-currency-display text-currency-display text-espresso-dark tracking-tight">₱175</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-muted line-clamp-2">
+                Rich vanilla bean cream, marked with dark roasted espresso shots and house salted butterscotch drizzle.
+              </p>
+<!-- Disabled CTA Replacement -->
+<div class="pt-space-sm mt-auto flex items-center justify-between gap-space-sm">
+<span class="font-label-sm text-label-sm text-text-muted flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-text-muted">local_cafe</span>
+                  Steamed Silk
+                </span>
+<button aria-disabled="true" class="cursor-not-allowed px-space-md py-space-xs rounded-lg bg-card-bg-disabled text-text-muted font-label-md text-label-md flex items-center gap-1.5 shadow-none transition-none" disabled="">
+<span class="material-symbols-outlined text-[16px]">do_not_disturb_on</span>
+                  Ordering Unavailable
+                </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Category Section: Matcha & Bakes -->
+<div class="flex flex-col gap-space-md pt-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="w-2.5 h-2.5 rounded-full bg-matcha-green"></span>
+<h3 class="font-headline-sm text-headline-sm text-espresso-dark">Matcha &amp; Oven Comforts</h3>
+</div>
+<span class="font-label-sm text-label-sm text-text-muted">Stone-ground Uji green tea &amp; fresh batch pastries</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-lg">
+<!-- Product Card 4 -->
+<div class="group bg-surface rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+<div class="relative">
+<img class="w-full h-48 object-cover group-hover:scale-[1.02] transition-transform duration-300" data-alt="Layered Ceremonial Iced Matcha Latte with vivid green matcha top layer poured over oat milk in a tall fluted glass cafe cup on a timber counter" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1joK4D40bHDWJg8TQKCJCUDlGqvu7_axozeTmX56_YLCXX05XIIgxAMUq_CEHD4la8ZXz4yXeQJplHYGf62Y6609cs9NlNp3aVlbSb0HSuDS62PZv4519vksb0r_7HJEwx1Ebl-P14W4HSBWxMAx-FnGJwHcI4S6AnG70yQa-f8WwGSLmbe2rJ9DmDP04SjPEeiGs4dWHgE0VtzDGqK1Vtjneta7VfLsl1H23j_JFYVv5yab4fhbM"/>
+<span class="px-space-xs py-0.5 rounded bg-surface/90 backdrop-blur text-espresso-dark font-label-sm text-label-sm shadow-sm absolute top-3 left-3">Ceremonial Uji</span>
+</div>
+<div class="p-space-md flex flex-col gap-space-sm flex-1">
+<div class="flex items-baseline justify-between gap-space-xs">
+<h4 class="font-title-sm text-title-sm text-espresso-dark group-hover:text-primary transition-colors">Iced Velvet Matcha Cloud</h4>
+<span class="font-currency-display text-currency-display text-espresso-dark tracking-tight">₱180</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-muted line-clamp-2">
+                Whisked pure Uji ceremonial green tea floating over organic oat milk with mild agave sweetness.
+              </p>
+<!-- Disabled CTA Replacement -->
+<div class="pt-space-sm mt-auto flex items-center justify-between gap-space-sm">
+<span class="font-label-sm text-label-sm text-text-muted flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-matcha-green">eco</span>
+                  Non-Dairy Blend
+                </span>
+<button aria-disabled="true" class="cursor-not-allowed px-space-md py-space-xs rounded-lg bg-card-bg-disabled text-text-muted font-label-md text-label-md flex items-center gap-1.5 shadow-none transition-none" disabled="">
+<span class="material-symbols-outlined text-[16px]">do_not_disturb_on</span>
+                  Ordering Unavailable
+                </button>
+</div>
+</div>
+</div>
+<!-- Product Card 5 -->
+<div class="group bg-surface rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+<div class="relative">
+<img class="w-full h-48 object-cover group-hover:scale-[1.02] transition-transform duration-300" data-alt="Golden flaky butter croissant freshly baked on parchment paper with warm steam and retro bakery tongs alongside a cup of coffee" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMWeV1NNVD5EslEfK721st9hCkNjKSvvoWryjSPVovi7-j6HRDvQIexlE_cYlfkrVKvw_xJL6atxWaQFfI2gsuI5vXyZaNZCtOg3DNC4qLAY5V-iLSljEH5tZac7_QIgUMAoPxWLdR3xDkEn4zDopjr1J_bo55eIAZJCPQkeywFvuHnRDBULEF5Rg0z2zp19bqXSbVm98BX4xE93eymTvgEhva67cihPdEdUWxeYDQZm25xtwByqIX"/>
+<span class="px-space-xs py-0.5 rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm shadow-sm absolute top-3 left-3">Daily Bake</span>
+</div>
+<div class="p-space-md flex flex-col gap-space-sm flex-1">
+<div class="flex items-baseline justify-between gap-space-xs">
+<h4 class="font-title-sm text-title-sm text-espresso-dark group-hover:text-primary transition-colors">Normandy Butter Croissant</h4>
+<span class="font-currency-display text-currency-display text-espresso-dark tracking-tight">₱120</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-muted line-clamp-2">
+                Honeycomb lamination with French churned butter, baked crisp outside and tender within.
+              </p>
+<!-- Disabled CTA Replacement -->
+<div class="pt-space-sm mt-auto flex items-center justify-between gap-space-sm">
+<span class="font-label-sm text-label-sm text-text-muted flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]">bakery_dining</span>
+                  Warm on Counter
+                </span>
+<button aria-disabled="true" class="cursor-not-allowed px-space-md py-space-xs rounded-lg bg-card-bg-disabled text-text-muted font-label-md text-label-md flex items-center gap-1.5 shadow-none transition-none" disabled="">
+<span class="material-symbols-outlined text-[16px]">do_not_disturb_on</span>
+                  Ordering Unavailable
+                </button>
+</div>
+</div>
+</div>
+<!-- Product Card 6 -->
+<div class="group bg-surface rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+<div class="relative">
+<img class="w-full h-48 object-cover group-hover:scale-[1.02] transition-transform duration-300" data-alt="Dark chocolate walnut cookie with melted chocolate chips resting on a vintage diner tray beside an espresso cup with warm soft lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCS1Rlh6_Tg51lgKt08hDw9JLddz0xP3HAKKf42UETSXbfiAlsBUC2DnEkSw-JaXbCfl9Uah9yViaDMBPROxkDWEapNFDz-STEjETKJ77XFbEtGlUAKr_ylr7Fsc8whOzejt1IQMh2j8Qh5Tbn9ZFsqgWT7ZaVfstFFWVPXXLMPdoydVv_9HwLjSmUQYsVtle_L5nL2kHxsm5Uurso4DrptKfIyOXQk9yhUD-lIM0um41hpPk6zdXwt"/>
+<span class="px-space-xs py-0.5 rounded bg-surface/90 backdrop-blur text-espresso-dark font-label-sm text-label-sm shadow-sm absolute top-3 left-3">Chewy Center</span>
+</div>
+<div class="p-space-md flex flex-col gap-space-sm flex-1">
+<div class="flex items-baseline justify-between gap-space-xs">
+<h4 class="font-title-sm text-title-sm text-espresso-dark group-hover:text-primary transition-colors">Sea Salt Belgian Fudge Cookie</h4>
+<span class="font-currency-display text-currency-display text-espresso-dark tracking-tight">₱95</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-muted line-clamp-2">
+                Decadent 70% dark chocolate chunks, roasted California walnuts, and flaky fleur de sel crystals.
+              </p>
+<!-- Disabled CTA Replacement -->
+<div class="pt-space-sm mt-auto flex items-center justify-between gap-space-sm">
+<span class="font-label-sm text-label-sm text-text-muted flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]">cookie</span>
+                  Handcrafted Batch
+                </span>
+<button aria-disabled="true" class="cursor-not-allowed px-space-md py-space-xs rounded-lg bg-card-bg-disabled text-text-muted font-label-md text-label-md flex items-center gap-1.5 shadow-none transition-none" disabled="">
+<span class="material-symbols-outlined text-[16px]">do_not_disturb_on</span>
+                  Ordering Unavailable
+                </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Visual Storytelling Interlude / Roasting Note (Bento Strip) -->
+<div class="rounded-xl bg-surface-container-low p-space-lg md:p-space-xl shadow-sm grid grid-cols-1 md:grid-cols-3 gap-space-lg items-center">
+<div class="flex flex-col gap-space-xs">
+<div class="w-10 h-10 rounded-full bg-secondary-container text-espresso-dark flex items-center justify-center">
+<span class="material-symbols-outlined">menu_book</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm text-espresso-dark">Parchment-Pressed Recipes</h4>
+<p class="font-body-sm text-body-sm text-text-muted">
+            All prices and dietary listings remain completely accurate while ordering queues take a short intermission.
+          </p>
+</div>
+<div class="flex flex-col gap-space-xs">
+<div class="w-10 h-10 rounded-full bg-secondary-container text-espresso-dark flex items-center justify-center">
+<span class="material-symbols-outlined">store</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm text-espresso-dark">Barista Counter Walk-Ins</h4>
+<p class="font-body-sm text-body-sm text-text-muted">
+            Our physical cafe doors may be welcoming guests for direct counter service. Speak with our team on arrival.
+          </p>
+</div>
+<div class="flex flex-col gap-space-xs">
+<div class="w-10 h-10 rounded-full bg-secondary-container text-espresso-dark flex items-center justify-center">
+<span class="material-symbols-outlined">notifications_active</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm text-espresso-dark">Seamless Return</h4>
+<p class="font-body-sm text-body-sm text-text-muted">
+            Digital ordering reopens automatically once the ticketing floor begins accepting tickets for preparation.
+          </p>
+</div>
+</div>
+</div>
+</section>
+<!-- Persistent Floating Customer Notification Drawer Preview (Bottom Locked) -->
+<aside class="fixed bottom-4 left-4 right-4 md:left-auto md:right-8 md:w-[420px] bg-espresso-dark text-surface-bright rounded-xl shadow-xl p-space-md z-40 flex flex-col gap-space-sm transform transition-transform duration-300 ease-out" id="customerNoticeBar">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<div class="w-7 h-7 rounded-full bg-caramel-gold/30 text-caramel-gold flex items-center justify-center">
+<span class="material-symbols-outlined text-sm">pause_circle</span>
+</div>
+<span class="font-title-sm text-title-sm text-surface-bright font-bold">Cart is Locked</span>
+</div>
+<button class="text-text-muted hover:text-surface-bright transition-colors" onclick="document.getElementById('customerNoticeBar').classList.add('translate-y-32', 'opacity-0')">
+<span class="material-symbols-outlined text-title-sm">close</span>
+</button>
+</div>
+<p class="font-body-sm text-body-sm text-surface-container-high/90">
+      Your previously saved order items will remain safe in your browser. Checkout actions will unlock automatically when counter ordering resumes.
+    </p>
+<div class="flex items-center justify-between pt-1 text-label-sm font-label-sm">
+<span class="text-caramel-gold flex items-center gap-1 font-semibold">
+<span class="material-symbols-outlined text-[14px]">bolt</span>
+        Queue Standby
+      </span>
+<span class="text-text-muted">No actions required</span>
+</div>
+</aside>
+<!-- Informational Modal Backdrop (Initially Hidden) -->
+<div class="fixed inset-0 z-50 bg-espresso-dark/50 backdrop-blur-sm hidden items-center justify-center p-space-md" id="noticeModal">
+<div class="bg-surface rounded-xl max-w-lg w-full p-space-xl shadow-2xl flex flex-col gap-space-md relative">
+<button class="absolute top-4 right-4 text-text-muted hover:text-espresso-dark transition-colors" onclick="toggleNoticeModal(false)">
+<span class="material-symbols-outlined text-title-md">close</span>
+</button>
+<div class="w-12 h-12 rounded-full bg-secondary-container text-espresso-dark flex items-center justify-center">
+<span class="material-symbols-outlined text-[28px]">info</span>
+</div>
+<div class="flex flex-col gap-space-xs">
+<h3 class="font-headline-sm text-headline-sm text-espresso-dark">Ordering Window Notice</h3>
+<p class="font-body-md text-body-md text-text-muted">
+          To maintain handcrafted extraction standards and avoid excessive beverage wait times, online order intake is paused when our barista prep queue reaches capacity or between service windows.
+        </p>
+</div>
+<div class="bg-surface-container-low p-space-md rounded-lg flex flex-col gap-space-xs">
+<span class="font-label-md text-label-md font-bold text-espresso-dark">What you can do right now:</span>
+<ul class="text-body-sm font-body-sm text-text-muted space-y-1 list-disc list-inside">
+<li>Browse ingredients, milk alternatives, and signature brews.</li>
+<li>Inquire at our main counter for walk-in availability.</li>
+<li>Leave this tab open; your saved bag persists locally.</li>
+</ul>
+</div>
+<button class="w-full py-space-sm bg-espresso-dark text-on-primary rounded-lg font-label-lg text-label-lg font-bold hover:bg-espresso-dark/90 transition-colors shadow-sm" onclick="toggleNoticeModal(false)">
+        Understood &amp; Continue Browsing
+      </button>
+</div>
+</div>
+</div>
+<script>
+  function toggleNoticeModal(show) {
+    const modal = document.getElementById('noticeModal');
+    if (show) {
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    } else {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+  }
+
+  // Interactive feedback for the 'Check Again' button
+  document.getElementById('refreshNoticeBtn')?.addEventListener('click', function() {
+    const icon = this.querySelector('.material-symbols-outlined');
+    icon.classList.add('animate-spin');
+    this.disabled = true;
+    setTimeout(() => {
+      icon.classList.remove('animate-spin');
+      this.disabled = false;
+      const originalText = this.innerHTML;
+      this.innerHTML = '<span class="material-symbols-outlined text-sm text-warning-amber">schedule</span> Still Unavailable';
+      setTimeout(() => {
+        this.innerHTML = originalText;
+      }, 2500);
+    }, 900);
+  });
+</script></main><footer class="w-full bg-surface-container-low mt-space-xl shadow-[0_-1px_6px_rgba(41,34,29,0.03)]"><div class="max-w-[1280px] mx-auto px-margin-desktop py-space-xl flex flex-col md:flex-row items-center justify-between gap-space-md"><div class="flex flex-col items-center md:items-start gap-space-xs"><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm text-espresso-dark">M&amp;E Kape Cup</span><span class="px-space-xs py-0.5 rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm">Cafe &amp; Roastery</span></div><p class="font-body-sm text-body-sm text-text-muted">Warm roasts, timeless diner charm &amp; handcrafted coffee.</p><p class="font-label-sm text-label-sm text-text-muted mt-space-xs">[Contact details pending confirmation]</p></div><div class="flex flex-col md:flex-row items-center gap-space-lg"><div class="font-label-sm text-label-sm text-text-muted text-center md:text-right"><span class="inline-block px-space-xs py-0.5 rounded bg-surface-container text-text-muted">Prototype data (fictional)</span><p class="mt-1">© 2024 M&amp;E Kape Cup. All rights reserved.</p></div><a class="font-label-sm text-label-sm text-text-muted hover:text-espresso-dark transition-colors underline decoration-border-neutral underline-offset-4" data-path="staff-dashboard" href="#">Staff Login</a></div></div></footer></body></html>

@@ -1,0 +1,17 @@
+debug.log
+*.log
+node_modules/
+.vscode/
+.mcp.json
+.vscode/.mcp.json
+
+# Local environment and untracked configuration.
+.env
+.env.*
+!.env.example
+*.local.php
+*.local.*
+/local-config.*
+/config/local.php
+/config/local.*.php
+/config/local/

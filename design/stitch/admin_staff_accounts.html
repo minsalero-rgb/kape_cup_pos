@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Domine:wght@600;700&amp;family=Plus+Jakarta+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "caramel-gold": "#D9B77E",
+          "on-primary-fixed-variant": "#603f32",
+          "border-neutral": "#E5D8C3",
+          "secondary-fixed-dim": "#d2c5a9",
+          "primary-fixed": "#ffdbce",
+          "warning-amber": "#C47B27",
+          "on-secondary-fixed": "#211b08",
+          "card-bg-disabled": "#F3EFEA",
+          "on-secondary": "#ffffff",
+          "surface-tint": "#7b5648",
+          "on-tertiary-fixed-variant": "#5a4315",
+          "on-primary-container": "#ae8474",
+          "on-background": "#1c1c18",
+          "primary-container": "#3b1f14",
+          "on-error-container": "#93000a",
+          "outline": "#83746f",
+          "surface-dim": "#dcdad4",
+          "error-container": "#ffdad6",
+          "surface-bright": "#fcf9f3",
+          "tertiary-container": "#352300",
+          "accessible-red": "#C93B2B",
+          "on-surface": "#1c1c18",
+          "surface-container": "#f0eee8",
+          "surface": "#fcf9f3",
+          "surface-container-low": "#f6f3ed",
+          "matcha-green": "#78945B",
+          "tertiary": "#1a1000",
+          "tertiary-fixed-dim": "#e4c288",
+          "primary": "#220b03",
+          "on-primary": "#ffffff",
+          "on-primary-fixed": "#2e150a",
+          "inverse-surface": "#31312d",
+          "inverse-on-surface": "#f3f0eb",
+          "on-secondary-fixed-variant": "#4f4630",
+          "on-tertiary-container": "#a78954",
+          "secondary-container": "#efe1c3",
+          "tertiary-fixed": "#ffdea9",
+          "outline-variant": "#d5c3bd",
+          "surface-container-high": "#ebe8e2",
+          "inverse-primary": "#ecbcab",
+          "on-tertiary-fixed": "#271900",
+          "on-secondary-container": "#6d634c",
+          "secondary-fixed": "#efe1c3",
+          "on-surface-variant": "#504440",
+          "surface-container-lowest": "#ffffff",
+          "primary-fixed-dim": "#ecbcab",
+          "on-error": "#ffffff",
+          "surface-variant": "#e5e2dc",
+          "espresso-dark": "#29221D",
+          "error": "#ba1a1a",
+          "surface-container-highest": "#e5e2dc",
+          "on-tertiary": "#ffffff",
+          "secondary": "#675e46",
+          "text-muted": "#74685E",
+          "background": "#fcf9f3"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.25rem",
+          "lg": "0.5rem",
+          "xl": "0.75rem",
+          "full": "9999px"
+        },
+        "spacing": {
+          "margin": "1rem",
+          "space-xl": "2rem",
+          "space-md": "1rem",
+          "space-xs": "0.25rem",
+          "margin-desktop": "2rem",
+          "gutter": "1.25rem",
+          "space-sm": "0.5rem",
+          "space-lg": "1.5rem",
+          "gutter-desktop": "1.5rem"
+        },
+        "fontFamily": {
+          "label-sm": ["Plus Jakarta Sans"],
+          "title-sm": ["Plus Jakarta Sans"],
+          "title-md": ["Plus Jakarta Sans"],
+          "label-md": ["Plus Jakarta Sans"],
+          "headline-lg": ["Domine"],
+          "body-md": ["Plus Jakarta Sans"],
+          "headline-md": ["Domine"],
+          "body-sm": ["Plus Jakarta Sans"],
+          "headline-sm": ["Domine"],
+          "headline-lg-mobile": ["Domine"],
+          "headline-xl": ["Domine"],
+          "currency-display": ["Plus Jakarta Sans"],
+          "label-lg": ["Plus Jakarta Sans"],
+          "body-lg": ["Plus Jakarta Sans"]
+        },
+        "fontSize": {
+          "label-sm": ["11px", {"lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "700"}],
+          "title-sm": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+          "title-md": ["18px", {"lineHeight": "26px", "fontWeight": "600"}],
+          "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+          "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+          "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+          "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+          "body-sm": ["12px", {"lineHeight": "18px", "fontWeight": "400"}],
+          "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+          "headline-lg-mobile": ["26px", {"lineHeight": "34px", "fontWeight": "700"}],
+          "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+          "currency-display": ["22px", {"lineHeight": "28px", "fontWeight": "700"}],
+          "label-lg": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+          "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+        }
+      }
+    }
+  }</script></head><body class="bg-background font-body-md text-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-[260px] bg-primary-container z-50 flex flex-col justify-between shadow-[2px_0_12px_rgba(34,11,3,0.12)]"><div class="flex flex-col"><div class="p-space-lg flex items-center gap-space-sm bg-espresso-dark/40"><div class="w-10 h-10 rounded-full p-0.5 bg-caramel-gold/40 flex items-center justify-center shrink-0"><div class="w-full h-full rounded-full bg-primary flex items-center justify-center text-caramel-gold font-headline-md text-headline-md">K</div></div><div class="flex flex-col min-w-0"><span class="font-headline-sm text-headline-sm text-surface truncate tracking-tight">M&amp;E Kape Cup</span><span class="font-label-sm text-label-sm text-caramel-gold uppercase tracking-wider">POS &amp; Floor Core</span></div></div><div class="px-space-md py-space-sm bg-primary/40 flex items-center justify-between"><div class="flex items-center gap-space-xs"><span class="w-2 h-2 rounded-full bg-matcha-green animate-pulse"></span><span class="font-label-sm text-label-sm text-surface font-semibold">Shift: Morning Active</span></div><span class="font-label-sm text-label-sm px-space-xs py-0.5 rounded bg-caramel-gold/20 text-caramel-gold font-bold">Station 01</span></div><nav class="flex flex-col gap-1 p-space-md overflow-y-auto max-h-[calc(100vh-250px)]" data-active-classes="bg-caramel-gold text-espresso-dark font-bold rounded-lg shadow-sm"><div class="px-space-sm py-1 font-label-sm text-label-sm uppercase tracking-wider text-primary-fixed-dim/70">Floor Operations</div><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-primary-fixed-dim hover:bg-espresso-dark hover:text-surface transition-all" data-path="staff-dashboard" href="#"><span class="material-symbols-outlined text-title-sm">speed</span><span class="font-label-lg text-label-lg">Staff Dashboard</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-primary-fixed-dim hover:bg-espresso-dark hover:text-surface transition-all" data-path="order-oversight" href="#"><span class="material-symbols-outlined text-title-sm">receipt_long</span><span class="font-label-lg text-label-lg">Order Oversight</span></a><div class="mt-space-sm px-space-sm py-1 font-label-sm text-label-sm uppercase tracking-wider text-caramel-gold/80">Admin &amp; Catalog</div><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-primary-fixed-dim hover:bg-espresso-dark hover:text-surface transition-all" data-path="admin-dashboard" href="#"><span class="material-symbols-outlined text-title-sm">admin_panel_settings</span><span class="font-label-lg text-label-lg">Admin Dashboard</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-primary-fixed-dim hover:bg-espresso-dark hover:text-surface transition-all" data-path="menu-categories" href="#"><span class="material-symbols-outlined text-title-sm">category</span><span class="font-label-lg text-label-lg">Menu Categories</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-primary-fixed-dim hover:bg-espresso-dark hover:text-surface transition-all" data-path="menu-items" href="#"><span class="material-symbols-outlined text-title-sm">menu_book</span><span class="font-label-lg text-label-lg">Menu Items</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-primary-fixed-dim hover:bg-espresso-dark hover:text-surface transition-all" data-path="modifier-groups" href="#"><span class="material-symbols-outlined text-title-sm">tune</span><span class="font-label-lg text-label-lg">Modifier Groups</span></a><a aria-current="page" class="flex items-center gap-space-sm px-space-sm py-2 transition-all bg-caramel-gold text-espresso-dark font-bold rounded-lg shadow-sm" data-path="staff-management" href="#"><span class="material-symbols-outlined text-title-sm">badge</span><span class="font-label-lg text-label-lg">Staff Management</span></a><div class="mt-space-sm px-space-sm py-1 font-label-sm text-label-sm uppercase tracking-wider text-caramel-gold/80">Audit &amp; Intelligence</div><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-primary-fixed-dim hover:bg-espresso-dark hover:text-surface transition-all" data-path="duty-session-records" href="#"><span class="material-symbols-outlined text-title-sm">history_toggle_off</span><span class="font-label-lg text-label-lg">Duty Session Records</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-primary-fixed-dim hover:bg-espresso-dark hover:text-surface transition-all" data-path="sales-reports" href="#"><span class="material-symbols-outlined text-title-sm">insights</span><span class="font-label-lg text-label-lg">Sales Reports</span></a></nav></div><div class="p-space-md bg-espresso-dark/70 flex flex-col gap-space-xs"><div class="flex items-center justify-between"><span class="font-label-sm text-label-sm text-caramel-gold font-bold">Admin / Supervisor</span><span class="font-label-sm text-label-sm text-primary-fixed-dim">[Prototype user]</span></div><a class="flex items-center justify-center gap-space-xs py-1.5 px-space-sm rounded bg-surface/10 hover:bg-surface/20 text-surface text-label-sm font-label-sm transition-colors" data-path="home" href="#"><span class="material-symbols-outlined text-label-md">storefront</span><span>Switch to Customer Storefront</span></a></div></aside><div class="pl-[260px]"><header class="fixed top-0 left-[260px] right-0 h-16 bg-surface/90 backdrop-blur-md z-40 px-margin-desktop flex items-center justify-between shadow-[0_1px_8px_rgba(41,34,29,0.04)]"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs px-space-sm py-1 rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm"><span class="material-symbols-outlined text-title-sm text-matcha-green">schedule</span><span>Shift Session: #DS-2024-0418</span></div><span class="hidden lg:inline-block font-label-sm text-label-sm text-text-muted">Prototype data (fictional)</span></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs"><span class="px-2 py-0.5 rounded-full bg-matcha-green/20 text-matcha-green font-label-sm text-label-sm font-bold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-matcha-green"></span>POS Online</span><div class="hidden sm:flex flex-col text-right"><span class="font-label-sm text-label-sm text-espresso-dark font-semibold">Counter Barista • Admin</span><span class="font-label-sm text-label-sm text-text-muted">Terminal #1</span></div></div><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1WZ_qdg9H9b9Cse68XLjaKwt9slfnT8EbJGjWsOqdyPVCLUzqBOieqLlDAg_omVx0gsSxDTfU7ERbEfh7l7Sya73DGI9GKmoOcd62EO4D3_TENWjkuvLPbNAYUa0AhuQ755k0rqhrL_AW3iHgwzhqr9g6Sg-5PnlwVTmHGB7J6x_bcfRFFU5gZ6Aa2MJMmwFKx607ZPNFiy4l0MMkeSFAmL5axHYAJS2xEEBZDWOj_idHEB_NCE54e0VbikGtjVlgnTeICP7YiLHA"/></div></header><main class="relative pt-16 bg-background min-h-screen w-full px-margin-desktop py-space-lg"><div class="flex flex-col w-full">
+<!-- Top Banner & Metrics Row -->
+<div class="flex flex-col gap-space-lg mb-space-lg">
+<!-- Header with Operational Context -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-xs text-caramel-gold font-label-sm text-label-sm uppercase tracking-wider">
+<span class="material-symbols-outlined text-title-sm">badge</span>
+<span>Security &amp; Authorization Roster</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-espresso-dark tracking-tight">Staff &amp; Account Management</h1>
+<div class="inline-flex items-center gap-2 py-1 px-3 rounded-full bg-secondary-container text-on-secondary-container w-fit shadow-sm">
+<span class="material-symbols-outlined text-title-sm text-warning-amber">shield</span>
+<span class="font-label-sm text-label-sm">Access roles are restricted to Staff and Administrator. Prototype data (fictional).</span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm shrink-0">
+<button class="flex items-center gap-space-xs px-space-lg py-2.5 rounded-lg bg-primary text-on-primary font-label-lg text-label-lg shadow-md hover:bg-espresso-dark active:scale-[0.99] transition-all" id="openAddModalBtn" type="button">
+<span class="material-symbols-outlined text-title-sm">person_add</span>
+<span>Add Staff Account</span>
+</button>
+</div>
+</div>
+<!-- Overview Stat Cards -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md">
+<div class="bg-surface-container p-space-md rounded-xl flex items-center justify-between shadow-sm">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-text-muted">Total Accounts</span>
+<span class="font-currency-display text-currency-display text-espresso-dark mt-1">6</span>
+<span class="font-body-sm text-body-sm text-matcha-green mt-0.5">2 Admins • 4 Staff</span>
+</div>
+<div class="w-12 h-12 rounded-xl bg-espresso-dark/10 flex items-center justify-center text-espresso-dark">
+<span class="material-symbols-outlined text-headline-sm">groups</span>
+</div>
+</div>
+<div class="bg-surface-container p-space-md rounded-xl flex items-center justify-between shadow-sm">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-text-muted">Active On Shift</span>
+<span class="font-currency-display text-currency-display text-matcha-green mt-1">4</span>
+<span class="font-body-sm text-body-sm text-text-muted mt-0.5">Live duty sessions</span>
+</div>
+<div class="w-12 h-12 rounded-xl bg-matcha-green/20 flex items-center justify-center text-matcha-green">
+<span class="material-symbols-outlined text-headline-sm">timer</span>
+</div>
+</div>
+<div class="bg-surface-container p-space-md rounded-xl flex items-center justify-between shadow-sm">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-text-muted">Terminals Bound</span>
+<span class="font-currency-display text-currency-display text-espresso-dark mt-1">3</span>
+<span class="font-body-sm text-body-sm text-caramel-gold mt-0.5">Barista 01, 02 &amp; Admin</span>
+</div>
+<div class="w-12 h-12 rounded-xl bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined text-headline-sm">point_of_sale</span>
+</div>
+</div>
+<div class="bg-surface-container p-space-md rounded-xl flex items-center justify-between shadow-sm">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-text-muted">Security Audit</span>
+<span class="font-title-md text-title-md text-espresso-dark mt-1 font-semibold">Strict PIN</span>
+<span class="font-body-sm text-body-sm text-text-muted mt-0.5">Next rotation in 12d</span>
+</div>
+<div class="w-12 h-12 rounded-xl bg-espresso-dark/10 flex items-center justify-center text-warning-amber">
+<span class="material-symbols-outlined text-headline-sm">lock_clock</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Filter & Terminal Search Bar -->
+<div class="bg-surface-container-low p-space-md rounded-xl shadow-sm mb-space-md flex flex-col md:flex-row gap-space-md items-center justify-between">
+<div class="relative w-full md:w-96">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-muted text-title-sm">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface text-body-md font-body-md rounded-lg text-espresso-dark placeholder-text-muted/70 focus:outline-none focus:ring-2 focus:ring-caramel-gold" id="staffSearchInput" placeholder="Search staff member, ID, or terminal..." type="text"/>
+</div>
+<div class="flex items-center gap-space-sm w-full md:w-auto overflow-x-auto">
+<span class="font-label-sm text-label-sm text-text-muted uppercase tracking-wider whitespace-nowrap">Filter Role:</span>
+<button class="role-filter-btn px-3 py-1.5 rounded-lg bg-primary text-on-primary font-label-sm text-label-sm transition-all" data-filter="all" type="button">All (6)</button>
+<button class="role-filter-btn px-3 py-1.5 rounded-lg bg-surface hover:bg-surface-container text-espresso-dark font-label-sm text-label-sm transition-all" data-filter="Admin" type="button">Administrators (2)</button>
+<button class="role-filter-btn px-3 py-1.5 rounded-lg bg-surface hover:bg-surface-container text-espresso-dark font-label-sm text-label-sm transition-all" data-filter="Staff" type="button">Staff (4)</button>
+</div>
+</div>
+<!-- Staff Accounts Data Roster -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden flex flex-col">
+<div class="overflow-x-auto w-full">
+<table class="w-full text-left border-collapse" id="staffTable">
+<thead>
+<tr class="bg-surface-container text-text-muted font-label-md text-label-md uppercase tracking-wider select-none">
+<th class="py-3.5 px-space-lg">Staff Member Name</th>
+<th class="py-3.5 px-space-md">Username / Terminal ID</th>
+<th class="py-3.5 px-space-md">Role</th>
+<th class="py-3.5 px-space-md">Account Status</th>
+<th class="py-3.5 px-space-md">Last Active Session</th>
+<th class="py-3.5 px-space-lg text-right">Row Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-neutral font-body-md text-body-md text-on-surface" id="staffTableBody">
+<!-- Row 1 -->
+<tr class="staff-row hover:bg-surface-container-low transition-colors" data-name="[Prototype user 1]" data-role="Staff" data-status="Active" data-username="barista.elena">
+<td class="py-4 px-space-lg">
+<div class="flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-full bg-caramel-gold/30 text-primary-container flex items-center justify-center font-title-sm text-title-sm font-bold">
+                  P1
+                </div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-sm text-title-sm text-espresso-dark truncate">[Prototype user 1]</span>
+<span class="font-body-sm text-body-sm text-text-muted truncate">Shift Barista Specialist</span>
+</div>
+</div>
+</td>
+<td class="py-4 px-space-md">
+<div class="flex items-center gap-1.5">
+<span class="font-mono text-body-sm text-espresso-dark font-semibold">barista.elena</span>
+<span class="px-1.5 py-0.5 rounded bg-surface-container text-text-muted font-label-sm text-label-sm">TRM-01</span>
+</div>
+</td>
+<td class="py-4 px-space-md">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-bold">
+<span class="material-symbols-outlined text-label-sm text-caramel-gold">point_of_sale</span>
+                Staff
+              </span>
+</td>
+<td class="py-4 px-space-md">
+<span class="status-badge inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-matcha-green/15 text-matcha-green font-label-sm text-label-sm font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-matcha-green animate-pulse"></span>
+                Active
+              </span>
+</td>
+<td class="py-4 px-space-md">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-espresso-dark font-semibold">Today, 07:15 AM</span>
+<span class="font-body-sm text-body-sm text-text-muted">Station 01 Morning Run</span>
+</div>
+</td>
+<td class="py-4 px-space-lg text-right">
+<div class="inline-flex items-center gap-2">
+<button class="edit-staff-btn px-3 py-1.5 rounded-lg bg-surface-container hover:bg-secondary-container text-espresso-dark font-label-sm text-label-sm transition-colors flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-label-md">edit</span>
+                  Edit
+                </button>
+<button class="toggle-status-btn px-3 py-1.5 rounded-lg bg-card-bg-disabled hover:bg-error-container hover:text-on-error-container text-text-muted font-label-sm text-label-sm transition-colors" type="button">
+                  Deactivate
+                </button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="staff-row hover:bg-surface-container-low transition-colors" data-name="[Prototype user 2]" data-role="Admin" data-status="Active" data-username="admin.marcus">
+<td class="py-4 px-space-lg">
+<div class="flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-full bg-espresso-dark text-caramel-gold flex items-center justify-center font-title-sm text-title-sm font-bold">
+                  P2
+                </div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-sm text-title-sm text-espresso-dark truncate">[Prototype user 2]</span>
+<span class="font-body-sm text-body-sm text-text-muted truncate">Store Manager • Lead Supervisor</span>
+</div>
+</div>
+</td>
+<td class="py-4 px-space-md">
+<div class="flex items-center gap-1.5">
+<span class="font-mono text-body-sm text-espresso-dark font-semibold">admin.marcus</span>
+<span class="px-1.5 py-0.5 rounded bg-surface-container text-text-muted font-label-sm text-label-sm">TRM-HQ</span>
+</div>
+</td>
+<td class="py-4 px-space-md">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-primary-container text-caramel-gold font-label-sm text-label-sm font-bold">
+<span class="material-symbols-outlined text-label-sm text-caramel-gold">admin_panel_settings</span>
+                Admin
+              </span>
+</td>
+<td class="py-4 px-space-md">
+<span class="status-badge inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-matcha-green/15 text-matcha-green font-label-sm text-label-sm font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-matcha-green animate-pulse"></span>
+                Active
+              </span>
+</td>
+<td class="py-4 px-space-md">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-espresso-dark font-semibold">Today, 06:40 AM</span>
+<span class="font-body-sm text-body-sm text-text-muted">Master Shift Opened</span>
+</div>
+</td>
+<td class="py-4 px-space-lg text-right">
+<div class="inline-flex items-center gap-2">
+<button class="edit-staff-btn px-3 py-1.5 rounded-lg bg-surface-container hover:bg-secondary-container text-espresso-dark font-label-sm text-label-sm transition-colors flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-label-md">edit</span>
+                  Edit
+                </button>
+<button class="toggle-status-btn px-3 py-1.5 rounded-lg bg-card-bg-disabled hover:bg-error-container hover:text-on-error-container text-text-muted font-label-sm text-label-sm transition-colors" type="button">
+                  Deactivate
+                </button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="staff-row hover:bg-surface-container-low transition-colors" data-name="[Prototype user 3]" data-role="Staff" data-status="Active" data-username="barista.carlo">
+<td class="py-4 px-space-lg">
+<div class="flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-full bg-caramel-gold/30 text-primary-container flex items-center justify-center font-title-sm text-title-sm font-bold">
+                  P3
+                </div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-sm text-title-sm text-espresso-dark truncate">[Prototype user 3]</span>
+<span class="font-body-sm text-body-sm text-text-muted truncate">Espresso Barista</span>
+</div>
+</div>
+</td>
+<td class="py-4 px-space-md">
+<div class="flex items-center gap-1.5">
+<span class="font-mono text-body-sm text-espresso-dark font-semibold">barista.carlo</span>
+<span class="px-1.5 py-0.5 rounded bg-surface-container text-text-muted font-label-sm text-label-sm">TRM-02</span>
+</div>
+</td>
+<td class="py-4 px-space-md">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-bold">
+<span class="material-symbols-outlined text-label-sm text-caramel-gold">point_of_sale</span>
+                Staff
+              </span>
+</td>
+<td class="py-4 px-space-md">
+<span class="status-badge inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-matcha-green/15 text-matcha-green font-label-sm text-label-sm font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-matcha-green animate-pulse"></span>
+                Active
+              </span>
+</td>
+<td class="py-4 px-space-md">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-espresso-dark font-semibold">Yesterday, 04:30 PM</span>
+<span class="font-body-sm text-body-sm text-text-muted">Station 02 Afternoon Run</span>
+</div>
+</td>
+<td class="py-4 px-space-lg text-right">
+<div class="inline-flex items-center gap-2">
+<button class="edit-staff-btn px-3 py-1.5 rounded-lg bg-surface-container hover:bg-secondary-container text-espresso-dark font-label-sm text-label-sm transition-colors flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-label-md">edit</span>
+                  Edit
+                </button>
+<button class="toggle-status-btn px-3 py-1.5 rounded-lg bg-card-bg-disabled hover:bg-error-container hover:text-on-error-container text-text-muted font-label-sm text-label-sm transition-colors" type="button">
+                  Deactivate
+                </button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="staff-row hover:bg-surface-container-low transition-colors" data-name="[Prototype user 4]" data-role="Admin" data-status="Active" data-username="admin.sofia">
+<td class="py-4 px-space-lg">
+<div class="flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-full bg-espresso-dark text-caramel-gold flex items-center justify-center font-title-sm text-title-sm font-bold">
+                  P4
+                </div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-sm text-title-sm text-espresso-dark truncate">[Prototype user 4]</span>
+<span class="font-body-sm text-body-sm text-text-muted truncate">Inventory &amp; Audit Admin</span>
+</div>
+</div>
+</td>
+<td class="py-4 px-space-md">
+<div class="flex items-center gap-1.5">
+<span class="font-mono text-body-sm text-espresso-dark font-semibold">admin.sofia</span>
+<span class="px-1.5 py-0.5 rounded bg-surface-container text-text-muted font-label-sm text-label-sm">TRM-BACK</span>
+</div>
+</td>
+<td class="py-4 px-space-md">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-primary-container text-caramel-gold font-label-sm text-label-sm font-bold">
+<span class="material-symbols-outlined text-label-sm text-caramel-gold">admin_panel_settings</span>
+                Admin
+              </span>
+</td>
+<td class="py-4 px-space-md">
+<span class="status-badge inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-matcha-green/15 text-matcha-green font-label-sm text-label-sm font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-matcha-green animate-pulse"></span>
+                Active
+              </span>
+</td>
+<td class="py-4 px-space-md">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-espresso-dark font-semibold">Yesterday, 08:10 PM</span>
+<span class="font-body-sm text-body-sm text-text-muted">Day-end reconciliation</span>
+</div>
+</td>
+<td class="py-4 px-space-lg text-right">
+<div class="inline-flex items-center gap-2">
+<button class="edit-staff-btn px-3 py-1.5 rounded-lg bg-surface-container hover:bg-secondary-container text-espresso-dark font-label-sm text-label-sm transition-colors flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-label-md">edit</span>
+                  Edit
+                </button>
+<button class="toggle-status-btn px-3 py-1.5 rounded-lg bg-card-bg-disabled hover:bg-error-container hover:text-on-error-container text-text-muted font-label-sm text-label-sm transition-colors" type="button">
+                  Deactivate
+                </button>
+</div>
+</td>
+</tr>
+<!-- Row 5 (Inactive Prototype) -->
+<tr class="staff-row opacity-80 hover:opacity-100 hover:bg-surface-container-low transition-colors" data-name="[Prototype user 5]" data-role="Staff" data-status="Inactive" data-username="barista.maya">
+<td class="py-4 px-space-lg">
+<div class="flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-full bg-card-bg-disabled text-text-muted flex items-center justify-center font-title-sm text-title-sm font-bold">
+                  P5
+                </div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-sm text-title-sm text-espresso-dark truncate">[Prototype user 5]</span>
+<span class="font-body-sm text-body-sm text-text-muted truncate">Junior Barista (On Leave)</span>
+</div>
+</div>
+</td>
+<td class="py-4 px-space-md">
+<div class="flex items-center gap-1.5">
+<span class="font-mono text-body-sm text-text-muted font-semibold">barista.maya</span>
+<span class="px-1.5 py-0.5 rounded bg-surface-container text-text-muted font-label-sm text-label-sm">TRM-01</span>
+</div>
+</td>
+<td class="py-4 px-space-md">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container text-text-muted font-label-sm text-label-sm font-bold">
+<span class="material-symbols-outlined text-label-sm">point_of_sale</span>
+                Staff
+              </span>
+</td>
+<td class="py-4 px-space-md">
+<span class="status-badge inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-card-bg-disabled text-text-muted font-label-sm text-label-sm font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-text-muted"></span>
+                Inactive
+              </span>
+</td>
+<td class="py-4 px-space-md">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-text-muted font-semibold">14 Days Ago</span>
+<span class="font-body-sm text-body-sm text-text-muted">Terminal shift closed</span>
+</div>
+</td>
+<td class="py-4 px-space-lg text-right">
+<div class="inline-flex items-center gap-2">
+<button class="edit-staff-btn px-3 py-1.5 rounded-lg bg-surface-container hover:bg-secondary-container text-espresso-dark font-label-sm text-label-sm transition-colors flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-label-md">edit</span>
+                  Edit
+                </button>
+<button class="toggle-status-btn px-3 py-1.5 rounded-lg bg-matcha-green/20 text-matcha-green font-label-sm text-label-sm hover:bg-matcha-green hover:text-surface transition-colors" type="button">
+                  Activate
+                </button>
+</div>
+</td>
+</tr>
+<!-- Row 6 -->
+<tr class="staff-row hover:bg-surface-container-low transition-colors" data-name="[Prototype user 6]" data-role="Staff" data-status="Active" data-username="barista.miguel">
+<td class="py-4 px-space-lg">
+<div class="flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-full bg-caramel-gold/30 text-primary-container flex items-center justify-center font-title-sm text-title-sm font-bold">
+                  P6
+                </div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-sm text-title-sm text-espresso-dark truncate">[Prototype user 6]</span>
+<span class="font-body-sm text-body-sm text-text-muted truncate">Closing Cashier &amp; Barista</span>
+</div>
+</div>
+</td>
+<td class="py-4 px-space-md">
+<div class="flex items-center gap-1.5">
+<span class="font-mono text-body-sm text-espresso-dark font-semibold">barista.miguel</span>
+<span class="px-1.5 py-0.5 rounded bg-surface-container text-text-muted font-label-sm text-label-sm">TRM-03</span>
+</div>
+</td>
+<td class="py-4 px-space-md">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-bold">
+<span class="material-symbols-outlined text-label-sm text-caramel-gold">point_of_sale</span>
+                Staff
+              </span>
+</td>
+<td class="py-4 px-space-md">
+<span class="status-badge inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-matcha-green/15 text-matcha-green font-label-sm text-label-sm font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-matcha-green animate-pulse"></span>
+                Active
+              </span>
+</td>
+<td class="py-4 px-space-md">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-espresso-dark font-semibold">Apr 17, 09:45 PM</span>
+<span class="font-body-sm text-body-sm text-text-muted">Register Z-Report Run</span>
+</div>
+</td>
+<td class="py-4 px-space-lg text-right">
+<div class="inline-flex items-center gap-2">
+<button class="edit-staff-btn px-3 py-1.5 rounded-lg bg-surface-container hover:bg-secondary-container text-espresso-dark font-label-sm text-label-sm transition-colors flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-label-md">edit</span>
+                  Edit
+                </button>
+<button class="toggle-status-btn px-3 py-1.5 rounded-lg bg-card-bg-disabled hover:bg-error-container hover:text-on-error-container text-text-muted font-label-sm text-label-sm transition-colors" type="button">
+                  Deactivate
+                </button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer with Prototype Safeguard Notice -->
+<div class="p-space-md bg-surface-container flex flex-col sm:flex-row items-center justify-between gap-space-sm text-text-muted">
+<div class="flex items-center gap-space-xs font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-label-md">verified_user</span>
+<span>Showing 6 of 6 registered cafe accounts • Station 01 connected</span>
+</div>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-caramel-gold font-bold">Prototype data (fictional)</span>
+</div>
+</div>
+<!-- Role Hierarchy Information Card -->
+<div class="mt-space-lg grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<div class="bg-surface-container p-space-lg rounded-xl shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center gap-space-xs text-espresso-dark">
+<span class="material-symbols-outlined text-matcha-green">storefront</span>
+<h2 class="font-title-sm text-title-sm font-bold">Staff Role Privileges</h2>
+</div>
+<p class="font-body-md text-body-md text-text-muted">
+        Restricted to front-line order taking, live ticket status progression (Pending → Paid → Preparing → Completed), customer cart actions, and counter register operations.
+      </p>
+<div class="mt-auto pt-space-xs flex items-center gap-2 text-label-sm font-label-sm text-text-muted">
+<span class="material-symbols-outlined text-label-sm text-matcha-green">check_circle</span>
+<span>Includes Order Queue, POS Screen &amp; Table Delivery</span>
+</div>
+</div>
+<div class="bg-surface-container p-space-lg rounded-xl shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center gap-space-xs text-espresso-dark">
+<span class="material-symbols-outlined text-caramel-gold">security</span>
+<h2 class="font-title-sm text-title-sm font-bold">Administrator Role Privileges</h2>
+</div>
+<p class="font-body-md text-body-md text-text-muted">
+        Full administrative oversight. Allows modifying menu catalog pricing, staff account credentials, shift session openings/closings, inventory counts, and financial sales analytics.
+      </p>
+<div class="mt-auto pt-space-xs flex items-center gap-2 text-label-sm font-label-sm text-text-muted">
+<span class="material-symbols-outlined text-label-sm text-caramel-gold">check_circle</span>
+<span>Includes Reports, Menu Setup, Shift Audits &amp; Staff Access</span>
+</div>
+</div>
+</div>
+<!-- Add / Edit Staff Member Modal Backdrop -->
+<div class="fixed inset-0 z-50 bg-espresso-dark/40 backdrop-blur-sm flex items-center justify-center p-space-md hidden transition-opacity duration-200" id="staffModal">
+<!-- Modal Window -->
+<div class="bg-surface rounded-2xl w-full max-w-lg shadow-[0_12px_32px_rgba(41,34,29,0.22)] overflow-hidden flex flex-col animate-in fade-in zoom-in-95 duration-150">
+<!-- Modal Header -->
+<div class="p-space-lg bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-xl bg-espresso-dark text-caramel-gold flex items-center justify-center">
+<span class="material-symbols-outlined text-title-md" id="modalIcon">person_add</span>
+</div>
+<div class="flex flex-col">
+<h3 class="font-headline-sm text-headline-sm text-espresso-dark" id="modalTitle">Add Staff Member</h3>
+<span class="font-label-sm text-label-sm text-text-muted">M&amp;E Kape Cup User Authorization</span>
+</div>
+</div>
+<button class="w-8 h-8 rounded-lg bg-surface hover:bg-surface-container flex items-center justify-center text-text-muted hover:text-espresso-dark transition-colors" id="closeModalBtn" type="button">
+<span class="material-symbols-outlined text-title-sm">close</span>
+</button>
+</div>
+<!-- Modal Body / Form -->
+<form class="p-space-lg flex flex-col gap-space-md" id="staffForm">
+<!-- Name Input -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md uppercase tracking-wider text-text-muted" for="staffNameInput">
+            Staff Member Name
+          </label>
+<input class="w-full px-space-md py-2.5 rounded-lg bg-surface text-espresso-dark font-body-md text-body-md placeholder-text-muted/60 focus:outline-none focus:ring-2 focus:ring-caramel-gold bg-surface-container-lowest" id="staffNameInput" placeholder="[Prototype user]" required="" type="text"/>
+<span class="font-body-sm text-body-sm text-text-muted">Format preview: [Prototype user N] or operational alias</span>
+</div>
+<!-- Username / Login ID -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md uppercase tracking-wider text-text-muted" for="staffLoginInput">
+            Username / Terminal Login ID
+          </label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-muted text-title-sm">alternate_email</span>
+<input class="w-full pl-10 pr-space-md py-2.5 rounded-lg bg-surface text-espresso-dark font-mono text-body-md placeholder-text-muted/60 focus:outline-none focus:ring-2 focus:ring-caramel-gold bg-surface-container-lowest" id="staffLoginInput" placeholder="barista.clara" required="" type="text"/>
+</div>
+</div>
+<!-- Role Selector (Restricted to Staff and Admin) -->
+<div class="flex flex-col gap-2">
+<span class="font-label-md text-label-md uppercase tracking-wider text-text-muted">Role Assignment</span>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm">
+<!-- Staff Option -->
+<label class="cursor-pointer relative flex flex-col p-space-md rounded-xl bg-surface-container hover:bg-surface-container-high transition-colors has-[:checked]:bg-secondary-container">
+<input checked="" class="sr-only" name="accountRole" type="radio" value="Staff"/>
+<div class="flex items-center justify-between mb-1">
+<span class="font-title-sm text-title-sm text-espresso-dark font-bold flex items-center gap-1.5">
+<span class="material-symbols-outlined text-title-sm text-matcha-green">store</span>
+                  Staff
+                </span>
+<span class="material-symbols-outlined text-title-sm text-caramel-gold check-indicator">check_circle</span>
+</div>
+<span class="font-body-sm text-body-sm text-text-muted">
+                Access to Order Queue &amp; POS floor screen only.
+              </span>
+</label>
+<!-- Admin Option -->
+<label class="cursor-pointer relative flex flex-col p-space-md rounded-xl bg-surface-container hover:bg-surface-container-high transition-colors has-[:checked]:bg-secondary-container">
+<input class="sr-only" name="accountRole" type="radio" value="Admin"/>
+<div class="flex items-center justify-between mb-1">
+<span class="font-title-sm text-title-sm text-espresso-dark font-bold flex items-center gap-1.5">
+<span class="material-symbols-outlined text-title-sm text-caramel-gold">admin_panel_settings</span>
+                  Admin
+                </span>
+<span class="material-symbols-outlined text-title-sm text-caramel-gold check-indicator hidden">check_circle</span>
+</div>
+<span class="font-body-sm text-body-sm text-text-muted">
+                Full oversight, menu management &amp; sales reports.
+              </span>
+</label>
+</div>
+</div>
+<!-- Account Status Toggle -->
+<div class="flex items-center justify-between p-space-md bg-surface-container-low rounded-xl">
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg text-espresso-dark">Account Status</span>
+<span class="font-body-sm text-body-sm text-text-muted" id="statusLabelText">Account is active and can claim POS shifts</span>
+</div>
+<div class="flex items-center gap-2">
+<button aria-checked="true" class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full bg-matcha-green transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-caramel-gold" id="statusToggleButton" role="switch" type="button">
+<span class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-surface shadow-md ring-0 transition duration-200 ease-in-out translate-x-5 mt-0.5 ml-0.5" id="statusToggleKnob"></span>
+</button>
+<span class="font-label-sm text-label-sm font-bold text-matcha-green uppercase" id="statusDisplayBadge">Active</span>
+</div>
+</div>
+<!-- Password / Security PIN -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md uppercase tracking-wider text-text-muted" for="staffPinInput">
+            Terminal PIN / Fast Passcode
+          </label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-muted text-title-sm">dialpad</span>
+<input class="w-full pl-10 pr-space-md py-2.5 rounded-lg bg-surface text-espresso-dark font-mono text-body-md placeholder-text-muted/60 focus:outline-none focus:ring-2 focus:ring-caramel-gold tracking-widest bg-surface-container-lowest" id="staffPinInput" maxlength="6" placeholder="••••••" required="" type="password"/>
+</div>
+<span class="font-body-sm text-body-sm text-text-muted">4 to 6 digit quick-switch numeric PIN for counter baristas</span>
+</div>
+<!-- Modal Actions -->
+<div class="pt-space-sm flex items-center justify-end gap-space-sm">
+<button class="px-space-lg py-2.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-espresso-dark font-label-lg text-label-lg transition-colors" id="cancelModalBtn" type="button">
+            Cancel
+          </button>
+<button class="px-space-xl py-2.5 rounded-lg bg-primary text-on-primary font-label-lg text-label-lg shadow-md hover:bg-espresso-dark active:scale-[0.99] transition-all flex items-center gap-2" type="submit">
+<span class="material-symbols-outlined text-title-sm">save</span>
+<span>Save Account</span>
+</button>
+</div>
+</form>
+<!-- Fictional Notice in Modal Foot -->
+<div class="bg-surface-container px-space-lg py-2 flex items-center justify-between text-label-sm font-label-sm text-text-muted">
+<span>Security Layer: Local Station Hash</span>
+<span class="text-caramel-gold font-bold">Prototype data (fictional)</span>
+</div>
+</div>
+</div>
+</div>
+<script>
+  (function initStaffManagement() {
+    const modal = document.getElementById('staffModal');
+    const openAddBtn = document.getElementById('openAddModalBtn');
+    const closeBtn = document.getElementById('closeModalBtn');
+    const cancelBtn = document.getElementById('cancelModalBtn');
+    const staffForm = document.getElementById('staffForm');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalIcon = document.getElementById('modalIcon');
+    const nameInput = document.getElementById('staffNameInput');
+    const loginInput = document.getElementById('staffLoginInput');
+    const pinInput = document.getElementById('staffPinInput');
+    const statusToggleBtn = document.getElementById('statusToggleButton');
+    const statusToggleKnob = document.getElementById('statusToggleKnob');
+    const statusDisplayBadge = document.getElementById('statusDisplayBadge');
+    const statusLabelText = document.getElementById('statusLabelText');
+    const searchInput = document.getElementById('staffSearchInput');
+    const filterButtons = document.querySelectorAll('.role-filter-btn');
+    const radioOptions = document.querySelectorAll('input[name="accountRole"]');
+
+    let currentEditingRow = null;
+    let isStatusActive = true;
+
+    // Helper: Toggle status visual inside modal
+    function setModalStatus(active) {
+      isStatusActive = active;
+      statusToggleBtn.setAttribute('aria-checked', active ? 'true' : 'false');
+      if (active) {
+        statusToggleBtn.classList.remove('bg-card-bg-disabled');
+        statusToggleBtn.classList.add('bg-matcha-green');
+        statusToggleKnob.classList.remove('translate-x-0.5');
+        statusToggleKnob.classList.add('translate-x-5');
+        statusDisplayBadge.textContent = 'Active';
+        statusDisplayBadge.className = 'font-label-sm text-label-sm font-bold text-matcha-green uppercase';
+        statusLabelText.textContent = 'Account is active and can claim POS shifts';
+      } else {
+        statusToggleBtn.classList.remove('bg-matcha-green');
+        statusToggleBtn.classList.add('bg-card-bg-disabled');
+        statusToggleKnob.classList.remove('translate-x-5');
+        statusToggleKnob.classList.add('translate-x-0.5');
+        statusDisplayBadge.textContent = 'Inactive';
+        statusDisplayBadge.className = 'font-label-sm text-label-sm font-bold text-text-muted uppercase';
+        statusLabelText.textContent = 'Account deactivated; barred from terminal login';
+      }
+    }
+
+    statusToggleBtn.addEventListener('click', () => {
+      setModalStatus(!isStatusActive);
+    });
+
+    // Update Radio check indicators
+    radioOptions.forEach(radio => {
+      radio.addEventListener('change', () => {
+        document.querySelectorAll('.check-indicator').forEach(ind => ind.classList.add('hidden'));
+        const activeContainer = radio.closest('label');
+        if (activeContainer) {
+          const icon = activeContainer.querySelector('.check-indicator');
+          if (icon) icon.classList.remove('hidden');
+        }
+      });
+    });
+
+    // Open Add Modal
+    function openAddModal() {
+      currentEditingRow = null;
+      modalTitle.textContent = 'Add Staff Member';
+      modalIcon.textContent = 'person_add';
+      nameInput.value = '[Prototype user ' + (document.querySelectorAll('.staff-row').length + 1) + ']';
+      loginInput.value = '';
+      pinInput.value = '';
+      setModalStatus(true);
+      const defaultRadio = document.querySelector('input[name="accountRole"][value="Staff"]');
+      if (defaultRadio) {
+        defaultRadio.checked = true;
+        defaultRadio.dispatchEvent(new Event('change'));
+      }
+      modal.classList.remove('hidden');
+    }
+
+    // Open Edit Modal
+    function openEditModal(row) {
+      currentEditingRow = row;
+      modalTitle.textContent = 'Edit Staff Member';
+      modalIcon.textContent = 'manage_accounts';
+
+      const currentName = row.getAttribute('data-name') || '';
+      const currentUsername = row.getAttribute('data-username') || '';
+      const currentRole = row.getAttribute('data-role') || 'Staff';
+      const currentStatus = row.getAttribute('data-status') || 'Active';
+
+      nameInput.value = currentName;
+      loginInput.value = currentUsername;
+      pinInput.value = '••••••';
+
+      const targetRadio = document.querySelector(`input[name="accountRole"][value="${currentRole}"]`);
+      if (targetRadio) {
+        targetRadio.checked = true;
+        targetRadio.dispatchEvent(new Event('change'));
+      }
+
+      setModalStatus(currentStatus === 'Active');
+      modal.classList.remove('hidden');
+    }
+
+    function closeModal() {
+      modal.classList.add('hidden');
+      currentEditingRow = null;
+    }
+
+    openAddBtn.addEventListener('click', openAddModal);
+    closeBtn.addEventListener('click', closeModal);
+    cancelBtn.addEventListener('click', closeModal);
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+    // Handle Edit & Deactivate click delegations on table
+    const tableBody = document.getElementById('staffTableBody');
+    tableBody.addEventListener('click', (e) => {
+      const editBtn = e.target.closest('.edit-staff-btn');
+      const toggleBtn = e.target.closest('.toggle-status-btn');
+      const row = e.target.closest('.staff-row');
+
+      if (editBtn && row) {
+        openEditModal(row);
+      } else if (toggleBtn && row) {
+        const isCurrentActive = row.getAttribute('data-status') === 'Active';
+        const newStatus = isCurrentActive ? 'Inactive' : 'Active';
+        row.setAttribute('data-status', newStatus);
+
+        const statusBadgeCell = row.querySelector('.status-badge');
+        if (newStatus === 'Active') {
+          statusBadgeCell.className = 'status-badge inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-matcha-green/15 text-matcha-green font-label-sm text-label-sm font-bold';
+          statusBadgeCell.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-matcha-green animate-pulse"></span> Active';
+          toggleBtn.className = 'toggle-status-btn px-3 py-1.5 rounded-lg bg-card-bg-disabled hover:bg-error-container hover:text-on-error-container text-text-muted font-label-sm text-label-sm transition-colors';
+          toggleBtn.textContent = 'Deactivate';
+          row.classList.remove('opacity-80');
+        } else {
+          statusBadgeCell.className = 'status-badge inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-card-bg-disabled text-text-muted font-label-sm text-label-sm font-bold';
+          statusBadgeCell.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-text-muted"></span> Inactive';
+          toggleBtn.className = 'toggle-status-btn px-3 py-1.5 rounded-lg bg-matcha-green/20 text-matcha-green font-label-sm text-label-sm hover:bg-matcha-green hover:text-surface transition-colors';
+          toggleBtn.textContent = 'Activate';
+          row.classList.add('opacity-80');
+        }
+      }
+    });
+
+    // Handle Form Submit
+    staffForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = nameInput.value.trim();
+      const login = loginInput.value.trim();
+      const selectedRole = document.querySelector('input[name="accountRole"]:checked')?.value || 'Staff';
+      const statusStr = isStatusActive ? 'Active' : 'Inactive';
+
+      if (!name || !login) return;
+
+      if (currentEditingRow) {
+        // Update existing row
+        currentEditingRow.setAttribute('data-name', name);
+        currentEditingRow.setAttribute('data-username', login);
+        currentEditingRow.setAttribute('data-role', selectedRole);
+        currentEditingRow.setAttribute('data-status', statusStr);
+
+        // Name
+        const nameHeading = currentEditingRow.querySelector('.font-title-sm');
+        if (nameHeading) nameHeading.textContent = name;
+
+        // Login
+        const loginSpan = currentEditingRow.querySelector('.font-mono');
+        if (loginSpan) loginSpan.textContent = login;
+
+        // Role pill
+        const roleCell = currentEditingRow.querySelector('td:nth-child(3)');
+        if (roleCell) {
+          if (selectedRole === 'Admin') {
+            roleCell.innerHTML = `
+              <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-primary-container text-caramel-gold font-label-sm text-label-sm font-bold">
+                <span class="material-symbols-outlined text-label-sm text-caramel-gold">admin_panel_settings</span>
+                Admin
+              </span>`;
+          } else {
+            roleCell.innerHTML = `
+              <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-bold">
+                <span class="material-symbols-outlined text-label-sm text-caramel-gold">point_of_sale</span>
+                Staff
+              </span>`;
+          }
+        }
+
+        // Status badge
+        const badgeCell = currentEditingRow.querySelector('.status-badge');
+        const toggleBtn = currentEditingRow.querySelector('.toggle-status-btn');
+        if (isStatusActive) {
+          badgeCell.className = 'status-badge inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-matcha-green/15 text-matcha-green font-label-sm text-label-sm font-bold';
+          badgeCell.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-matcha-green animate-pulse"></span> Active';
+          toggleBtn.className = 'toggle-status-btn px-3 py-1.5 rounded-lg bg-card-bg-disabled hover:bg-error-container hover:text-on-error-container text-text-muted font-label-sm text-label-sm transition-colors';
+          toggleBtn.textContent = 'Deactivate';
+          currentEditingRow.classList.remove('opacity-80');
+        } else {
+          badgeCell.className = 'status-badge inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-card-bg-disabled text-text-muted font-label-sm text-label-sm font-bold';
+          badgeCell.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-text-muted"></span> Inactive';
+          toggleBtn.className = 'toggle-status-btn px-3 py-1.5 rounded-lg bg-matcha-green/20 text-matcha-green font-label-sm text-label-sm hover:bg-matcha-green hover:text-surface transition-colors';
+          toggleBtn.textContent = 'Activate';
+          currentEditingRow.classList.add('opacity-80');
+        }
+      } else {
+        // Add new row dynamically
+        const newCount = document.querySelectorAll('.staff-row').length + 1;
+        const tr = document.createElement('tr');
+        tr.className = `staff-row hover:bg-surface-container-low transition-colors ${!isStatusActive ? 'opacity-80' : ''}`;
+        tr.setAttribute('data-name', name);
+        tr.setAttribute('data-username', login);
+        tr.setAttribute('data-role', selectedRole);
+        tr.setAttribute('data-status', statusStr);
+
+        const initials = `P${newCount}`;
+        const avatarBg = selectedRole === 'Admin' ? 'bg-espresso-dark text-caramel-gold' : 'bg-caramel-gold/30 text-primary-container';
+
+        tr.innerHTML = `
+          <td class="py-4 px-space-lg">
+            <div class="flex items-center gap-space-sm">
+              <div class="w-9 h-9 rounded-full ${avatarBg} flex items-center justify-center font-title-sm text-title-sm font-bold">
+                ${initials}
+              </div>
+              <div class="flex flex-col min-w-0">
+                <span class="font-title-sm text-title-sm text-espresso-dark truncate">${name}</span>
+                <span class="font-body-sm text-body-sm text-text-muted truncate">${selectedRole === 'Admin' ? 'Supervisor Account' : 'Floor Team Member'}</span>
+              </div>
+            </div>
+          </td>
+          <td class="py-4 px-space-md">
+            <div class="flex items-center gap-1.5">
+              <span class="font-mono text-body-sm text-espresso-dark font-semibold">${login}</span>
+              <span class="px-1.5 py-0.5 rounded bg-surface-container text-text-muted font-label-sm text-label-sm">TRM-01</span>
+            </div>
+          </td>
+          <td class="py-4 px-space-md">
+            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full ${selectedRole === 'Admin' ? 'bg-primary-container text-caramel-gold' : 'bg-secondary-container text-on-secondary-container'} font-label-sm text-label-sm font-bold">
+              <span class="material-symbols-outlined text-label-sm ${selectedRole === 'Admin' ? 'text-caramel-gold' : 'text-caramel-gold'}">${selectedRole === 'Admin' ? 'admin_panel_settings' : 'point_of_sale'}</span>
+              ${selectedRole}
+            </span>
+          </td>
+          <td class="py-4 px-space-md">
+            <span class="status-badge inline-flex items-center gap-1 px-2.5 py-1 rounded-full ${isStatusActive ? 'bg-matcha-green/15 text-matcha-green' : 'bg-card-bg-disabled text-text-muted'} font-label-sm text-label-sm font-bold">
+              <span class="w-1.5 h-1.5 rounded-full ${isStatusActive ? 'bg-matcha-green animate-pulse' : 'bg-text-muted'}"></span>
+              ${statusStr}
+            </span>
+          </td>
+          <td class="py-4 px-space-md">
+            <div class="flex flex-col">
+              <span class="font-label-sm text-label-sm text-espresso-dark font-semibold">Just added</span>
+              <span class="font-body-sm text-body-sm text-text-muted">New provisioning</span>
+            </div>
+          </td>
+          <td class="py-4 px-space-lg text-right">
+            <div class="inline-flex items-center gap-2">
+              <button type="button" class="edit-staff-btn px-3 py-1.5 rounded-lg bg-surface-container hover:bg-secondary-container text-espresso-dark font-label-sm text-label-sm transition-colors flex items-center gap-1">
+                <span class="material-symbols-outlined text-label-md">edit</span>
+                Edit
+              </button>
+              <button type="button" class="toggle-status-btn px-3 py-1.5 rounded-lg ${isStatusActive ? 'bg-card-bg-disabled hover:bg-error-container hover:text-on-error-container text-text-muted' : 'bg-matcha-green/20 text-matcha-green hover:bg-matcha-green hover:text-surface'} font-label-sm text-label-sm transition-colors">
+                ${isStatusActive ? 'Deactivate' : 'Activate'}
+              </button>
+            </div>
+          </td>
+        `;
+
+        tableBody.prepend(tr);
+      }
+
+      closeModal();
+    });
+
+    // Filtering Functionality
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterButtons.forEach(b => {
+          b.classList.remove('bg-primary', 'text-on-primary');
+          b.classList.add('bg-surface', 'text-espresso-dark');
+        });
+        btn.classList.add('bg-primary', 'text-on-primary');
+        btn.classList.remove('bg-surface', 'text-espresso-dark');
+
+        const filterRole = btn.getAttribute('data-filter');
+        applyFilters(filterRole, searchInput.value.toLowerCase().trim());
+      });
+    });
+
+    // Search bar functionality
+    searchInput.addEventListener('input', (e) => {
+      const activeFilterBtn = document.querySelector('.role-filter-btn.bg-primary');
+      const activeRole = activeFilterBtn ? activeFilterBtn.getAttribute('data-filter') : 'all';
+      applyFilters(activeRole, e.target.value.toLowerCase().trim());
+    });
+
+    function applyFilters(roleFilter, query) {
+      const rows = document.querySelectorAll('.staff-row');
+      rows.forEach(row => {
+        const rowRole = row.getAttribute('data-role');
+        const rowName = (row.getAttribute('data-name') || '').toLowerCase();
+        const rowUsername = (row.getAttribute('data-username') || '').toLowerCase();
+
+        const roleMatch = (roleFilter === 'all') || (rowRole === roleFilter);
+        const searchMatch = !query || rowName.includes(query) || rowUsername.includes(query);
+
+        if (roleMatch && searchMatch) {
+          row.classList.remove('hidden');
+        } else {
+          row.classList.add('hidden');
+        }
+      });
+    }
+  })();
+</script></main></div></body></html>
