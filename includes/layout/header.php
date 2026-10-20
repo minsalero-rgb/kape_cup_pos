@@ -13,18 +13,18 @@ $pageDescription = isset($pageDescription) && is_string($pageDescription)
     ? $pageDescription
     : '';
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?= escape_html($pageTitle) ?> | M&amp;E Kape Cup</title>
-    <link rel="stylesheet" href="<?= escape_html(app_base_path()) ?>/assets/css/tokens.css">
-    <link rel="stylesheet" href="<?= escape_html(app_base_path()) ?>/assets/css/style.css?v=20261018-7">
-    <link rel="stylesheet" href="<?= escape_html(app_base_path()) ?>/assets/css/app.css?v=20261020-1">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Merriweather:wght@400;700&amp;display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
-</head>
+<?php
+$pageCss = [
+    'css/tokens.css',
+    'css/base.css',
+    'css/components.css',
+    'css/style.css',
+    'css/app.css',
+    'css/layout-app.css',
+];
+$pageJs = ['js/ui.js'];
+require dirname(__DIR__) . '/partials/head.php';
+?>
 <body class="app-body app-body--<?= escape_html($role) ?>">
 <div class="app-shell">
     <?php require __DIR__ . '/sidebar.php'; ?>

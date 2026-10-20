@@ -13,7 +13,7 @@ $initial = function_exists('mb_substr')
     ? mb_strtoupper(mb_substr((string) $user['full_name'], 0, 1, 'UTF-8'), 'UTF-8')
     : strtoupper(substr((string) $user['full_name'], 0, 1));
 $statusText = $role === 'staff' ? 'Live POS' : 'Administrator access';
-$statusDescription = 'Connected to the POS database';
+$statusDescription = $role === 'staff' ? 'Staff workspace' : 'Admin workspace';
 $secondaryLabel = $role === 'staff' ? 'End shift' : 'Change password';
 $secondaryUrl = $role === 'staff'
     ? $basePath . '/staff/end_shift.php'
@@ -29,7 +29,7 @@ $secondaryUrl = $role === 'staff'
     </a>
     <div class="app-context-card">
         <span><?= $role === 'admin' ? 'Account' : 'Station' ?></span>
-        <strong><?= $role === 'admin' ? 'Administrator' : 'Terminal #01' ?></strong>
+        <strong><?= $role === 'admin' ? 'Administrator' : 'Staff' ?></strong>
     </div>
     <nav class="app-nav" aria-label="<?= $role === 'admin' ? 'Admin' : 'Staff' ?> navigation">
         <?php foreach ($navItems as $item): ?>

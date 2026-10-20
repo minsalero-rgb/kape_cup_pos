@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-$topbarLabel = $role === 'admin' ? 'Administration' : 'Main Counter Branch';
+$topbarLabel = $role === 'admin' ? 'Administration' : 'Staff';
 $initial = function_exists('mb_substr')
     ? mb_strtoupper(mb_substr((string) $user['full_name'], 0, 1, 'UTF-8'), 'UTF-8')
     : strtoupper(substr((string) $user['full_name'], 0, 1));
