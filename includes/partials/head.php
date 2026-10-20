@@ -5,12 +5,12 @@ if (!function_exists('asset_url')) {
     function asset_url(string $asset): string
     {
         $relativePath = ltrim($asset, '/\\');
-        $filePath = dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . str_replace(
+        $filePath = dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . str_replace(
             ['/', '\\'],
             DIRECTORY_SEPARATOR,
             $relativePath
         );
-        $modifiedAt = filemtime($filePath);
+        $modifiedAt = is_file($filePath) ? filemtime($filePath) : false;
         if ($modifiedAt === false) {
             throw new RuntimeException('Unable to determine asset version.');
         }
@@ -22,7 +22,7 @@ if (!function_exists('asset_url')) {
 $pageTitle = isset($pageTitle) && is_string($pageTitle) ? $pageTitle : 'M&E Kape Cup';
 $pageCss = isset($pageCss) && is_array($pageCss)
     ? $pageCss
-    : ['css/tokens.css', 'css/base.css', 'css/components.css', 'css/style.css', 'css/app.css', 'css/layout-app.css'];
+    : ['css/tokens.css', 'css/fonts.css', 'css/base.css', 'css/components.css', 'css/style.css', 'css/app.css', 'css/layout-app.css'];
 $pageJs = isset($pageJs) && is_array($pageJs) ? $pageJs : ['js/ui.js'];
 ?>
 <!DOCTYPE html>
