@@ -29,11 +29,7 @@ $trackingToken = $validOrderId !== null
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Order Status | M&amp;E Kape Cup</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Merriweather:wght@400;700&amp;display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/tokens.css"><link rel="stylesheet" href="assets/css/style.css?v=20261018-7">
+    <link rel="stylesheet" href="assets/css/style.css?v=<?= (int) filemtime(__DIR__ . '/assets/css/style.css') ?>">
 </head>
 <body class="customer-site bg-background font-body-md text-body-md text-on-surface antialiased">
 <?php

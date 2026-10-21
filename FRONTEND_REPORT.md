@@ -1,38 +1,63 @@
-# Frontend rebuild report
+# M&E Kape Cup POS — frontend audit and validation
 
-## Work completed
+## Confirmed issues
 
-- **Shared admin/staff shell:** [`includes/layout/header.php`](./includes/layout/header.php) now uses a shared head partial and one `filemtime()` asset URL helper. The duplicate inline shell script was moved to [`assets/js/ui.js`](./assets/js/ui.js), which handles the responsive sidebar and replaces `window.confirm()` with a native confirmation dialog.
-- **Shared shell copy:** [`includes/layout/sidebar.php`](./includes/layout/sidebar.php) and [`includes/layout/topbar.php`](./includes/layout/topbar.php) no longer claim database connectivity, a fixed terminal number, or a named counter branch; they use neutral role labels.
-- **Foundation:** expanded [`assets/css/tokens.css`](./assets/css/tokens.css); added [`assets/css/base.css`](./assets/css/base.css), [`assets/css/components.css`](./assets/css/components.css), [`assets/css/layout-app.css`](./assets/css/layout-app.css), [`assets/css/layout-customer.css`](./assets/css/layout-customer.css), and [`includes/partials/head.php`](./includes/partials/head.php).
-- **Offline shared-shell typography/icons:** added local Inter, Merriweather, and a Material Symbols WOFF2 subset for the ligatures present in the PHP templates. The shared admin/staff head loads these assets without a CDN request.
-- **Contracts:** [`FRONTEND_CONTRACT.md`](./FRONTEND_CONTRACT.md) records the 53 pre-change PHP page/template contracts (assets, forms, hooks, and fetch URLs).
-- **Files/classes removed:** none. Legacy `style.css` and `app.css` remain in place because live pages still depend on their selectors. No files were deleted.
+| Severity | Confirmed finding and evidence | Affected files | Status / reproducible verification |
+|---|---|---|---|
+| Medium | Live pages previously loaded `style.css`, `tokens.css`, and `app.css` in inconsistent combinations; Google Fonts were linked per page. The standalone POS setup page did not load `style.css`. | [includes/layout/header.php](./includes/layout/header.php), [includes/login_page.php](./includes/login_page.php), [staff/offline_pos.php](./staff/offline_pos.php), [index.php](./index.php), [menu.php](./menu.php), [cart.php](./cart.php), [product_details.php](./product_details.php), [checkout.php](./checkout.php), [status.php](./status.php) | Fixed. Inspect each HTML page's `link[rel=stylesheet]`; browser smoke tests confirmed one unified CSS link on all tested customer and login pages. |
+| Medium | Customer pages depended on Google Fonts. The initial self-hosted icon font rendered names as text because ligatures were not enabled; data-sourced `spa` and `restaurant` icons were missing from its first subset. | [assets/css/style.css](./assets/css/style.css), [assets/fonts/material-symbols.woff2](./assets/fonts/material-symbols.woff2), customer PHP views | Fixed. Browser menu rendered the icons; font checks passed and its loaded resource list contained no external URLs. |
+| Low | Menu search matched card UI text. On the live menu, searching `sold out` incorrectly displayed all three products. | [menu.php](./menu.php) | Fixed. Type `sold out` (0 cards) and `cappuccino` (1 card) in menu search. |
+| Low | `menu.php`, `cart.php`, and `product_details.php` had no document title; the live menu's `document.title` was empty. | [menu.php](./menu.php), [cart.php](./cart.php), [product_details.php](./product_details.php) | Fixed. Browser smoke tests verified the three page titles. |
+| Low | Stylesheet cache-busting values differed across pages and could leave a stale CSS version after deployment. | [includes/partials/head.php](./includes/partials/head.php), customer PHP views, [includes/login_page.php](./includes/login_page.php), [staff/offline_pos.php](./staff/offline_pos.php) | Fixed. Rendered HTML uses the `style.css` modification time as `?v=`; browser checks verified the query on shared-head pages. |
 
-## CSS size
+## Application map
 
-Measured from the baseline commit and current files (decimal source line counts; KiB is bytes / 1024):
+- **Customer entry points:** `index.php`, `menu.php`, `product_details.php`, `cart.php`, `checkout.php`, and `status.php`. Customer pages use the customer session and render menu/cart/order status.
+- **Staff routes:** `staff/login.php`, `change_password.php`, `dashboard.php`, `offline_pos.php`, `orders.php`, `stock.php`, `reports.php`, `start_shift.php`, `end_shift.php`, and `logout.php`.
+- **Admin routes:** login/dashboard plus thin page wrappers for categories, duty sessions, menu, modifiers, orders, reports, and staff accounts. `admin/dashboard.php` dispatches the `admin/modules/` views.
+- **JSON APIs:** `api/menu.php`, `menu_image.php`, `ordering_status.php`, `order_notifications.php`, `queue.php`, `submit_order.php`, and `update_order_status.php`.
+- **Shared PHP:** `includes/auth.php`, `customer_session.php`, `login_page.php`, `layout/`, `nav_config.php`, and the order submission, workflow, tracking, inventory, and image helpers.
+- **Database:** the fresh-install schema defines `staff`, `staff_shifts`, `categories`, `menu_items`, modifier groups/options, `orders`, order items/modifiers, inventory logs, login attempts, order submission logs, and idempotency requests. Existing-database migrations 001–005 in `database/migrations/` match the documented order in `docs/DATABASE_SETUP.md`; the full schema includes those migration results.
+- **Contracts:** HTML form actions/methods/names, CSRF fields, API routes/headers, and order/session logic were not changed. The `data-description` menu-search attribute is additive. `FRONTEND_CONTRACT.md` is retained as the pre-change snapshot, so it intentionally mentions old stylesheet URLs.
 
-| CSS set | Before | Current |
-|---|---:|---:|
-| Existing `style.css` + `app.css` + `tokens.css` | 8,624 lines / 182.0 KiB | unchanged |
-| New foundation, font, and layout CSS | 0 lines / 0 KiB | 334 lines / 7.3 KiB |
-| Combined core CSS | 8,624 lines / 182.0 KiB | 8,958 lines / 189.3 KiB |
+## Security-sensitive review
 
-The pre-change `style.css` in this checkout is 6,751 lines (not 8,131); `app.css` is 1,796 lines. Existing stylesheet debt has not yet been migrated or removed.
+Static inspection covered staff/customer session setup and regeneration, role checks, login password verification/rehashing and throttling, CSRF checks on state-changing forms/APIs, prepared SQL, order idempotency and stock locks, tracking HMAC validation, upload type/size/path checks, and generic database error messages. **No confirmed security defect was established in this review.** This is not a penetration test or a replacement for authenticated, database-backed concurrency and authorization tests. No backend file, schema, route, credential, or business rule was changed.
 
-## Backend notes (not changed)
+## Changes
 
-- `index.php` and `menu.php` query `information_schema` on each request to test for `menu_items.image_filename`, despite migration 004 adding the column.
-- `menu.php` temporarily switches between customer and staff session cookies to display an admin link.
-- `.htaccess` sends CSP in Report-Only mode; when remaining inline scripts are removed, consider removing `'unsafe-inline'` for scripts.
-- `.mcp.json` and `.vscode/` are ignored configuration that appeared in the supplied project.
-- `includes/helpers.php` is empty and unused; `design/`, `offline-pos/`, and `apache-dacl-audit.ps1` appear to be dead weight. Recommend moving them out of the web root after separate review; none were deleted.
+- Merged the current tokens, local font faces, base/accessibility rules, shared components, existing Tailwind v3.4.17 output, customer styling, admin/staff styling, and layout/responsive rules into [assets/css/style.css](./assets/css/style.css). Existing utility and app rules were retained in cascade order; the live Material Symbols ligature and menu-filter rules were repaired.
+- Updated the customer pages, login partial, shared application head, and POS database-upgrade page to load the unified stylesheet. Added missing customer page titles and consistent filemtime cache keys.
+- Removed the superseded stylesheets: `assets/css/app.css`, `base.css`, `components.css`, `fonts.css`, `layout-app.css`, `layout-customer.css`, and `tokens.css`. The only CSS file remaining under `assets/css/` is `style.css`.
+- Updated `docs/README.md` to describe the unified stylesheet and local fonts.
 
-## Not completed / not verified
+### Modified files
 
-- This is the foundation and shared admin/staff shell phase, **not the full frontend rebuild**. Customer-page heads/header duplication, remaining inline scripts and handlers, the staff POS and admin/customer page redesigns, responsive table conversion, full stylesheet migration, local fonts/icons, toast/empty-state rollout, and the rest of the acceptance checklist remain.
-- Customer-page templates have not yet been switched to the shared head/local font assets, so they may still make CDN requests.
-- Database-backed customer, staff, and admin flows were not run; no database-backed visual review or Lighthouse run was possible.
-- PHP 8.2 lint passed for the changed PHP files and `git diff --check` passed. JavaScript syntax checking was unavailable because Node.js is not installed in this environment.
-- The exact frozen-path `git diff --name-only baseline -- ...` check was empty. `admin/*.php` wrappers and backend logic were not changed.
+`assets/css/style.css`; `assets/fonts/material-symbols.woff2`; `cart.php`; `checkout.php`; `docs/README.md`; `includes/layout/header.php`; `includes/login_page.php`; `includes/partials/head.php`; `index.php`; `menu.php`; `product_details.php`; `staff/offline_pos.php`; `status.php`.
+
+### Deleted files
+
+`assets/css/app.css`; `assets/css/base.css`; `assets/css/components.css`; `assets/css/fonts.css`; `assets/css/layout-app.css`; `assets/css/layout-customer.css`; `assets/css/tokens.css`.
+
+## Validation results
+
+- PHP lint using WAMP PHP 8.0.26: **67 files, 0 failures**.
+- PHP lint using PHP 8.2.0: **67 files, 0 failures**.
+- WAMP smoke test: Apache on port 80 and MySQL on port 3306 responded. Browser GET smoke tests for home, menu, product details, cart, checkout, invalid order status, staff login, and admin login all returned HTTP 200; each HTML page exposed one stylesheet URL.
+- Browser checks on the menu at 360, 768, and 1280 CSS px: no document horizontal overflow. Keyboard focus showed a visible outline; category filtering updated its selected state. Local Inter and icon fonts loaded.
+- Browser search regression test: `sold out` returned zero cards; `cappuccino` returned one.
+- Static reference scan: no live PHP link to removed CSS files and no live Google Fonts/Tailwind CDN CSS requests. `assets/css/` contains only `style.css`.
+- CSS source markers: 44 media queries. Legacy compiled and app rules still contain 116 `!important` declarations and 273 hex colors; they are consolidated, not fully normalized, to avoid deleting or casually rewriting utility/cascade rules.
+- `git diff --check`: passed. No PHP business-logic, API, schema, auth, or route files changed. `docs/README.md` was intentionally updated to document the single live stylesheet.
+- Node.js was unavailable, so the separate retired/offline POS build was not run.
+
+## Remaining WAMP checks and limits
+
+The live database returned three menu items, all sold out, so it was not appropriate to create a customer order or change stock as part of this frontend pass. No staff/admin credentials were supplied, and no write operations were performed. Therefore checkout retry/idempotency, payment verification, order tracking with a valid token, shift processing, stock deduction, admin mutations, reports, and authenticated tablet layouts remain unverified. Repeat those flows in a disposable or backed-up WAMP database with an authorized test account and an intentionally stocked test item. Test at 360/768/1280 px, with keyboard-only input and the network disabled. No Lighthouse audit was run.
+
+Prioritize these remaining checks:
+
+1. **Database/order safety:** in a disposable database, submit simultaneous duplicate checkout requests, verify one order is created, confirm unavailable/low-stock items cannot be sold, and test all legal/illegal status transitions. Check inventory audit rows and cash/change calculations without implying electronic payment is automatically verified.
+2. **Authentication/security:** verify unauthenticated and wrong-role requests to every Staff/Admin route/API, CSRF rejection, login throttling, session regeneration/cookie flags under HTTPS, tracking-token privacy and invalid-token responses, and malformed/oversized upload rejection. Confirm uploads remain outside `DocumentRoot`.
+3. **Accessibility:** audit label/error associations, keyboard order/focus, Escape behavior for dialog/drawer, contrast, icon accessible names, reduced motion, and zoom at 200%; run Lighthouse/axe on customer and authenticated shell pages.
+4. **Visual/offline:** repeat 360/768/1280 px screenshots for home, cart, checkout, status, POS, queue, stock, admin tables, and reports; disable network and verify all fonts, icons, and images that are expected to be local.
