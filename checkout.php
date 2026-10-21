@@ -53,7 +53,7 @@ $maxCashAmount = order_money_from_cents($maxCashCents);
     <title>Checkout | M&amp;E Kape Cup</title>
     <link rel="stylesheet" href="assets/css/style.css?v=<?= (int) filemtime(__DIR__ . '/assets/css/style.css') ?>">
 </head>
-<body class="customer-site bg-background font-body-md text-body-md text-on-surface antialiased">
+<body class="customer-site">
 <?php
 $customerNavActive = '';
 require __DIR__ . '/includes/customer_header.php';

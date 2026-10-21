@@ -97,39 +97,36 @@ $formAction = isset($_SERVER['SCRIPT_NAME']) ? $_SERVER['SCRIPT_NAME'] : '';
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= escape_html($loginTitle) ?> | M&amp;E Kape Cup</title>
-    <link rel="stylesheet" href="../assets/css/tokens.css">
-    <link rel="stylesheet" href="../assets/css/style.css?v=20261018-7">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Merriweather:wght@400;700&amp;display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css?v=<?= (int) filemtime(dirname(__DIR__) . '/assets/css/style.css') ?>">
 </head>
-<body class="min-h-screen bg-[#FFF8F5] text-[#221A13]">
-<main class="min-h-screen flex items-center justify-center px-4 py-10">
-    <section class="w-full max-w-md rounded-2xl bg-[#FFFCF6] p-8 shadow-xl">
-        <div class="mb-8 text-center">
-            <a href="../index.php" class="mx-auto mb-4 block h-16 w-16 overflow-hidden rounded-full" aria-label="M&E Kape Cup home"><img class="h-full w-full object-cover" src="../assets/img/me-kape-cup-logo.png" alt=""></a>
-            <h1 class="text-2xl font-bold"><?= escape_html($loginTitle) ?></h1>
-            <p class="mt-2 text-sm text-[#74685E]">
+<body class="login-page">
+<main class="login-page__main">
+    <section class="login-card" aria-labelledby="login-title">
+        <div class="login-card__brand">
+            <a href="../index.php" class="login-card__logo" aria-label="M&E Kape Cup home"><img src="../assets/img/me-kape-cup-logo.png" alt=""></a>
+            <h1 class="login-card__title" id="login-title"><?= escape_html($loginTitle) ?></h1>
+            <p class="login-card__intro">
                 Sign in to access the <?= $loginRole === 'admin' ? 'management dashboard' : 'POS terminal' ?>.
             </p>
         </div>
         <?php if ($signedOut): ?>
-            <p class="mb-5 rounded-lg bg-[#EAF2E3] p-3 text-sm" role="status">You have been signed out.</p>
+            <p class="ui-alert ui-alert--success login-card__notice" role="status">You have been signed out.</p>
         <?php endif; ?>
         <?php if ($errorMessage !== null): ?>
-            <p class="mb-5 rounded-lg bg-[#FDE5E1] p-3 text-sm text-[#8B2E24]" role="alert"><?= escape_html($errorMessage) ?></p>
+            <p class="ui-alert login-card__notice" role="alert"><?= escape_html($errorMessage) ?></p>
         <?php endif; ?>
-        <form method="post" action="<?= escape_html($formAction) ?>" class="space-y-5">
+        <form method="post" action="<?= escape_html($formAction) ?>" class="login-form">
             <input type="hidden" name="csrf_token" value="<?= escape_html(csrf_token()) ?>">
-            <label class="block text-sm font-semibold" for="username">Username
-                <input id="username" name="username" type="text" autocomplete="username" required maxlength="80" value="<?= escape_html(isset($username) ? $username : '') ?>" class="mt-2 w-full rounded-lg border border-[#E8DEC9] bg-[#FFFCF6] px-4 py-3 outline-none focus:ring-2 focus:ring-[#D9B77E]">
+            <label class="ui-field" for="username">Username
+                <input class="ui-input" id="username" name="username" type="text" autocomplete="username" required maxlength="80" value="<?= escape_html(isset($username) ? $username : '') ?>">
             </label>
-            <label class="block text-sm font-semibold" for="password">Password
-                <input id="password" name="password" type="password" autocomplete="current-password" required class="mt-2 w-full rounded-lg border border-[#E8DEC9] bg-[#FFFCF6] px-4 py-3 outline-none focus:ring-2 focus:ring-[#D9B77E]">
+            <label class="ui-field" for="password">Password
+                <input class="ui-input" id="password" name="password" type="password" autocomplete="current-password" required>
             </label>
-            <button type="submit" class="w-full rounded-lg bg-[#3B1F14] px-4 py-3 font-semibold text-white transition hover:bg-[#220B03]">Log In</button>
+            <button type="submit" class="ui-button ui-button--primary ui-button--large login-form__submit">Log In</button>
         </form>
-        <p class="mt-6 text-center text-sm text-[#74685E]">
-            <a href="../index.php" class="underline underline-offset-4 hover:text-[#3B1F14]">Back to home</a>
+        <p class="login-card__back">
+            <a href="../index.php">Back to home</a>
         </p>
     </section>
 </main>

@@ -82,7 +82,10 @@ try {
 }
 ?>
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_standard" name="shell-type">
-<title>Menu | M&amp;E Kape Cup</title><link rel="stylesheet" href="assets/css/style.css?v=<?= (int) filemtime(__DIR__ . '/assets/css/style.css') ?>"></head><body class="customer-site bg-background font-body-md text-body-md text-on-surface antialiased"><header class="fixed top-0 left-0 right-0 z-40 bg-surface/90 backdrop-blur-md shadow-[0_1px_8px_rgba(41,34,29,0.06)]"><div class="h-20 max-w-[1280px] mx-auto px-margin-desktop flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md"><a class="flex items-center gap-space-sm group" data-path="home" href="index.php"><img class="w-11 h-11 rounded-full object-cover" src="assets/img/me-kape-cup-logo.png" alt=""><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-espresso-dark group-hover:text-primary transition-colors tracking-tight">M&amp;E Kape Cup</span><span class="font-label-sm text-label-sm text-text-muted tracking-wider uppercase">Artisanal Brew &amp; Comforts</span></div></a></div><nav class="hidden md:flex items-center gap-space-sm" data-active-classes="bg-secondary-container text-on-secondary-container font-bold rounded-lg shadow-sm"><a class="px-space-md py-space-xs font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors" data-path="home" href="index.php">Home</a><a aria-current="page" class="px-space-md py-space-xs transition-colors bg-secondary-container text-on-secondary-container font-bold rounded-lg shadow-sm" data-path="menu" href="menu.php">Menu</a><a class="px-space-md py-space-xs font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors" data-path="order-status" href="status.php">Order Status</a></nav><div class="flex items-center gap-space-md"><a class="relative flex items-center justify-center w-11 h-11 rounded-full bg-surface-container-high text-espresso-dark hover:bg-caramel-gold/20 hover:text-primary transition-colors" data-path="cart-drawer" href="cart.php"><span class="material-symbols-outlined text-title-md">shopping_bag</span><span class="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-accessible-red text-on-error font-label-sm text-label-sm flex items-center justify-center font-bold"><?= (int) array_sum(array_map(static function ($e) { return is_array($e) && isset($e['quantity']) ? (int) $e['quantity'] : 0; }, isset($_SESSION['cart']) && is_array($_SESSION['cart']) ? $_SESSION['cart'] : [])) ?></span></a></div></div></header><main class="w-full pt-20 bg-background min-h-screen"><div class="flex flex-col w-full">
+<title>Menu | M&amp;E Kape Cup</title><link rel="stylesheet" href="assets/css/style.css?v=<?= (int) filemtime(__DIR__ . '/assets/css/style.css') ?>"></head><body class="customer-site"><?php
+$customerNavActive = 'menu';
+require __DIR__ . '/includes/customer_header.php';
+?><main class="w-full pt-20 bg-background min-h-screen"><div class="flex flex-col w-full">
 <div class="w-full max-w-[1280px] mx-auto px-margin md:px-margin-desktop py-space-lg flex flex-col gap-space-lg">
 <?php if ($showAdminMenuLink): ?>
 <div class="flex justify-end">
@@ -94,13 +97,13 @@ try {
 <?php
 $categoryIcons = [
     'Coffee Series' => 'local_cafe',
-    'Matcha Series' => 'spa',
-    'Fruit Milk' => 'nutrition',
-    'Soda' => 'bubble_chart',
-    'Fruit Shake' => 'blender',
-    'Latte Series with Whipped Cream' => 'icecream',
-    'Main Courses' => 'dinner_dining',
-    'Snacks' => 'bakery_dining',
+    'Matcha Series' => 'eco',
+    'Fruit Milk' => 'eco',
+    'Soda' => 'category',
+    'Fruit Shake' => 'coffee',
+    'Latte Series with Whipped Cream' => 'local_cafe',
+    'Main Courses' => 'storefront',
+    'Snacks' => 'receipt_long',
 ];
 $categoryImages = [
     'Coffee Series' => 'coffee.png',
@@ -166,7 +169,7 @@ $menuItemCount = count($menuItems);
             <?php
             $categoryId = (int) $category['category_id'];
             $categoryName = $category['name'];
-            $icon = $categoryIcons[$categoryName] ?? 'restaurant';
+            $icon = $categoryIcons[$categoryName] ?? 'category';
             ?>
 
             <button

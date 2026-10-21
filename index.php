@@ -48,7 +48,7 @@ $categoryImages = [
     <title>M&amp;E Kape Cup</title>
     <link rel="stylesheet" href="assets/css/style.css?v=<?= (int) filemtime(__DIR__ . '/assets/css/style.css') ?>">
 </head>
-<body class="customer-site bg-background font-body-md text-body-md text-on-surface antialiased">
+<body class="customer-site">
 <?php
 $customerNavActive = 'home';
 require __DIR__ . '/includes/customer_header.php';

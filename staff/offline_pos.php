@@ -37,8 +37,7 @@ if (!$hasInventoryColumns || !$hasInventoryLogTable) {
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Database Upgrade Required | M&amp;E Kape Cup</title>
-        <link rel="stylesheet" href="<?= escape_html($basePath) ?>/assets/css/tokens.css">
-        <link rel="stylesheet" href="<?= escape_html($basePath) ?>/assets/css/app.css">
+        <link rel="stylesheet" href="<?= escape_html($basePath) ?>/assets/css/style.css?v=<?= (int) filemtime(__DIR__ . '/../assets/css/style.css') ?>">
     </head>
     <body>
         <main class="app-main">
@@ -480,7 +479,7 @@ require __DIR__ . '/../includes/layout/header.php';
                     <div class="app-auto-grid">
                         <?php foreach ($categoryItems as $item): ?>
                             <?php $soldOut = (int) $item['is_sold_out'] === 1 || (int) $item['stock_quantity'] < 1; ?>
-                            <article class="card pos-item-card" data-pos-item data-pos-category="<?= (int) $category['category_id'] ?>">
+                            <article class="card pos-item-card<?= $soldOut ? ' is-sold-out' : '' ?><?= (int) $item['stock_quantity'] <= (int) $item['low_stock_threshold'] ? ' is-low-stock' : '' ?>" data-pos-item data-pos-category="<?= (int) $category['category_id'] ?>">
                                 <div class="pos-item-heading">
                                     <h4><?= escape_html($item['name']) ?></h4>
                                     <strong>₱<?= escape_html($item['base_price']) ?></strong>
@@ -488,7 +487,7 @@ require __DIR__ . '/../includes/layout/header.php';
                                 <?php if ($item['description'] !== null && $item['description'] !== ''): ?>
                                     <p class="pos-item-description"><?= escape_html($item['description']) ?></p>
                                 <?php endif; ?>
-                                <p class="pos-stock<?= (int) $item['stock_quantity'] <= (int) $item['low_stock_threshold'] ? ' is-low' : '' ?>">
+                                <p class="pos-stock<?= $soldOut ? ' is-out' : ((int) $item['stock_quantity'] <= (int) $item['low_stock_threshold'] ? ' is-low' : '') ?>">
                                     <?= $soldOut ? 'Out of stock' : (int) $item['stock_quantity'] . ' in stock' ?>
                                 </p>
                                 <?php if (!$soldOut && $hasOneActiveShift): ?>
@@ -574,11 +573,11 @@ require __DIR__ . '/../includes/layout/header.php';
                                 <input type="hidden" name="key" value="<?= escape_html($line['key']) ?>">
                                 <label>
                                     <span>Qty</span>
-                                    <input type="number" name="quantity" min="0" max="99" value="<?= (int) ($line['quantity'] ?? 0) ?>">
+                                    <input type="number" name="quantity" min="1" max="99" value="<?= (int) ($line['quantity'] ?? 0) ?>">
                                 </label>
                                 <button type="submit" class="btn-secondary">Update</button>
                             </form>
-                            <form method="post" action="offline_pos.php?page=pos">
+                            <form method="post" action="offline_pos.php?page=pos" class="pos-remove-form" data-confirm="Remove this item from the order?">
                                 <input type="hidden" name="csrf_token" value="<?= escape_html(csrf_token()) ?>">
                                 <input type="hidden" name="action" value="remove">
                                 <input type="hidden" name="key" value="<?= escape_html($line['key']) ?>">
@@ -610,7 +609,7 @@ require __DIR__ . '/../includes/layout/header.php';
                 </label>
                 <button type="submit" class="btn-primary" <?= !$cartValid || !$hasOneActiveShift ? 'disabled' : '' ?>>Complete sale</button>
             </form>
-            <form method="post" action="offline_pos.php?page=pos">
+            <form method="post" action="offline_pos.php?page=pos" class="pos-clear-form" data-confirm="Clear every item from this order?">
                 <input type="hidden" name="csrf_token" value="<?= escape_html(csrf_token()) ?>">
                 <input type="hidden" name="action" value="clear">
                 <button type="submit" class="btn-ghost">Clear order</button>

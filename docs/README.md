@@ -118,8 +118,11 @@ certificate. See the HTTPS and HSTS rollout instructions in
 
 ## Frontend CSS
 
-Shared Admin and Staff shell styles live in `assets/css/app.css`; customer and
-legacy page styles remain in `assets/css/style.css`.
+All live application styles, including the customer storefront, login pages,
+Admin and Staff shell, and POS setup state, are served from
+`assets/css/style.css`. Inter, Merriweather, and the used Material Symbols
+icons are self-hosted under `assets/fonts/`; the live PHP pages do not need a
+font CDN.
 
 ## Application flows
 

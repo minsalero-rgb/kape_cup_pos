@@ -30,10 +30,13 @@ Static inspection covered staff/customer session setup and regeneration, role ch
 - Updated the customer pages, login partial, shared application head, and POS database-upgrade page to load the unified stylesheet. Added missing customer page titles and consistent filemtime cache keys.
 - Removed the superseded stylesheets: `assets/css/app.css`, `base.css`, `components.css`, `fonts.css`, `layout-app.css`, `layout-customer.css`, and `tokens.css`. The only CSS file remaining under `assets/css/` is `style.css`.
 - Updated `docs/README.md` to describe the unified stylesheet and local fonts.
+- Added a follow-up semantic component layer for buttons, fields, status badges, notices, tables, tabs, empty/loading states, and pagination. Refined the shared tokens and used them for the new app/customer refinements; customer views now use shared semantic header/login markup instead of page-specific utility styling.
+- Added the mobile customer cart bar and improved POS sold-out/low-stock affordances. Updated supported icon names and order-state badges in the inspected views.
+- Removed the remaining native confirmation calls from the staff queue and admin close-shift forms so the shared dialog is the single confirmation path. The shared dialog now composes close-shift copy, preserves keyboard focus behavior, and runs before staff queue submit handlers.
 
 ### Modified files
 
-`assets/css/style.css`; `assets/fonts/material-symbols.woff2`; `cart.php`; `checkout.php`; `docs/README.md`; `includes/layout/header.php`; `includes/login_page.php`; `includes/partials/head.php`; `index.php`; `menu.php`; `product_details.php`; `staff/offline_pos.php`; `status.php`.
+`admin/dashboard.php`; `admin/modules/orders.php`; `admin/modules/overview.php`; `assets/css/style.css`; `assets/fonts/material-symbols.woff2`; `assets/js/ui.js`; `cart.php`; `checkout.php`; `docs/README.md`; `includes/customer_header.php`; `includes/layout/header.php`; `includes/login_page.php`; `includes/partials/head.php`; `index.php`; `menu.php`; `product_details.php`; `staff/dashboard.php`; `staff/offline_pos.php`; `staff/orders.php`; `status.php`.
 
 ### Deleted files
 
@@ -41,19 +44,20 @@ Static inspection covered staff/customer session setup and regeneration, role ch
 
 ## Validation results
 
-- PHP lint using WAMP PHP 8.0.26: **67 files, 0 failures**.
-- PHP lint using PHP 8.2.0: **67 files, 0 failures**.
+- PHP lint using WAMP PHP 8.0.26: **all 16 changed PHP files, 0 failures**.
+- PHP lint using PHP 8.2.0: **all 16 changed PHP files, 0 failures**.
 - WAMP smoke test: Apache on port 80 and MySQL on port 3306 responded. Browser GET smoke tests for home, menu, product details, cart, checkout, invalid order status, staff login, and admin login all returned HTTP 200; each HTML page exposed one stylesheet URL.
-- Browser checks on the menu at 360, 768, and 1280 CSS px: no document horizontal overflow. Keyboard focus showed a visible outline; category filtering updated its selected state. Local Inter and icon fonts loaded.
+- Browser checks on customer routes (including `product_details.php?id=2`) and both login pages at 360, 768, 1024, and 1280 CSS px: no document horizontal overflow, console errors on valid routes, broken images, or third-party requests. The product page without an ID correctly returned 404. Keyboard focus showed a visible outline. Local Inter and icon fonts loaded.
 - Browser search regression test: `sold out` returned zero cards; `cappuccino` returned one.
+- Sampled foreground/background contrast ratios passed AA: body text/paper 16.74:1, muted text/paper 5.28:1, primary/paper 14.73:1, border/paper 3.33:1, focus/paper 14.73:1, and semantic alert pairs 6.21–9.15:1.
+- Synthetic confirmation test verified exactly one shared dialog, composed close-shift text, cancellation without submission, accepted submission once, and queue API handling only after acceptance.
 - Static reference scan: no live PHP link to removed CSS files and no live Google Fonts/Tailwind CDN CSS requests. `assets/css/` contains only `style.css`.
-- CSS source markers: 44 media queries. Legacy compiled and app rules still contain 116 `!important` declarations and 273 hex colors; they are consolidated, not fully normalized, to avoid deleting or casually rewriting utility/cascade rules.
-- `git diff --check`: passed. No PHP business-logic, API, schema, auth, or route files changed. `docs/README.md` was intentionally updated to document the single live stylesheet.
-- Node.js was unavailable, so the separate retired/offline POS build was not run.
+- CSS source markers: 44 media queries, 126 `!important` declarations, and 270 hex-color occurrences remain in the merged stylesheet. New/refined app rules use tokens, but compiled utility and legacy cascade colors have not been fully normalized; bulk rewriting generated rules risks changing existing utility behavior.
+- `git diff --check`: passed. No changes under `api/`, `config/`, `database/`, `includes/auth.php`, or `includes/order_*.php`. No Node.js executable was available for `node --check`; the retired offline POS build was not run.
 
 ## Remaining WAMP checks and limits
 
-The live database returned three menu items, all sold out, so it was not appropriate to create a customer order or change stock as part of this frontend pass. No staff/admin credentials were supplied, and no write operations were performed. Therefore checkout retry/idempotency, payment verification, order tracking with a valid token, shift processing, stock deduction, admin mutations, reports, and authenticated tablet layouts remain unverified. Repeat those flows in a disposable or backed-up WAMP database with an authorized test account and an intentionally stocked test item. Test at 360/768/1280 px, with keyboard-only input and the network disabled. No Lighthouse audit was run.
+The live database returned three menu items, all sold out, so it was not appropriate to create a customer order or change stock as part of this frontend pass. No staff/admin credentials were supplied, and no write operations were performed. Therefore checkout retry/idempotency, payment verification, order tracking with a valid token, shift processing, stock deduction, admin mutations, reports, and authenticated tablet layouts remain unverified. The authenticated keyboard-only walkthrough for POS order, queue advance, and close-shift remains outstanding; only the shared confirmation path was tested synthetically. Repeat those flows in a disposable or backed-up WAMP database with an authorized test account and an intentionally stocked test item. Test with the network disabled. No Lighthouse audit was run.
 
 Prioritize these remaining checks:
 

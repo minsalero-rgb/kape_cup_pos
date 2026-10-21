@@ -102,7 +102,7 @@ require __DIR__ . '/../includes/layout/header.php';
             <article class="card order">
                 <div class="order-heading">
                     <h2>Order #<?= escape_html($order['order_id']) ?> — <?= escape_html($order['customer_name']) ?></h2>
-                    <p class="status"><?= escape_html($order['status']) ?></p>
+                    <p class="status ui-status-badge ui-status-badge--<?= escape_html(strtolower((string) $order['status'])) ?>"><?= escape_html($order['status']) ?></p>
                 </div>
                 <p class="muted">
                     <?= escape_html($order['order_type']) ?>
@@ -165,11 +165,6 @@ function queueSnapshot(orders) {
 
 document.querySelectorAll('form[data-confirm]').forEach(function (form) {
     form.addEventListener('submit', function (event) {
-        if (!window.confirm(form.getAttribute('data-confirm'))) {
-            event.preventDefault();
-            return;
-        }
-
         if (!window.fetch || !form.hasAttribute('data-api-update')) {
             return;
         }

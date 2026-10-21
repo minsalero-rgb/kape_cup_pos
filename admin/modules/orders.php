@@ -137,7 +137,7 @@ if ($orderIds !== []) {
         <article class="rounded-2xl border border-[#E8DEC9] bg-[#FFFCF6] p-5 shadow-sm">
             <div class="flex flex-wrap items-start justify-between gap-3 border-b border-[#E8DEC9] pb-4">
                 <div><h2 class="text-xl font-bold text-[#3B1F14]">Order #<?= (int) $order['order_id'] ?> · <?= escape_html($order['customer_name']) ?></h2><p class="mt-1 text-sm text-[#74685E]"><?= escape_html(date('M j, Y g:i A', strtotime($order['created_at']))) ?> · <?= escape_html($order['order_type']) ?><?= $order['table_label'] !== null ? ' · Table ' . escape_html($order['table_label']) : '' ?></p></div>
-                <span class="rounded-full bg-[#EFE1C3] px-3 py-1 text-sm font-bold text-[#3B1F14]"><?= escape_html($order['status']) ?></span>
+                <span class="ui-status-badge ui-status-badge--<?= escape_html(strtolower((string) $order['status'])) ?>"><?= escape_html($order['status']) ?></span>
             </div>
             <div class="mt-4 grid gap-2 text-sm sm:grid-cols-2 lg:grid-cols-4">
                 <p>Payment: <strong><?= escape_html($order['payment_method']) ?></strong></p>

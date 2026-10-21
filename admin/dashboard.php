@@ -149,17 +149,6 @@ require __DIR__ . '/../includes/layout/header.php';
         document.title = `${title} | M&E Kape Cup Admin`;
     }
 
-    document.addEventListener('submit', (event) => {
-        const form = event.target;
-        if (!(form instanceof HTMLFormElement) || !form.hasAttribute('data-confirm-shift')) return;
-
-        const shiftId = form.dataset.confirmShift;
-        const staffName = form.dataset.staffName || '';
-        if (!window.confirm(`Close shift #${shiftId} for ${staffName}? This records a manual resolution time.`)) {
-            event.preventDefault();
-        }
-    });
-
     tabLinks.forEach((link) => {
         link.addEventListener('click', (event) => {
             event.preventDefault();

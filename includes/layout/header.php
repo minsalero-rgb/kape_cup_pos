@@ -14,15 +14,7 @@ $pageDescription = isset($pageDescription) && is_string($pageDescription)
     : '';
 ?>
 <?php
-$pageCss = [
-    'css/tokens.css',
-    'css/fonts.css',
-    'css/base.css',
-    'css/components.css',
-    'css/style.css',
-    'css/app.css',
-    'css/layout-app.css',
-];
+$pageCss = ['css/style.css'];
 $pageJs = ['js/ui.js'];
 require dirname(__DIR__) . '/partials/head.php';
 ?>

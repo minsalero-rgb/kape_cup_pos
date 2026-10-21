@@ -149,7 +149,7 @@ $lowStockItems = $pdo->query(
                             <tr>
                                 <td>#<?= (int) $order['order_id'] ?><span class="block text-xs text-muted-text"><?= escape_html(date('M j, g:i A', strtotime((string) $order['created_at']))) ?></span></td>
                                 <td><?= escape_html($order['customer_name']) ?></td>
-                                <td><?= escape_html($order['status']) ?></td>
+                                <td><span class="ui-status-badge ui-status-badge--<?= escape_html(strtolower((string) $order['status'])) ?>"><?= escape_html($order['status']) ?></span></td>
                                 <td>₱<?= escape_html($order['total_amount']) ?></td>
                             </tr>
                         <?php endforeach; ?>

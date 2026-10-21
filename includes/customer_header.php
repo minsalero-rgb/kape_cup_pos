@@ -32,34 +32,37 @@ $customerNavItems = [
     'menu' => ['label' => 'Menu', 'href' => 'menu.php'],
     'order-status' => ['label' => 'Order Status', 'href' => 'status.php'],
 ];
-$customerNavActiveClasses = 'px-space-md py-space-xs transition-colors bg-secondary-container text-on-secondary-container font-bold rounded-lg shadow-sm';
-$customerNavIdleClasses = 'px-space-md py-space-xs font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors';
 ?>
-<header class="fixed top-0 left-0 right-0 z-40 bg-surface/90 backdrop-blur-md shadow-[0_1px_8px_rgba(41,34,29,0.06)]">
-    <div class="h-20 max-w-[1280px] mx-auto px-margin-desktop flex items-center justify-between gap-space-md">
-        <div class="flex items-center gap-space-md">
-            <a class="flex items-center gap-space-sm group" href="index.php">
-                <img class="w-11 h-11 rounded-full object-cover" src="assets/img/me-kape-cup-logo.png" alt="">
-                <div class="flex flex-col">
-                    <span class="font-headline-sm text-headline-sm text-espresso-dark group-hover:text-primary transition-colors tracking-tight">M&amp;E Kape Cup</span>
-                    <span class="font-label-sm text-label-sm text-text-muted tracking-wider uppercase">Artisanal Brew &amp; Comforts</span>
-                </div>
-            </a>
-        </div>
-        <nav class="hidden md:flex items-center gap-space-sm" aria-label="Main navigation">
+<header class="customer-header">
+    <div class="customer-header__inner">
+        <a class="customer-brand" data-path="home" href="index.php">
+            <img src="assets/img/me-kape-cup-logo.png" alt="" width="40" height="40">
+            <span class="customer-brand__copy">
+                <span class="customer-brand__name">M&amp;E Kape Cup</span>
+                <span class="customer-brand__tagline">Artisanal Brew &amp; Comforts</span>
+            </span>
+        </a>
+        <nav class="customer-nav" aria-label="Main navigation" data-active-classes="bg-secondary-container text-on-secondary-container font-bold rounded-lg shadow-sm">
             <?php foreach ($customerNavItems as $customerNavKey => $customerNavItem): ?>
-                <a class="<?= $customerNavActive === $customerNavKey ? $customerNavActiveClasses : $customerNavIdleClasses ?>"
-                   href="<?= htmlspecialchars($customerNavItem['href'], ENT_QUOTES, 'UTF-8') ?>"
-                   <?= $customerNavActive === $customerNavKey ? 'aria-current="page"' : '' ?>><?= htmlspecialchars($customerNavItem['label'], ENT_QUOTES, 'UTF-8') ?></a>
+                <a class="customer-nav__link"
+                   data-path="<?= escape_html($customerNavKey) ?>"
+                   href="<?= escape_html($customerNavItem['href']) ?>"
+                   <?= $customerNavActive === $customerNavKey ? 'aria-current="page"' : '' ?>><?= escape_html($customerNavItem['label']) ?></a>
             <?php endforeach; ?>
         </nav>
-        <div class="flex items-center gap-space-md">
-            <a class="relative flex items-center justify-center w-11 h-11 rounded-full bg-surface-container-high text-espresso-dark hover:bg-caramel-gold/20 hover:text-primary transition-colors" href="cart.php" aria-label="Open cart">
-                <span class="material-symbols-outlined text-title-md" aria-hidden="true">shopping_bag</span>
-                <?php if ($customerCartCount !== null): ?>
-                    <span class="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-accessible-red text-on-error font-label-sm text-label-sm flex items-center justify-center font-bold"><?= (int) $customerCartCount ?></span>
-                <?php endif; ?>
-            </a>
-        </div>
+        <a class="customer-cart-link" data-path="cart-drawer" href="cart.php" aria-label="Open cart">
+            <span class="material-symbols-outlined" aria-hidden="true">shopping_bag</span>
+            <?php if ($customerCartCount !== null): ?>
+                <span class="customer-cart-count" aria-label="<?= escape_html((string) $customerCartCount) ?> items"><?= (int) $customerCartCount ?></span>
+            <?php endif; ?>
+        </a>
     </div>
 </header>
+<?php if ($customerNavActive === 'menu' && $customerCartCount !== null && $customerCartCount > 0): ?>
+    <a class="customer-mobile-cart-bar" href="cart.php" aria-label="View cart with <?= escape_html((string) $customerCartCount) ?> items">
+        <span class="material-symbols-outlined" aria-hidden="true">shopping_bag</span>
+        <span>View cart</span>
+        <strong><?= escape_html((string) $customerCartCount) ?> <?= $customerCartCount === 1 ? 'item' : 'items' ?></strong>
+        <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+    </a>
+<?php endif; ?>

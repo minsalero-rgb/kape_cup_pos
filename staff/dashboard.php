@@ -107,7 +107,7 @@ require __DIR__ . '/../includes/layout/header.php';
 <section class="staff-dashboard-metrics" aria-label="Active order summary">
     <?php foreach ([
         'Pending' => ['Awaiting payment verification', 'receipt_long'],
-        'Paid' => ['Awaiting preparation', 'payments'],
+        'Paid' => ['Awaiting preparation', 'receipt_long'],
         'Preparing' => ['Being prepared', 'skillet'],
     ] as $status => $description): ?>
         <article class="card staff-dashboard-metric">
@@ -152,7 +152,7 @@ require __DIR__ . '/../includes/layout/header.php';
                         <tr>
                             <td><strong>#<?= (int) $order['order_id'] ?></strong><span class="staff-dashboard-cell-detail"><?= escape_html(date('g:i A', strtotime((string) $order['created_at']))) ?></span></td>
                             <td><?= escape_html($order['customer_name']) ?><span class="staff-dashboard-cell-detail"><?= escape_html($order['order_type']) ?><?= $order['table_label'] !== null ? ' · ' . escape_html($order['table_label']) : '' ?></span></td>
-                            <td><span class="status-badge"><?= escape_html($order['status']) ?></span></td>
+                            <td><span class="status-badge ui-status-badge ui-status-badge--<?= escape_html(strtolower((string) $order['status'])) ?>"><?= escape_html($order['status']) ?></span></td>
                             <td class="staff-dashboard-order-total">₱<?= escape_html($order['total_amount']) ?></td>
                         </tr>
                     <?php endforeach; ?>

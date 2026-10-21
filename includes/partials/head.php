@@ -20,9 +20,7 @@ if (!function_exists('asset_url')) {
 }
 
 $pageTitle = isset($pageTitle) && is_string($pageTitle) ? $pageTitle : 'M&E Kape Cup';
-$pageCss = isset($pageCss) && is_array($pageCss)
-    ? $pageCss
-    : ['css/tokens.css', 'css/fonts.css', 'css/base.css', 'css/components.css', 'css/style.css', 'css/app.css', 'css/layout-app.css'];
+$pageCss = ['css/style.css'];
 $pageJs = isset($pageJs) && is_array($pageJs) ? $pageJs : ['js/ui.js'];
 ?>
 <!DOCTYPE html>
@@ -31,9 +29,7 @@ $pageJs = isset($pageJs) && is_array($pageJs) ? $pageJs : ['js/ui.js'];
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= escape_html($pageTitle) ?> | M&amp;E Kape Cup</title>
-    <?php foreach ($pageCss as $stylesheet): ?>
-        <link rel="stylesheet" href="<?= escape_html(asset_url($stylesheet)) ?>">
-    <?php endforeach; ?>
+    <link rel="stylesheet" href="<?= escape_html(asset_url($pageCss[0])) ?>">
     <?php foreach ($pageJs as $script): ?>
         <script src="<?= escape_html(asset_url($script)) ?>" defer></script>
     <?php endforeach; ?>
