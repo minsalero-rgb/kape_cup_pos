@@ -6919,6 +6919,8 @@ h3 {
 }
 
 .customer-site .menu-product-grid .menu-item-card {
+  display: flex;
+  flex-direction: column;
   min-width: 0;
   overflow: hidden;
   border: 1px solid #e8ddcf;
@@ -6985,8 +6987,9 @@ h3 {
 
 .menu-product-copy {
   display: flex;
-  min-height: 184px;
+  flex: 1 1 auto;
   flex-direction: column;
+  min-height: 0;
   padding: 0.95rem 1rem 0.8rem;
 }
 
@@ -7258,7 +7261,6 @@ h3 {
   }
 
   .menu-product-copy {
-    min-height: 172px;
     padding: 0.75rem 0.7rem 0.65rem;
   }
 
@@ -8575,10 +8577,6 @@ body:not(.app-body):not(:has(#root)) { background-color: var(--cafe-background) 
   aspect-ratio: 1.28 / 1;
 }
 
-.menu-product-copy {
-  min-height: 172px;
-}
-
 .menu-product-copy h3 {
   font-size: 1rem !important;
   line-height: 1.4 !important;
@@ -8745,7 +8743,6 @@ body:not(.app-body):not(:has(#root)) { background-color: var(--cafe-background) 
   }
 
   .menu-product-copy {
-    min-height: 155px;
     padding: 0.7rem 0.65rem 0.6rem;
   }
 
@@ -8754,7 +8751,6 @@ body:not(.app-body):not(:has(#root)) { background-color: var(--cafe-background) 
   }
 
   .menu-product-copy > p {
-    min-height: 2.9em;
     font-size: 0.7rem;
   }
 
