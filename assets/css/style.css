@@ -6995,14 +6995,14 @@ h3 {
   align-items: center;
   justify-content: center;
   gap: 0.35rem;
-  padding: 0.45rem 0.65rem !important;
+  padding: 0.45rem 0.65rem;
   border: 1px solid #e4d5bd;
-  border-radius: 9px !important;
+  border-radius: 9px;
   background: #f7eddd;
-  color: #4b321f !important;
-  font-size: 0.72rem !important;
-  font-weight: 750 !important;
-  line-height: 1.2 !important;
+  color: #4b321f;
+  font-size: 0.72rem;
+  font-weight: 750;
+  line-height: 1.2;
   text-decoration: none;
   transition: background-color 150ms ease, border-color 150ms ease;
 }
@@ -8674,8 +8674,8 @@ body:not(.app-body):not(:has(#root)) { background-color: var(--cafe-background) 
 
   .customer-site .menu-product-footer .menu-select-button {
     min-height: 35px;
-    padding: 0.4rem 0.55rem !important;
-    font-size: 0.69rem !important;
+    padding: 0.4rem 0.55rem;
+    font-size: 0.69rem;
   }
 }
 
