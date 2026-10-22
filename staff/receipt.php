@@ -5,6 +5,7 @@ header('Cache-Control: no-store');
 
 require_once __DIR__ . '/../includes/auth.php';
 require __DIR__ . '/../config/db.php';
+require_once __DIR__ . '/../includes/receipt_records.php';
 require_role(['staff', 'admin'], $pdo);
 $user = current_staff_user();
 
@@ -44,9 +45,9 @@ function receipt_error_page(int $statusCode, string $message, string $returnUrl)
     exit;
 }
 
-if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'GET') {
-    header('Allow: GET');
-    receipt_error_page(405, 'Receipts can only be viewed with a GET request.', $returnUrl);
+if (!in_array($_SERVER['REQUEST_METHOD'] ?? '', ['GET', 'POST'], true)) {
+    header('Allow: GET, POST');
+    receipt_error_page(405, 'This receipt page accepts GET and POST requests.', $returnUrl);
 }
 
 $rawOrderId = isset($_GET['order_id']) && is_string($_GET['order_id']) ? $_GET['order_id'] : '';
@@ -57,9 +58,46 @@ if ($orderId === false) {
     receipt_error_page(400, 'A valid order number is required.', $returnUrl);
 }
 
+$receiptActionError = '';
+if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
+    require_post_request();
+    if (!csrf_token_is_valid(isset($_POST['csrf_token']) ? $_POST['csrf_token'] : null)) {
+        http_response_code(403);
+        receipt_error_page(403, 'This form expired. Refresh the page and try again.', $returnUrl);
+    }
+    $action = isset($_POST['action']) && is_string($_POST['action'])
+        ? $_POST['action']
+        : '';
+    $orNumber = isset($_POST['or_number']) && is_string($_POST['or_number'])
+        ? $_POST['or_number']
+        : '';
+    if ($action !== 'issue_receipt') {
+        $receiptActionError = 'That receipt action is invalid.';
+    } else {
+        try {
+            receipt_records_issue($pdo, (int) $orderId, (int) $user['staff_id'], $orNumber);
+            header(
+                'Location: receipt.php?order_id=' . (int) $orderId .
+                '&auto=1&return=' . rawurlencode($returnMode) . '&issued=1',
+                true,
+                303
+            );
+            exit;
+        } catch (InvalidArgumentException $exception) {
+            $receiptActionError = $exception->getMessage();
+        } catch (DomainException $exception) {
+            $receiptActionError = $exception->getMessage();
+        } catch (Throwable $exception) {
+            error_log('[staff-receipt] Receipt issuance failed.');
+            $receiptActionError = 'The receipt could not be issued. Check the OR number and try again.';
+        }
+    }
+}
+
 try {
     $orderStatement = $pdo->prepare(
-        'SELECT orders.order_id, orders.customer_name, orders.order_type, orders.table_label,
+        'SELECT orders.order_id, orders.order_reference, orders.customer_name,
+                orders.order_type, orders.table_label,
                 orders.payment_method, orders.total_amount, orders.cash_tendered,
                 orders.change_due, orders.status, orders.created_at, orders.paid_at,
                 staff.full_name AS cashier_name
@@ -111,14 +149,37 @@ try {
             ];
         }
     }
+
+    $activeReceiptStatement = $pdo->prepare(
+        "SELECT receipt_id, or_number, issued_at, receipt_snapshot
+         FROM receipt_records
+         WHERE order_id = :order_id AND status = 'Active'
+         LIMIT 1"
+    );
+    $activeReceiptStatement->execute(['order_id' => (int) $orderId]);
+    $receiptRecord = $activeReceiptStatement->fetch(PDO::FETCH_ASSOC) ?: null;
+    if ($receiptRecord !== null) {
+        $snapshot = json_decode((string) $receiptRecord['receipt_snapshot'], true, 512, JSON_THROW_ON_ERROR);
+        if (
+            !isset($snapshot['order'], $snapshot['items'])
+            || !is_array($snapshot['order'])
+            || !is_array($snapshot['items'])
+        ) {
+            throw new UnexpectedValueException('The stored receipt snapshot is incomplete.');
+        }
+        $order = $snapshot['order'];
+        $itemsById = $snapshot['items'];
+    }
 } catch (Throwable $exception) {
     error_log('[staff-receipt] Receipt lookup failed.');
     receipt_error_page(500, 'The receipt could not be loaded. Please try again.', $returnUrl);
 }
 
-$receiptDate = $order['paid_at'] !== null ? $order['paid_at'] : $order['created_at'];
+$receiptDate = $receiptRecord !== null
+    ? $receiptRecord['issued_at']
+    : ($order['paid_at'] !== null ? $order['paid_at'] : $order['created_at']);
 $receiptTimestamp = strtotime((string) $receiptDate);
-$autoPrint = isset($_GET['auto']) && $_GET['auto'] === '1';
+$autoPrint = $receiptRecord !== null && isset($_GET['auto']) && $_GET['auto'] === '1';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -145,6 +206,10 @@ $autoPrint = isset($_GET['auto']) && $_GET['auto'] === '1';
         .detail { padding-left: 12px; }
         .total { font-size: 14px; font-weight: 700; }
         .footer { margin-top: 14px; }
+        .issue-panel { width: min(100%, 560px); margin: 24px auto; padding: 24px; background: #fff; }
+        .issue-panel label { display: block; margin: 12px 0; }
+        .issue-panel input { display: block; width: 100%; min-height: 44px; margin-top: 4px; padding: 8px; }
+        .issue-panel button { min-height: 44px; padding: 10px 16px; border: 0; border-radius: 4px; background: #3b1f14; color: #fff; font: inherit; cursor: pointer; }
         @page { margin: 4mm; }
         @media print {
             body { padding: 0; background: #fff; }
@@ -155,9 +220,31 @@ $autoPrint = isset($_GET['auto']) && $_GET['auto'] === '1';
 </head>
 <body>
     <nav class="toolbar" aria-label="Receipt actions">
-        <button type="button" id="print-receipt">Print receipt</button>
+        <?php if ($receiptRecord !== null): ?>
+            <button type="button" id="print-receipt">Print receipt</button>
+        <?php endif; ?>
         <a href="<?= escape_html($returnUrl) ?>">Back</a>
     </nav>
+    <?php if ($receiptRecord === null): ?>
+        <main class="issue-panel">
+            <h1>Issue a receipt</h1>
+            <?php if ($receiptActionError !== ''): ?>
+                <p role="alert"><?= escape_html($receiptActionError) ?></p>
+            <?php endif; ?>
+            <p>Enter an OR number that has already been issued through your authorized process.</p>
+            <p>Order Tracking No.: <?= escape_html((string) $order['order_reference']) ?></p>
+            <p>Order #<?= escape_html((string) $order['order_id']) ?> · Total ₱<?= escape_html((string) $order['total_amount']) ?></p>
+            <form method="post" action="receipt.php?order_id=<?= (int) $orderId ?>&return=<?= escape_html($returnMode) ?>">
+                <input type="hidden" name="csrf_token" value="<?= escape_html(csrf_token()) ?>">
+                <input type="hidden" name="action" value="issue_receipt">
+                <label>Issued OR number
+                    <input type="text" name="or_number" maxlength="50" required autocomplete="off">
+                </label>
+                <button type="submit">Save OR number and print</button>
+            </form>
+            <p>This receipt layout does not itself certify legal or BIR compliance.</p>
+        </main>
+    <?php else: ?>
     <main class="receipt">
         <header class="center">
             <h1>M&amp;E KAPE CUP</h1>
@@ -165,6 +252,8 @@ $autoPrint = isset($_GET['auto']) && $_GET['auto'] === '1';
         </header>
         <hr class="rule">
         <p>Order #<?= escape_html((string) $order['order_id']) ?></p>
+        <p>OR No.: <?= escape_html((string) $receiptRecord['or_number']) ?></p>
+        <p>Order Tracking No.: <?= escape_html((string) $order['order_reference']) ?></p>
         <p><?= escape_html($receiptTimestamp === false ? (string) $receiptDate : date('M j, Y g:i A', $receiptTimestamp)) ?></p>
         <p>Customer: <?= escape_html($order['customer_name']) ?></p>
         <p>
@@ -200,13 +289,17 @@ $autoPrint = isset($_GET['auto']) && $_GET['auto'] === '1';
         <?php endif; ?>
         <p class="center footer">Thank you for your order!</p>
     </main>
+    <?php endif; ?>
     <script>
         (function () {
             var autoPrint = <?= $autoPrint ? 'true' : 'false' ?>;
             var returnUrl = <?= json_encode($returnUrl, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_THROW_ON_ERROR) ?>;
-            document.getElementById('print-receipt').addEventListener('click', function () {
-                window.print();
-            });
+            var printButton = document.getElementById('print-receipt');
+            if (printButton) {
+                printButton.addEventListener('click', function () {
+                    window.print();
+                });
+            }
             if (autoPrint) {
                 window.addEventListener('afterprint', function () {
                     window.location.href = returnUrl;

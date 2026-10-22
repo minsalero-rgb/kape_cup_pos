@@ -10,18 +10,20 @@ This document separates approved requirements from the owner-approved schema dir
 
 - Target MySQL 5.7.40 with InnoDB, `utf8mb4`, and relational foreign keys.
 - Preserve configurable categories and separate order headers from historical order-item lines.
-- The owner has approved the nine-table relational design direction: `staff`, `staff_shifts`, `categories`, `menu_items`, `menu_modifier_groups`, `menu_modifier_options`, `orders`, `order_items`, and `order_item_modifiers`. The optional `dining_tables` table is excluded; validate dine-in table labels using a configuration allowlist.
+- The owner approved the initial nine-table order model: `staff`, `staff_shifts`, `categories`, `menu_items`, `menu_modifier_groups`, `menu_modifier_options`, `orders`, `order_items`, and `order_item_modifiers`. The later receipt issue/removal audit adds `receipt_records`; it does not replace the order model. The optional `dining_tables` table is excluded; validate dine-in table labels using a configuration allowlist.
 - Approval covers the table-structure direction only. It does not approve the final column-level design or SQL script, and does not authorize database creation or initialization. Review the proposed detail in `PROPOSED_DATABASE_SCHEMA.md` before SQL is prepared.
-- No fixed table count overrides data integrity or required functionality. The current nine-table proposal must support the approved features without adding unnecessary tables.
+- No fixed table count overrides data integrity or required functionality. Add tables only for justified persistent features; receipt issue/removal snapshots are kept separately so order and payment history remains intact.
 
 ### Ordering and status
 
 - Dine-in orders require a valid table number or QR table identifier; take-out orders do not require a table label.
 - When no active shift qualifies under the owner-approved availability policy, display **“Ordering currently closed”** and reject order submissions on the backend.
 - The exact order statuses are `Pending`, `Paid`, `Preparing`, and `Completed`. Permitted transitions are only `Pending` → `Paid`, `Paid` → `Preparing`, and `Preparing` → `Completed`; no cancellation, reversal, or additional statuses are approved.
-- Public order-status lookup requires the order ID and a signed HMAC tracking token returned when the order is created. Send the token in the `X-Order-Tracking-Token` header, not in the URL; the server secret must be a private Apache/PHP environment variable of at least 32 bytes and must never be stored in project files or the database. Rotating the secret invalidates previously issued tracking tokens.
+- Customer-facing order lookup uses a unique, persisted, unpredictable reference separate from the internal `order_id`; the public lookup returns only the order status. Existing internal-ID status URLs remain protected by the HMAC token in the `X-Order-Tracking-Token` header for compatibility. The optional secret must remain private and is not stored in project files or the database.
 - Staff may resume only their own open shift. Do not automatically close stale or abandoned shifts at login. An Admin resolves exceptions.
 - Staff manually verify payment. No payment gateway is included.
+- Staff enter OR numbers already issued through the business's authorized process; the application must not generate OR numbers or describe its printout as a legally compliant BIR receipt.
+- Staff may remove a receipt from the active Staff view only with a required reason. Keep an Admin-visible issue/removal snapshot; do not delete or modify the order, payment, order items, or status. Receipt filters use tracking number, receipt issue date, and ordered item.
 
 ### Menu, modifiers, and history
 

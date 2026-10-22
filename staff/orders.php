@@ -110,6 +110,9 @@ require __DIR__ . '/../includes/layout/header.php';
                     <h2>Order #<?= escape_html($order['order_id']) ?> — <?= escape_html($order['customer_name']) ?></h2>
                     <p class="status ui-status-badge ui-status-badge--<?= escape_html(strtolower((string) $order['status'])) ?>"><?= escape_html($order['status']) ?></p>
                 </div>
+                <?php if (is_string($order['order_reference']) && $order['order_reference'] !== ''): ?>
+                    <p class="muted">Order Tracking No.: <?= escape_html($order['order_reference']) ?></p>
+                <?php endif; ?>
                 <p class="muted">
                     <?= escape_html($order['order_type']) ?>
                     <?php if ($order['order_type'] === 'Dine-In' && $order['table_label'] !== null): ?>

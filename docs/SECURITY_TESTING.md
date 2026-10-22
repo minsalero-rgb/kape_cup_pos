@@ -21,6 +21,9 @@
 
 ## 2026-10-18 — Final local verification
 
+The HTTP and module observations in this dated record are historical and were
+superseded by the read-only WAMP checks recorded on 2026-10-23 below.
+
 **PHP lint:** All 41 PHP files outside `design/` passed `php -l`.
 
 **Customer tracking:** With `mekape_order_tracking` cleared from browser
@@ -56,18 +59,88 @@ verification.
 `menu.php`, `index.php`, `staff/orders.php`, `staff/dashboard.php`,
 `checkout.php`, and `product_details.php`. `staff/orders.php` also contains an
 inline JSON data block. Inline `<style>` blocks/style attributes remain across
-customer, Staff, and Admin pages, and Google Fonts are still fetched from
-`fonts.googleapis.com`/`fonts.gstatic.com`. An enforcing CSP is therefore not
-realistic yet. Move executable scripts and styles to local files (or use
-carefully generated nonces/hashes for inline blocks; style attributes need
-separate treatment), self-host the fonts or explicitly allow their hosts, then
-test the policy before enforcement. Production PHP pages no longer reference
-the Tailwind CDN or `lh3.googleusercontent.com`.
+customer, Staff, and Admin pages, so an enforcing CSP is not realistic yet.
+Move executable scripts and styles to local files (or use carefully generated
+nonces/hashes for inline blocks; style attributes need separate treatment),
+then test the policy before enforcement. Fonts are self-hosted under
+`assets/fonts/`; production PHP pages do not reference Google Fonts, the
+Tailwind CDN, or `lh3.googleusercontent.com`.
 
 **Not run:** Order placement, modifier validation, payment calculations,
 rate-limit behavior, shift transitions, Admin operations, CSRF rejection,
 and visual/offline comparison require database-backed pages and a configured
 test account. They remain deployment acceptance checks, not passed tests.
+
+## 2026-10-22 — Persistent order-reference source validation
+
+These results record the source state validated on 2026-10-22 and do not
+validate the subsequent tracking or backfill edits documented below.
+
+**PASS:** PHP 8.0.26 syntax checks for all changed PHP files; `git diff --check`;
+10,000 generated references matched the required format and normalized
+correctly with no duplicate in that sample; the insertion helper wrote and
+read back the same reference using an isolated in-memory SQLite test; the
+status page rendered a normalized reference without a DB connection; and the
+status API returned a safe `invalid_reference` JSON response for malformed
+input without connecting to the DB.
+
+**Not tested:** No MySQL/MariaDB server or application DB was connected.
+MySQL 5.7 migration execution, existing-order backfill, unique-index collision
+retry, DB-backed reference lookup/rate limiting, successful order submission
+and duplicate-submit idempotency, receipt rendering/printing, Staff status
+updates, and InfinityFree behavior remain NOT TESTED. No order or database
+record was created or changed during this validation.
+
+## 2026-10-22 — Eight-digit numeric tracking reference
+
+These results record the source state validated on 2026-10-22 and do not
+validate the subsequent tracking or backfill edits documented below.
+
+**PASS:** PHP 8.0.26 syntax checks for all affected PHP files and
+`git diff --check`; 10,000 generated values matched eight numeric digits;
+normalization preserved a leading zero and accepted surrounding whitespace;
+seven-digit and non-numeric values were rejected; an isolated SQLite insert
+stored and returned the generated eight-digit reference; the status page
+rendered an eight-digit reference with leading zero intact; and malformed API
+input returned a safe validation response without a DB connection.
+
+**Not tested:** No MySQL/MariaDB or application database was connected.
+Migration 008, the reference-replacement backfill, unique-index collision
+handling under MySQL, production rate limiting, end-to-end checkout, receipt
+printing, and InfinityFree behavior were not tested. Existing reference numbers
+were not changed in any database.
+
+## 2026-10-23 — Controlled audit and approved repair validation
+
+**Environment:** PHP 8.0.26, WAMP Apache, and a local MySQL 5.7.40 database.
+The supplied source archive matched the workspace's non-Git files. Database
+inspection was read-only; no migration, backfill, order, receipt, or payment
+write was performed.
+
+**Passed:** PHP syntax checks for all project PHP files; `git diff --check`;
+the no-`pdo_mysql` configuration path returned a generic customer-facing
+message; isolated tests confirmed the four-second poll-token throttle and
+continued compatibility of eight-digit and 27-character tracking filters.
+Backfill argument checks rejected apply mode without explicit order IDs and
+rejected duplicate approved IDs before connecting to the database.
+
+**Read-only WAMP HTTP observations:** The status page, checkout, menu API,
+Staff login, logo, and stylesheet returned HTTP 200. Direct requests to
+`.git`, `.mcp.json`, SQL schema, scripts, config, and documentation paths
+returned HTTP 403. Configured security headers were present; `X-Powered-By`
+still disclosed the PHP version.
+
+**Not tested:** The backfill was not run in either mode, migration 008 was not
+run, and no disposable database restore or write-capable runtime test was
+performed. The inspected database had no `receipt_records` table or migration
+ledger, so actual receipt snapshots and exact migration history remain
+unverified. Database-backed throttling, checkout, staff status updates,
+receipt creation, and historical receipt consistency remain untested.
+
+**Manual hosting verification required:** InfinityFree's PHP version and
+extensions, private configuration support, database connectivity, CLI access,
+HTTPS/session-cookie behavior, upload permissions, `.htaccess` module support,
+access denials, and security headers have not been tested.
 
 ## Application hardening and operations
 
@@ -82,6 +155,11 @@ in order using phpMyAdmin's Import action or the MySQL CLI instructions in
 3. `database/migrations/003_inventory.sql`
 4. `database/migrations/004_menu_item_images.sql`
 5. `database/migrations/005_order_submission_idempotency.sql`
+6. Follow the staged `006` → dry-run → unique-index → backfill → `NOT NULL`
+   customer-reference procedure in
+   [Database setup for WampServer](DATABASE_SETUP.md). Apply migration 008
+   only if every retained reference is eight digits; it is not required before
+   migration 009.
 
 Migration 001 rolls back with `DROP TABLE login_attempts;`, and migration 002
 with `DROP TABLE order_submission_log;`. Migration 004 can be rolled back with
@@ -91,32 +169,39 @@ clearing references. Migration 005 rolls back with
 in its SQL file. Stop application requests before rollback and run rollback
 steps in reverse migration order. Do not re-import the base schema over
 production data.
+For order-reference migrations, retain reference values and indexes during
+application rollback; follow the recovery instructions in
+[Database setup for WampServer](DATABASE_SETUP.md) instead of dropping the
+new columns.
 
 ### Runtime configuration
 
 Configure Apache's PHP environment with `DB_HOST`, `DB_NAME`, `DB_USERNAME`,
-`DB_PASSWORD`, `ORDER_TRACKING_SECRET`, and optionally `APP_TIMEZONE` and
-`APP_UPLOAD_DIR`.
+`DB_PASSWORD`, and optionally `ORDER_TRACKING_SECRET`, `APP_TIMEZONE`, and
+`APP_UPLOAD_DIR`. The tracking secret is needed only to preserve legacy
+session-bound HMAC status links; new reference lookup does not depend on it.
 `INITIAL_ADMIN_PASSWORD` is only for the CLI initial-admin setup script and
-should not remain configured for the web server. Generate the tracking secret
-locally with `php -r "echo bin2hex(random_bytes(32));"` and store it only in
-protected server configuration. Never log or display the secret. To check
-Apache's environment, use a temporary localhost-only diagnostic that reports
-only set/missing, then delete it.
+should not remain configured for the web server. If retaining legacy HMAC
+links, generate the tracking secret locally with
+`php -r "echo bin2hex(random_bytes(32));"` and store it only in protected
+server configuration. Never log or display the secret. To verify Apache's environment, inspect the protected VirtualHost configuration
+and server-side error log, then exercise the application normally; do not
+create a public diagnostic PHP page.
 
-Apache must have `mod_authz_core` enabled for folder access-denial rules,
-`mod_headers` enabled for response-header rules, and `AllowOverride All` for
-the application directory. The
-preferred production deployment sets `DocumentRoot` to a dedicated public
-directory and keeps database, configuration, documentation, include, and
-script files outside the web root. In the audited WAMP setup, `headers_module`
-was not enabled, so security headers were not confirmed on live responses.
-`AllowOverride all` was present for the WAMP `www` directory during inspection.
-Folder-level `.htaccess` rules now deny direct requests to `database/`,
-`docs/`, `design/`, `config/`, `includes/`, and `scripts/`; local HTTP checks
-confirmed 403 responses. `admin/` and `staff/` also have frame-denial header
-rules, which still require `mod_headers` to be enabled and tested. `.htaccess`
-is not a replacement for an isolated public `DocumentRoot`.
+Apache must support `mod_rewrite`, `mod_authz_core`, and `mod_headers`, with
+`AllowOverride All` for the application directory, for all configured
+`.htaccess` protections to apply. The current WAMP checks confirmed access
+denials for the inspected private paths and observed the configured security
+headers. `X-Powered-By` still exposed the PHP version and should be disabled in
+the host's PHP configuration where permitted. Earlier checks recorded in the
+2026-10-18 subsection predate this observation. Target-host behavior,
+including InfinityFree, remains unverified.
+
+The runtime expects `config/` and `includes/` to remain with the PHP
+application root; moving them outside the document root requires corresponding
+code-path changes. Keep private credentials and backups outside the webroot,
+exclude development files from the deployment package, and treat `.htaccess`
+as an additional control rather than the only protection.
 
 ### Brute-force, order-flood, and password controls
 
@@ -169,9 +254,10 @@ Node.js is not required on the production web server for CSS.
 ## Content Security Policy
 
 The root `.htaccess` configures a `Content-Security-Policy-Report-Only` policy
-as a starting point; it will not be sent until Apache's `mod_headers` is
-enabled. Phase 9 removed the Tailwind CDN and remote Google image hotlinks,
-but an enforcing policy is not yet ready:
+as a starting point. It was observed in local WAMP responses, but it will not
+be sent on hosts where `mod_headers` or the required overrides are unavailable.
+Phase 9 removed the Tailwind CDN and remote Google image hotlinks, but an
+enforcing policy is not yet ready:
 
 - Executable inline scripts remain in `checkout.php`, `index.php`, `menu.php`,
   `product_details.php`, `status.php`, `staff/dashboard.php`, and
@@ -185,3 +271,30 @@ but an enforcing policy is not yet ready:
 
 Review browser reports, address these remaining sources, and test all
 application flows before switching to an enforcing `Content-Security-Policy`.
+
+## 2026-10-23 — Reference-preserving backfill and tracking hardening
+
+The backfill utility defaults to a read-only preview. It plans repairs only
+for missing references, preserves valid existing references, and stops when
+it finds malformed values, duplicates, or receipt/snapshot conflicts.
+`--apply` is explicitly required to write and requires a unique reference
+index. When an order's missing reference can be recovered from consistent
+issued receipt records, the script restores the saved value rather than
+generating a replacement. Migration 008 must not be used when longer legacy
+references remain.
+
+The public tracking API counts valid initial lookups by both IP address and
+session. A successful lookup returns a short-lived, session-bound polling
+capability; the customer reference is not sent again during polling. This
+reduces repeated guesses from a single session but does not make an eight-digit
+reference a strong identity credential. Rate-limit behavior under shared
+hosting concurrency, shared NATs, and distributed traffic remains unverified.
+
+No production migration, backfill, or deployment is authorized by this
+documentation. The final repair report must distinguish local static, syntax,
+HTTP, database, and workflow validation and identify anything not tested.
+
+The database connection failure handler logs only a validated SQLSTATE and
+numeric PDO driver code, not the exception message. A CLI-only forced
+connection failure using dummy settings returned the generic visitor message
+and emitted no test host, username, database name, or password.

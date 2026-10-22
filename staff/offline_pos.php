@@ -6,6 +6,7 @@ require __DIR__ . '/../config/db.php';
 require_once __DIR__ . '/../includes/order_submission.php';
 require_once __DIR__ . '/../includes/order_idempotency.php';
 require_once __DIR__ . '/../includes/order_workflow.php';
+require_once __DIR__ . '/../includes/order_tracking.php';
 require_once __DIR__ . '/../includes/shift.php';
 
 $page = isset($_GET['page']) && is_string($_GET['page']) ? $_GET['page'] : 'pos';
@@ -258,24 +259,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $changeCents = $paymentMethod === 'Cash'
                 ? $cashTenderedCents - $preparedCart['total_cents']
                 : null;
-            $orderStatement = $pdo->prepare(
+            $orderRecord = insert_order_with_tracking_reference(
+                $pdo,
                 'INSERT INTO orders
-                    (customer_name, order_type, table_label, payment_method, total_amount,
+                    (order_reference, customer_name, order_type, table_label, payment_method, total_amount,
                      cash_tendered, change_due, status, staff_id, shift_id, paid_at)
                  VALUES
-                    (:customer_name, \'Take-Out\', NULL, :payment_method, :total_amount,
-                     :cash_tendered, :change_due, \'Paid\', :staff_id, :shift_id, CURRENT_TIMESTAMP)'
+                    (:order_reference, :customer_name, \'Take-Out\', NULL, :payment_method, :total_amount,
+                     :cash_tendered, :change_due, \'Paid\', :staff_id, :shift_id, CURRENT_TIMESTAMP)',
+                [
+                    'customer_name' => 'Walk-in customer',
+                    'payment_method' => $paymentMethod,
+                    'total_amount' => $preparedCart['total_amount'],
+                    'cash_tendered' => $cashTenderedCents === null ? null : order_money_from_cents($cashTenderedCents),
+                    'change_due' => $changeCents === null ? null : order_money_from_cents($changeCents),
+                    'staff_id' => (int) $user['staff_id'],
+                    'shift_id' => (int) $lockedShiftIds[0],
+                ]
             );
-            $orderStatement->execute([
-                'customer_name' => 'Walk-in customer',
-                'payment_method' => $paymentMethod,
-                'total_amount' => $preparedCart['total_amount'],
-                'cash_tendered' => $cashTenderedCents === null ? null : order_money_from_cents($cashTenderedCents),
-                'change_due' => $changeCents === null ? null : order_money_from_cents($changeCents),
-                'staff_id' => (int) $user['staff_id'],
-                'shift_id' => (int) $lockedShiftIds[0],
-            ]);
-            $orderId = (int) $pdo->lastInsertId();
+            $orderId = $orderRecord['order_id'];
             insert_prepared_order_items($pdo, $orderId, $preparedCart);
             deduct_order_inventory($pdo, $preparedCart, (int) $user['staff_id'], $orderId);
             complete_order_submission($pdo, $submissionSessionKey, $submissionKey, $orderId);

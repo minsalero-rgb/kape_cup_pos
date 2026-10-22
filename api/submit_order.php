@@ -118,10 +118,6 @@ try {
     require __DIR__ . '/../config/db.php';
 
     $trackingSecret = order_tracking_secret();
-    if ($trackingSecret === null) {
-        error_log('[order-submit-api] Tracking secret is not configured.');
-        order_api_error(503, 'tracking_unavailable', 'Order submission is temporarily unavailable because tracking is not configured.');
-    }
     $existingOrder = find_order_submission($pdo, $submissionSessionKey, $submissionKey);
     if ($existingOrder !== null) {
         $orderId = (int) $existingOrder['order_id'];
@@ -134,15 +130,18 @@ try {
             $_SESSION['checkout_submission_cart_hash'] = hash('sha256', serialize([]));
             $_SESSION['checkout_submission_key'] = bin2hex(random_bytes(32));
         }
-        $_SESSION['order_tracking'] = isset($_SESSION['order_tracking']) && is_array($_SESSION['order_tracking'])
-            ? $_SESSION['order_tracking']
-            : [];
-        $_SESSION['order_tracking'][(string) $orderId] = order_tracking_token($orderId, $trackingSecret);
+        if ($trackingSecret !== null) {
+            $_SESSION['order_tracking'] = isset($_SESSION['order_tracking']) && is_array($_SESSION['order_tracking'])
+                ? $_SESSION['order_tracking']
+                : [];
+            $_SESSION['order_tracking'][(string) $orderId] = order_tracking_token($orderId, $trackingSecret);
+        }
         order_api_response(200, [
             'success' => true,
             'data' => [
-                'order_id' => $orderId,
+                'order_reference' => (string) $existingOrder['order_reference'],
                 'total_amount' => (string) $existingOrder['total_amount'],
+                'payment_method' => (string) $existingOrder['payment_method'],
             ],
         ]);
     }
@@ -183,16 +182,20 @@ try {
             (SELECT COUNT(*)
              FROM order_submission_log
              WHERE session_key = :session_key
+               AND event_type = :session_event_type
                AND created_at >= DATE_SUB(NOW(), INTERVAL 10 MINUTE)) AS session_orders,
             (SELECT COUNT(*)
              FROM order_submission_log
              WHERE ip_key = :ip_key
+               AND event_type = :ip_event_type
                AND created_at >= DATE_SUB(NOW(), INTERVAL 10 MINUTE)) AS ip_orders'
     );
     $rateLimitStatement->execute([
         'pending_status' => 'Pending',
         'session_key' => $submissionSessionKey,
+        'session_event_type' => 'submission',
         'ip_key' => $submissionIpKey,
+        'ip_event_type' => 'submission',
     ]);
     $rateLimits = $rateLimitStatement->fetch(PDO::FETCH_ASSOC);
     if ((int) $rateLimits['pending_orders'] >= $orderConfig['max_open_pending_orders']
@@ -215,33 +218,35 @@ try {
     $changeCents = $paymentMethod === 'Cash'
         ? $cashTenderedCents - $preparedCart['total_cents']
         : null;
-    $orderStatement = $pdo->prepare(
+    $orderRecord = insert_order_with_tracking_reference(
+        $pdo,
         'INSERT INTO orders
-            (customer_name, order_type, table_label, payment_method, total_amount,
+            (order_reference, customer_name, order_type, table_label, payment_method, total_amount,
              cash_tendered, change_due, status, staff_id, shift_id)
          VALUES
-            (:customer_name, :order_type, :table_label, :payment_method, :total_amount,
-             :cash_tendered, :change_due, \'Pending\', :staff_id, :shift_id)'
+            (:order_reference, :customer_name, :order_type, :table_label, :payment_method, :total_amount,
+             :cash_tendered, :change_due, \'Pending\', :staff_id, :shift_id)',
+        [
+            'customer_name' => $customerName,
+            'order_type' => $orderType,
+            'table_label' => $tableLabel,
+            'payment_method' => $paymentMethod,
+            'total_amount' => $preparedCart['total_amount'],
+            'cash_tendered' => $cashTenderedCents === null ? null : order_money_from_cents($cashTenderedCents),
+            'change_due' => $changeCents === null ? null : order_money_from_cents($changeCents),
+            'staff_id' => (int) $shift['staff_id'],
+            'shift_id' => (int) $shift['shift_id'],
+        ]
     );
-    $orderStatement->execute([
-        'customer_name' => $customerName,
-        'order_type' => $orderType,
-        'table_label' => $tableLabel,
-        'payment_method' => $paymentMethod,
-        'total_amount' => $preparedCart['total_amount'],
-        'cash_tendered' => $cashTenderedCents === null ? null : order_money_from_cents($cashTenderedCents),
-        'change_due' => $changeCents === null ? null : order_money_from_cents($changeCents),
-        'staff_id' => (int) $shift['staff_id'],
-        'shift_id' => (int) $shift['shift_id'],
-    ]    );
-    $orderId = (int) $pdo->lastInsertId();
+    $orderId = $orderRecord['order_id'];
+    $orderReference = $orderRecord['order_reference'];
 
     insert_prepared_order_items($pdo, $orderId, $preparedCart);
     deduct_order_inventory($pdo, $preparedCart, (int) $shift['staff_id'], $orderId);
     complete_order_submission($pdo, $submissionSessionKey, $submissionKey, $orderId);
     $logStatement = $pdo->prepare(
-        'INSERT INTO order_submission_log (ip_key, session_key)
-         VALUES (:ip_key, :session_key)'
+        'INSERT INTO order_submission_log (ip_key, session_key, event_type)
+         VALUES (:ip_key, :session_key, \'submission\')'
     );
     $logStatement->execute([
         'ip_key' => $submissionIpKey,
@@ -250,10 +255,12 @@ try {
     $pdo->commit();
     $_SESSION['cart'] = [];
     $_SESSION['checkout_submission_cart_hash'] = hash('sha256', serialize([]));
-    $_SESSION['order_tracking'] = isset($_SESSION['order_tracking']) && is_array($_SESSION['order_tracking'])
-        ? $_SESSION['order_tracking']
-        : [];
-    $_SESSION['order_tracking'][(string) $orderId] = order_tracking_token($orderId, $trackingSecret);
+    if ($trackingSecret !== null) {
+        $_SESSION['order_tracking'] = isset($_SESSION['order_tracking']) && is_array($_SESSION['order_tracking'])
+            ? $_SESSION['order_tracking']
+            : [];
+        $_SESSION['order_tracking'][(string) $orderId] = order_tracking_token($orderId, $trackingSecret);
+    }
     $_SESSION['checkout_submission_key'] = bin2hex(random_bytes(32));
 
     if (random_int(1, 20) === 1) {
@@ -271,8 +278,9 @@ try {
     order_api_response(201, [
         'success' => true,
         'data' => [
-            'order_id' => $orderId,
+            'order_reference' => $orderReference,
             'total_amount' => $preparedCart['total_amount'],
+            'payment_method' => $paymentMethod,
         ],
     ]);
 } catch (OrderSubmissionException $exception) {
@@ -290,7 +298,7 @@ try {
     $errorInfo = $exception->errorInfo;
     if (is_array($errorInfo) && isset($errorInfo[1]) && (int) $errorInfo[1] === 1062) {
         $existingOrder = find_order_submission($pdo, $submissionSessionKey, $submissionKey);
-        if ($existingOrder !== null && isset($trackingSecret)) {
+        if ($existingOrder !== null) {
             $orderId = (int) $existingOrder['order_id'];
             $currentCartHash = hash(
                 'sha256',
@@ -301,15 +309,18 @@ try {
                 $_SESSION['checkout_submission_cart_hash'] = hash('sha256', serialize([]));
                 $_SESSION['checkout_submission_key'] = bin2hex(random_bytes(32));
             }
-            $_SESSION['order_tracking'] = isset($_SESSION['order_tracking']) && is_array($_SESSION['order_tracking'])
-                ? $_SESSION['order_tracking']
-                : [];
-            $_SESSION['order_tracking'][(string) $orderId] = order_tracking_token($orderId, $trackingSecret);
+            if ($trackingSecret !== null) {
+                $_SESSION['order_tracking'] = isset($_SESSION['order_tracking']) && is_array($_SESSION['order_tracking'])
+                    ? $_SESSION['order_tracking']
+                    : [];
+                $_SESSION['order_tracking'][(string) $orderId] = order_tracking_token($orderId, $trackingSecret);
+            }
             order_api_response(200, [
                 'success' => true,
                 'data' => [
-                    'order_id' => $orderId,
+                    'order_reference' => (string) $existingOrder['order_reference'],
                     'total_amount' => (string) $existingOrder['total_amount'],
+                    'payment_method' => (string) $existingOrder['payment_method'],
                 ],
             ]);
         }

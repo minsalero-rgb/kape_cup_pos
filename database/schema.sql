@@ -2,7 +2,9 @@
 -- Target: MySQL 5.7.40. Creates and selects the project database `db_kape_cup_pos`.
 -- Fresh installs use this complete schema. For existing installs, apply migrations
 -- 001_login_attempts.sql, 002_order_submission_log.sql, 003_inventory.sql,
--- 004_menu_item_images.sql, and 005_order_submission_idempotency.sql.
+-- 004_menu_item_images.sql, and 005_order_submission_idempotency.sql, then follow
+-- DATABASE_SETUP.md for the staged 006/007/008 order-reference migration and
+-- migration 009 receipt records.
 -- Business rules that require PHP validation are noted below; MySQL 5.7 CHECK constraints are not relied upon.
 
 CREATE DATABASE IF NOT EXISTS `db_kape_cup_pos`
@@ -114,6 +116,7 @@ CREATE TABLE `menu_modifier_options` (
 
 CREATE TABLE `orders` (
     `order_id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `order_reference` VARCHAR(27) NOT NULL,
     `customer_name` VARCHAR(120) NOT NULL,
     `order_type` ENUM('Dine-In', 'Take-Out') NOT NULL,
     `table_label` VARCHAR(64) NULL DEFAULT NULL,
@@ -130,6 +133,7 @@ CREATE TABLE `orders` (
     `preparing_at` DATETIME NULL DEFAULT NULL,
     `completed_at` DATETIME NULL DEFAULT NULL,
     PRIMARY KEY (`order_id`),
+    UNIQUE KEY `uq_orders_order_reference` (`order_reference`),
     KEY `idx_orders_status_created` (`status`, `created_at`),
     KEY `idx_orders_status_completed` (`status`, `completed_at`),
     KEY `idx_orders_shift_created` (`shift_id`, `created_at`),
@@ -138,6 +142,34 @@ CREATE TABLE `orders` (
     CONSTRAINT `fk_orders_shift_owner`
         FOREIGN KEY (`shift_id`, `staff_id`)
         REFERENCES `staff_shifts` (`shift_id`, `staff_id`)
+        ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `receipt_records` (
+    `receipt_id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `order_id` BIGINT UNSIGNED NOT NULL,
+    `order_reference` VARCHAR(27) NOT NULL,
+    `or_number` VARCHAR(50) NOT NULL,
+    `issued_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `status` ENUM('Active', 'Removed') NOT NULL DEFAULT 'Active',
+    `receipt_snapshot` LONGTEXT NOT NULL,
+    `created_by_staff_id` BIGINT UNSIGNED NOT NULL,
+    `removed_at` DATETIME NULL DEFAULT NULL,
+    `removed_by_staff_id` BIGINT UNSIGNED NULL DEFAULT NULL,
+    `removal_reason` VARCHAR(500) NULL DEFAULT NULL,
+    PRIMARY KEY (`receipt_id`),
+    UNIQUE KEY `uq_receipt_records_or_number` (`or_number`),
+    KEY `idx_receipt_records_order_status` (`order_id`, `status`),
+    KEY `idx_receipt_records_reference_issue_date` (`order_reference`, `issued_at`),
+    KEY `idx_receipt_records_status_issue_date` (`status`, `issued_at`),
+    CONSTRAINT `fk_receipt_records_order`
+        FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`)
+        ON DELETE RESTRICT ON UPDATE RESTRICT,
+    CONSTRAINT `fk_receipt_records_created_by`
+        FOREIGN KEY (`created_by_staff_id`) REFERENCES `staff` (`staff_id`)
+        ON DELETE RESTRICT ON UPDATE RESTRICT,
+    CONSTRAINT `fk_receipt_records_removed_by`
+        FOREIGN KEY (`removed_by_staff_id`) REFERENCES `staff` (`staff_id`)
         ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -218,6 +250,7 @@ CREATE TABLE `order_submission_log` (
     `log_id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
     `ip_key` CHAR(64) NOT NULL,
     `session_key` CHAR(64) NOT NULL,
+    `event_type` ENUM('submission', 'tracking_lookup') NOT NULL DEFAULT 'submission',
     `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`log_id`),
     KEY `idx_osl_ip_time` (`ip_key`, `created_at`),

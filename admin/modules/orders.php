@@ -2,6 +2,7 @@
 declare(strict_types=1);
 if (!defined('ADMIN_DASHBOARD')) { http_response_code(403); exit; }
 require_once __DIR__ . '/../../includes/order_workflow.php';
+require_once __DIR__ . '/../../includes/receipt_records.php';
 
 $allowedStatuses = ['Pending', 'Paid', 'Preparing', 'Completed'];
 $actionError = '';
@@ -51,8 +52,21 @@ if ($statusFilter !== 'All' && !in_array($statusFilter, $allowedStatuses, true))
     $statusFilter = 'All';
 }
 
+$receiptFilterResult = receipt_records_normalize_filters($activeTab === 'orders' ? $_GET : []);
+$receiptFilters = $receiptFilterResult['filters'];
+$receiptFilterErrors = $receiptFilterResult['errors'];
+$receiptRecords = [];
+if ($activeTab === 'orders' && $receiptFilterErrors === []) {
+    try {
+        $receiptRecords = receipt_records_fetch($pdo, $receiptFilters, true);
+    } catch (Throwable $exception) {
+        error_log('[admin-orders] Receipt audit could not be loaded.');
+        $receiptFilterErrors[] = 'Receipt audit records could not be loaded. Please try again.';
+    }
+}
+
 $sql = 'SELECT orders.order_id, orders.customer_name, orders.order_type,
-               orders.table_label, orders.payment_method, orders.total_amount,
+               orders.order_reference, orders.table_label, orders.payment_method, orders.total_amount,
                orders.cash_tendered, orders.change_due, orders.status,
                orders.created_at, orders.paid_at, orders.preparing_at,
                orders.completed_at, staff.full_name AS staff_name,
@@ -122,6 +136,7 @@ if ($orderIds !== []) {
 <div><p class="mt-space-xs text-body-sm text-muted-text">Signed in as <?= escape_html($admin['full_name']) ?>. Status can move forward only through Pending → Paid → Preparing → Completed; payment is verified manually.</p></div>
     <?php if ($actionError !== ''): ?><p class="rounded-lg bg-red-50 p-4 text-red-900" role="alert"><?= escape_html($actionError) ?></p><?php endif; ?>
     <?php if ($actionSuccess !== ''): ?><p class="rounded-lg bg-green-50 p-4 text-green-900" role="status"><?= escape_html($actionSuccess) ?></p><?php endif; ?>
+    <?php foreach ($receiptFilterErrors as $filterError): ?><p class="rounded-lg bg-red-50 p-4 text-red-900" role="alert"><?= escape_html($filterError) ?></p><?php endforeach; ?>
     <form method="get" action="dashboard.php" class="flex flex-wrap items-end gap-3 rounded-xl border border-[#E8DEC9] bg-[#FFFCF6] p-4">
         <input type="hidden" name="tab" value="orders"><label class="text-sm font-semibold">Status
             <select class="mt-1 block rounded-lg border border-[#E5D8C3] bg-white px-3 py-2" name="status">
@@ -140,6 +155,9 @@ if ($orderIds !== []) {
                     <div class="orders-receipt-card__identity">
                         <p class="orders-receipt-card__number">Order #<?= (int) $order['order_id'] ?></p>
                         <h2 class="orders-receipt-card__customer"><?= escape_html($order['customer_name']) ?></h2>
+                        <?php if (is_string($order['order_reference']) && $order['order_reference'] !== ''): ?>
+                            <p>Order Tracking No.: <?= escape_html($order['order_reference']) ?></p>
+                        <?php endif; ?>
                         <p class="orders-receipt-card__date"><?= escape_html(date('M j, Y g:i A', strtotime($order['created_at']))) ?></p>
                     </div>
                     <span class="ui-status-badge ui-status-badge--<?= escape_html(strtolower((string) $order['status'])) ?>"><?= escape_html($order['status']) ?></span>
@@ -191,3 +209,59 @@ if ($orderIds !== []) {
         <?php endforeach; ?>
     </div>
     <?php if ($orders === []): ?><p class="rounded-xl border border-[#E8DEC9] bg-[#FFFCF6] p-8 text-center text-[#74685E]">No matching orders were found.</p><?php endif; ?>
+
+    <section class="mt-8">
+        <h2 class="mb-3 text-xl font-semibold text-[#3B1F14]">Receipt issue and removal audit</h2>
+        <form method="get" action="dashboard.php" class="flex flex-wrap items-end gap-3 rounded-xl border border-[#E8DEC9] bg-[#FFFCF6] p-4">
+            <input type="hidden" name="tab" value="orders">
+            <label class="text-sm font-semibold">Tracking number
+                <input class="mt-1 block rounded-lg border border-[#E5D8C3] bg-white px-3 py-2" type="text" name="tracking" maxlength="27" pattern="[A-Za-z0-9_-]{1,27}" value="<?= escape_html($receiptFilters['tracking']) ?>">
+            </label>
+            <label class="text-sm font-semibold">Issue date from
+                <input class="mt-1 block rounded-lg border border-[#E5D8C3] bg-white px-3 py-2" type="date" name="date_from" value="<?= escape_html($receiptFilters['date_from']) ?>">
+            </label>
+            <label class="text-sm font-semibold">Issue date to
+                <input class="mt-1 block rounded-lg border border-[#E5D8C3] bg-white px-3 py-2" type="date" name="date_to" value="<?= escape_html($receiptFilters['date_to']) ?>">
+            </label>
+            <label class="text-sm font-semibold">Ordered item
+                <input class="mt-1 block rounded-lg border border-[#E5D8C3] bg-white px-3 py-2" type="search" name="item" maxlength="120" value="<?= escape_html($receiptFilters['item']) ?>">
+            </label>
+            <button class="rounded-lg bg-[#3B1F14] px-4 py-2 font-semibold text-white" type="submit">Filter receipts</button>
+            <a class="px-2 py-2 text-[#3B1F14]" href="dashboard.php?tab=orders">Clear</a>
+        </form>
+        <div class="mt-4 space-y-4">
+            <?php foreach ($receiptRecords as $receipt): ?>
+                <?php
+                $snapshotOrder = isset($receipt['snapshot']['order']) && is_array($receipt['snapshot']['order'])
+                    ? $receipt['snapshot']['order']
+                    : [];
+                $snapshotItems = isset($receipt['snapshot']['items']) && is_array($receipt['snapshot']['items'])
+                    ? $receipt['snapshot']['items']
+                    : [];
+                ?>
+                <article class="rounded-xl border border-[#E8DEC9] bg-[#FFFCF6] p-4">
+                    <header class="flex flex-wrap items-center justify-between gap-2">
+                        <h3 class="font-semibold text-[#3B1F14]">
+                            <?= escape_html($receipt['status']) ?> receipt · OR No. <?= escape_html($receipt['or_number']) ?>
+                        </h3>
+                        <span>Issued <?= escape_html(date('M j, Y g:i A', strtotime($receipt['issued_at']))) ?></span>
+                    </header>
+                    <p>Tracking No.: <?= escape_html($receipt['order_reference']) ?> · Order #<?= (int) $receipt['order_id'] ?> · Total ₱<?= escape_html((string) ($snapshotOrder['total_amount'] ?? '')) ?></p>
+                    <p>Items: <?= escape_html(implode(', ', array_map(static function (array $item): string {
+                        return (string) ($item['name'] ?? '');
+                    }, $snapshotItems))) ?></p>
+                    <p>Issued by: <?= escape_html($receipt['issued_by_name']) ?></p>
+                    <?php if ($receipt['status'] === 'Removed'): ?>
+                        <p>Removed <?= escape_html(date('M j, Y g:i A', strtotime((string) $receipt['removed_at']))) ?> by <?= escape_html((string) $receipt['removed_by_name']) ?>.</p>
+                        <p>Removal reason: <?= escape_html((string) $receipt['removal_reason']) ?></p>
+                    <?php else: ?>
+                        <p><a class="font-semibold text-[#3B1F14] underline" href="../staff/receipt.php?order_id=<?= (int) $receipt['order_id'] ?>">View / print active receipt</a></p>
+                    <?php endif; ?>
+                </article>
+            <?php endforeach; ?>
+            <?php if ($receiptRecords === [] && $receiptFilterErrors === []): ?>
+                <p class="rounded-xl border border-[#E8DEC9] bg-[#FFFCF6] p-6 text-center text-[#74685E]">No receipts match those filters.</p>
+            <?php endif; ?>
+            <p class="text-sm text-[#74685E]">Showing up to 100 issue and removal audit records.</p>
+        </div>
+    </section>

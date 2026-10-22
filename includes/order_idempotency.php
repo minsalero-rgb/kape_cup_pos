@@ -4,7 +4,8 @@ declare(strict_types=1);
 function find_order_submission(PDO $pdo, string $sessionKey, string $requestKey): ?array
 {
     $statement = $pdo->prepare(
-        'SELECT orders.order_id, orders.total_amount, requests.cart_hash
+        'SELECT orders.order_id, orders.order_reference, orders.total_amount,
+                orders.payment_method, requests.cart_hash
          FROM order_submission_requests AS requests
          INNER JOIN orders ON orders.order_id = requests.order_id
          WHERE requests.session_key = :session_key

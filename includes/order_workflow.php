@@ -105,6 +105,7 @@ function fetch_active_order_queue(PDO $pdo): array
     $statement = $pdo->query(
         "SELECT
             orders.order_id,
+            orders.order_reference,
             orders.customer_name,
             orders.order_type,
             orders.table_label,
@@ -140,6 +141,9 @@ function fetch_active_order_queue(PDO $pdo): array
         if (!isset($orders[$orderIdKey])) {
             $orders[$orderIdKey] = [
                 'order_id' => (int) $row['order_id'],
+                'order_reference' => $row['order_reference'] === null
+                    ? null
+                    : (string) $row['order_reference'],
                 'customer_name' => (string) $row['customer_name'],
                 'order_type' => (string) $row['order_type'],
                 'table_label' => $row['table_label'],

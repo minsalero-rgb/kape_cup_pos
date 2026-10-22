@@ -78,8 +78,11 @@ require __DIR__ . '/includes/customer_header.php';
     <?php endif; ?>
     <div id="checkout-message" class="mb-6 hidden rounded-xl p-4" role="alert"></div>
     <section id="checkout-success" class="mb-6 hidden rounded-xl border border-matcha-green bg-green-50 p-5 text-green-950" role="status" aria-live="polite">
-        <h2 id="checkout-success-order" class="font-headline text-2xl font-bold"></h2>
-        <p class="mt-2 font-semibold">Keep this number. If you lose this page, show it at the counter.</p>
+        <h2 id="checkout-success-order" class="font-headline text-2xl font-bold">Order placed successfully</h2>
+        <p id="checkout-success-reference" class="mt-2 font-semibold"></p>
+        <p id="checkout-success-payment" class="mt-2"></p>
+        <div id="checkout-success-summary" class="mt-4"></div>
+        <p class="mt-4 text-sm font-semibold">Keep this number to check your order status.</p>
         <a id="checkout-track-order" class="mt-4 inline-flex rounded-lg bg-primary-container px-5 py-3 font-bold text-white" href="status.php">Track order status</a>
     </section>
 
@@ -194,6 +197,9 @@ require __DIR__ . '/includes/customer_header.php';
     var message = document.getElementById('checkout-message');
     var success = document.getElementById('checkout-success');
     var successOrder = document.getElementById('checkout-success-order');
+    var successReference = document.getElementById('checkout-success-reference');
+    var successPayment = document.getElementById('checkout-success-payment');
+    var successSummary = document.getElementById('checkout-success-summary');
     var trackOrder = document.getElementById('checkout-track-order');
     var button = document.getElementById('submit-order-button');
     var originalButtonText = button.textContent;
@@ -253,19 +259,35 @@ require __DIR__ . '/includes/customer_header.php';
                     rate_limited: 'Too many orders are being placed right now. Please wait a few minutes or ask the counter for help.',
                     item_unavailable: 'An item in your cart is no longer available. Review your cart.',
                     invalid_modifier: result.error && result.error.message,
-                    insufficient_cash: 'Cash tendered must be at least the final order total.',
-                    tracking_unavailable: 'Order tracking is not configured on the server, so the order cannot be submitted yet.'
+                    insufficient_cash: 'Cash tendered must be at least the final order total.'
                 };
                 throw new Error(errors[result.error && result.error.code] || (result.error && result.error.message) || 'Your order could not be submitted.');
             }
 
-            if (!result.data || !result.data.order_id) {
+            if (!result.data ||
+                !/^(?:[0-9]{8}|[A-Za-z0-9_-]{27})$/.test(result.data.order_reference || '') ||
+                !/^\d{1,8}\.\d{2}$/.test(result.data.total_amount || '') ||
+                ['Cash', 'GCash', 'Credit Card'].indexOf(result.data.payment_method) === -1) {
                 throw new Error('The order was accepted, but its reference was missing. Do not submit again; contact the café.');
             }
 
+            var summary = form.querySelector('aside').cloneNode(true);
+            var summaryButton = summary.querySelector('button');
+            var summaryLinks = summary.querySelectorAll('a');
+            if (summaryButton) summaryButton.remove();
+            summaryLinks.forEach(function (link) {
+                link.remove();
+            });
+            var totalRow = summary.querySelector('div.mt-4.flex.justify-between');
+            if (totalRow && totalRow.lastElementChild) {
+                totalRow.lastElementChild.textContent = '₱' + result.data.total_amount;
+            }
+            successSummary.appendChild(summary);
             form.classList.add('hidden');
-            successOrder.textContent = 'Order #' + result.data.order_id;
-            trackOrder.href = 'status.php?id=' + encodeURIComponent(String(result.data.order_id));
+            successOrder.textContent = 'Order placed successfully';
+            successReference.textContent = 'Order Tracking No.: ' + result.data.order_reference;
+            successPayment.textContent = 'Payment method: ' + result.data.payment_method;
+            trackOrder.href = 'status.php?reference=' + encodeURIComponent(result.data.order_reference);
             success.classList.remove('hidden');
         } catch (error) {
             message.textContent = error.message || 'We could not confirm whether your order was submitted. Do not submit again until you have checked with the café.';

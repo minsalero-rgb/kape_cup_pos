@@ -35,7 +35,7 @@ This system enables seated customers to open the web-based POS ordering website 
 
 - **Frontend:** HTML5 (semantic structure) + Tailwind CSS (via CDN/output) + Vanilla JavaScript (AJAX/Fetch API).
 - **Backend:** Native PHP (procedural or OOP) handling session management, routing, and logic.
-- **Persistence:** MySQL relational database targeting **MySQL 5.7.40** with **InnoDB**, `utf8mb4`, and foreign-key constraints. The **owner-approved direction is nine normalized tables** (see "Approved Data Model Direction").
+- **Persistence:** MySQL relational database targeting **MySQL 5.7.40** with **InnoDB**, `utf8mb4`, and foreign-key constraints. The initial order model uses nine normalized tables; receipt issue/removal auditing adds `receipt_records` without changing order or payment history.
 - **Local environment:** Apache, PHP, and MySQL through WampServer.
 - **Framework Constraint:** Strictly native tools. No external PHP or JavaScript frameworks (no Laravel, React, Vue, jQuery, etc.).
 - **No payment gateway.** Staff verify payment manually.
@@ -55,6 +55,7 @@ The owner approved the table-structure direction only. The column-level design, 
 | 7 | `orders` | Order header |
 | 8 | `order_items` | Historical order lines with name/price snapshots |
 | 9 | `order_item_modifiers` | Historical modifier selections with name/price snapshots |
+| 10 | `receipt_records` | Issued OR-numbered receipt snapshots and Staff removal audit |
 
 - No fixed table count overrides data integrity or required functionality.
 - A `dining_tables` table is **excluded**. Dine-in table labels are validated against a **configuration allowlist**.
@@ -80,8 +81,9 @@ The owner approved the table-structure direction only. The column-level design, 
   Items support **predefined modifier options with fixed additional prices**, plus custom notes. Each modifier group is either required or optional and defines its permitted selection count. Each selected modifier's fixed price applies **per unit** of the ordered item. There is no advanced modifier rules engine. *Product names, prices, sizes, modifier groups, option labels, prices, and item applicability are pending until the actual menu is obtained.*
 - **Cart & Order Summary:** Interactive cart showing itemized costs (base price, modifier charges, line totals), order type (Dine-In or Take-Out), customer name, total payment due, calculated change for cash payments, and selected payment method (**Cash, GCash, or Credit Card**). No discounts, taxes, or fees are included.
 - **Ordering Availability:** Customer ordering is open only while a **Staff** account has an active shift. An Admin-only shift does not enable ordering. When no qualifying shift exists, the site shows **"Ordering currently closed"** and the backend rejects order submissions.
-- **Persistent Status Tracking:** Submitting an order stores the active `order_id` in browser `localStorage`. Customers view a live status screen (`Pending` → `Paid` → `Preparing` → `Completed`) that updates automatically via AJAX polling without manual page reloads.
-- **Secure Tracking Lookup:** Public status lookup requires the order ID and a signed **HMAC tracking token** returned when the order is created. The token is sent in the `X-Order-Tracking-Token` header, never in the URL. The server secret is a private Apache/PHP environment variable of at least 32 bytes and is never stored in project files or the database. Rotating the secret invalidates previously issued tokens.
+- **Persistent Status Tracking:** Each order has a saved, random eight-digit customer-facing tracking reference separate from its internal `order_id`. Customers can enter the reference after returning to the menu, refreshing, or opening a new session/device. The status screen (`Pending` → `Paid` → `Preparing` → `Completed`) polls the saved order status automatically.
+- **Tracking Lookup:** References are generated server-side with cryptographic randomness, uniquely indexed, format-validated, and rate-limited. Eight digits are less resistant to guessing than a long bearer token; therefore public lookup returns only the status and reference. Existing internal-ID lookups continue to require the signed **HMAC tracking token** in `X-Order-Tracking-Token`; its private server secret is optional for new reference-based tracking.
+- **Receipt issuance and audit:** Staff enter OR numbers already issued through the business's authorized process. The system does not generate OR numbers or claim legal/BIR compliance. Receipt issue time and an order/item snapshot are saved. Staff can remove a receipt from the Staff view with a required reason; the Admin audit retains the snapshot. Staff and Admin can filter receipts by tracking number, receipt issue date, and ordered item.
 
 ### Core Feature 2: Staff & Admin Live Queue & Order Verification
 

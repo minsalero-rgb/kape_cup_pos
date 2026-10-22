@@ -14,6 +14,7 @@ return [
     ['key' => 'dashboard', 'label' => 'Dashboard', 'icon' => 'dashboard', 'url' => '/staff/dashboard.php', 'roles' => ['staff']],
     ['key' => 'pos', 'label' => 'POS Register', 'icon' => 'point_of_sale', 'url' => '/staff/offline_pos.php?page=pos', 'roles' => ['staff']],
     ['key' => 'queue', 'label' => 'Kitchen Queue', 'icon' => 'skillet', 'url' => '/staff/offline_pos.php?page=queue', 'roles' => ['staff'], 'badge' => 'orders'],
+    ['key' => 'receipts', 'label' => 'Receipts', 'icon' => 'receipt_long', 'url' => '/staff/receipts.php', 'roles' => ['staff']],
     ['key' => 'reports', 'label' => 'Sales & Reports', 'icon' => 'monitoring', 'url' => '/staff/offline_pos.php?page=reports', 'roles' => ['staff']],
     ['key' => 'stock', 'label' => 'Stock & Items', 'icon' => 'inventory_2', 'url' => '/staff/offline_pos.php?page=stock', 'roles' => ['staff'], 'badge' => 'stock'],
 ];

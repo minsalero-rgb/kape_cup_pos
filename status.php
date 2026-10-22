@@ -8,6 +8,7 @@ header('X-Content-Type-Options: nosniff');
 require_once __DIR__ . '/includes/customer_session.php';
 initialize_customer_session();
 require_once __DIR__ . '/includes/auth.php';
+require_once __DIR__ . '/includes/order_tracking.php';
 
 $rawOrderId = isset($_GET['id']) && is_string($_GET['id']) ? $_GET['id'] : '';
 $orderId = filter_var($rawOrderId, FILTER_VALIDATE_INT, [
@@ -23,6 +24,14 @@ $trackingToken = $validOrderId !== null
     && preg_match('/^[a-f0-9]{64}$/', $trackingTokens[(string) $validOrderId]) === 1
         ? $trackingTokens[(string) $validOrderId]
         : null;
+$rawReference = isset($_GET['reference']) && is_string($_GET['reference'])
+    ? $_GET['reference']
+    : '';
+$reference = normalize_order_tracking_reference($rawReference);
+$referenceProvided = array_key_exists('reference', $_GET);
+$validReference = $reference !== null;
+$invalidReference = $referenceProvided && !$validReference;
+$canTrackLegacyOrder = $validOrderId !== null && $trackingToken !== null;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,24 +49,46 @@ require __DIR__ . '/includes/customer_header.php';
 <main class="mx-auto flex max-w-xl items-center px-5 pb-12 pt-28 status-page-main">
     <section class="w-full rounded-2xl bg-white p-8 text-center shadow-lg">
         <p class="text-sm font-bold uppercase tracking-wider text-text-muted">Live order tracking</p>
-        <?php if ($validOrderId === null || $trackingToken === null): ?>
-            <h1 class="mt-3 font-headline text-2xl font-bold">Order reference unavailable</h1>
-            <p class="mt-3 text-text-muted">This order can’t be verified in the current session. Return to checkout on the device used to place it, or ask staff at the counter for an update.</p>
-        <?php else: ?>
-            <h1 class="mt-3 font-headline text-2xl font-bold">Order #<?= htmlspecialchars((string) $validOrderId, ENT_QUOTES, 'UTF-8') ?></h1>
-            <p id="tracking-message" class="mt-3 text-text-muted" role="status">Checking your order status…</p>
-            <ol class="mt-8 grid grid-cols-2 gap-3 text-sm sm:grid-cols-4" aria-label="Order progress">
-                <?php foreach (['Pending', 'Paid', 'Preparing', 'Completed'] as $index => $status): ?>
-                    <li id="status-step-<?= $index ?>" class="rounded-lg bg-stone-100 px-2 py-3 text-stone-500">
-                        <span class="block font-bold"><?= htmlspecialchars($status, ENT_QUOTES, 'UTF-8') ?></span>
-                    </li>
-                <?php endforeach; ?>
-            </ol>
-            <p class="mt-6 text-sm text-text-muted">Payment is confirmed by café staff. This page refreshes the status automatically.</p>
+        <h1 class="mt-3 font-headline text-2xl font-bold">Track Your Order</h1>
+        <p class="mt-3 text-text-muted">Enter the Order Tracking No. printed on your receipt.</p>
+        <form method="get" action="status.php" class="mt-6 text-left">
+            <label for="order-reference" class="block text-sm font-bold">Order Tracking No.</label>
+            <input id="order-reference" name="reference" type="text" maxlength="27" inputmode="text"
+                   pattern="([0-9]{8}|[A-Za-z0-9_\-]{27})" value="<?= escape_html($validReference ? $reference : $rawReference) ?>"
+                   placeholder="12345678" autocomplete="off" spellcheck="false" required
+                   class="mt-2 w-full rounded-lg border border-border-neutral bg-[#FFFCF6] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-caramel-gold">
+            <button type="submit" class="mt-3 inline-flex rounded-lg bg-primary-container px-5 py-3 font-bold text-white">
+                Track Order
+            </button>
+        </form>
+        <?php if ($invalidReference): ?>
+            <p class="mt-4 text-red-800" role="alert">Enter the Order Tracking No. printed on your receipt.</p>
+        <?php endif; ?>
+        <?php if ($validReference || $canTrackLegacyOrder): ?>
+            <div class="mt-6 border-t border-border-neutral pt-6">
+                <h2 class="font-headline text-lg font-bold">
+                    <?php if ($validReference): ?>
+                        Order Tracking No.: <?= escape_html($reference) ?>
+                    <?php else: ?>
+                        Order #<?= escape_html((string) $validOrderId) ?>
+                    <?php endif; ?>
+                </h2>
+                <p id="tracking-message" class="mt-3 text-text-muted" role="status">Checking your order status…</p>
+                <ol class="mt-8 grid grid-cols-2 gap-3 text-sm sm:grid-cols-4" aria-label="Order progress">
+                    <?php foreach (['Pending', 'Paid', 'Preparing', 'Completed'] as $index => $status): ?>
+                        <li id="status-step-<?= $index ?>" class="rounded-lg bg-stone-100 px-2 py-3 text-stone-500">
+                            <span class="block font-bold"><?= escape_html($status) ?></span>
+                        </li>
+                    <?php endforeach; ?>
+                </ol>
+                <p class="mt-6 text-sm text-text-muted">Payment is confirmed by café staff. This page refreshes the status automatically.</p>
+            </div>
             <script>
             (function () {
-                var requestedOrderId = <?= json_encode($validOrderId, JSON_THROW_ON_ERROR) ?>;
+                var requestedReference = <?= json_encode($validReference ? $reference : null, JSON_THROW_ON_ERROR) ?>;
+                var requestedOrderId = <?= json_encode($validReference ? null : $validOrderId, JSON_THROW_ON_ERROR) ?>;
                 var trackingToken = <?= json_encode($trackingToken, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_THROW_ON_ERROR) ?>;
+                var pollingToken = null;
                 var message = document.getElementById('tracking-message');
                 var statuses = ['Pending', 'Paid', 'Preparing', 'Completed'];
                 var requestInFlight = false;
@@ -70,6 +101,12 @@ require __DIR__ . '/includes/customer_header.php';
 
                 function showFailure() {
                     message.textContent = 'Order status is temporarily unavailable. Retrying automatically…';
+                    message.className = 'mt-3 text-red-800';
+                }
+
+                function stopWithMessage(text) {
+                    stopPolling();
+                    message.textContent = text;
                     message.className = 'mt-3 text-red-800';
                 }
 
@@ -95,16 +132,46 @@ require __DIR__ . '/includes/customer_header.php';
                     if (requestInFlight || pollingStopped) return;
                     requestInFlight = true;
                     try {
-                        var response = await fetch('api/ordering_status.php?id=' + encodeURIComponent(requestedOrderId), {
+                        var endpoint = requestedReference !== null
+                            ? (pollingToken === null
+                                ? 'api/ordering_status.php?reference=' + encodeURIComponent(requestedReference)
+                                : 'api/ordering_status.php')
+                            : 'api/ordering_status.php?id=' + encodeURIComponent(requestedOrderId);
+                        var options = {
                             cache: 'no-store',
-                            headers: {'X-Order-Tracking-Token': trackingToken}
-                        });
+                            headers: {}
+                        };
+                        if (requestedReference === null) {
+                            options.headers['X-Order-Tracking-Token'] = trackingToken;
+                        } else if (pollingToken !== null) {
+                            options.headers['X-Order-Tracking-Poll-Token'] = pollingToken;
+                        }
+                        var response = await fetch(endpoint, options);
+                        if (response.status === 401 && requestedReference !== null && pollingToken !== null) {
+                            stopWithMessage('Your tracking session expired. Enter your Order Tracking No. again to continue.');
+                            return;
+                        }
+                        if (response.status === 404 || response.status === 422) {
+                            stopWithMessage('We could not find that order. Check the Order Tracking No. and try again.');
+                            return;
+                        }
+                        if (response.status === 429) {
+                            stopWithMessage('Too many tracking lookups. Please wait and try again.');
+                            return;
+                        }
                         if (!response.ok) throw new Error('Order status request failed.');
                         var result = await response.json();
                         if (!result || result.success !== true || !result.data ||
-                            Number(result.data.order_id) !== requestedOrderId ||
-                            statuses.indexOf(result.data.status) === -1) {
+                            statuses.indexOf(result.data.status) === -1 ||
+                            (requestedReference !== null && result.data.order_reference !== requestedReference) ||
+                            (requestedReference === null && Number(result.data.order_id) !== requestedOrderId)) {
                             throw new Error('Order status response could not be verified.');
+                        }
+                        if (requestedReference !== null && pollingToken === null) {
+                            if (!/^[a-f0-9]{64}$/.test(result.data.polling_token || '')) {
+                                throw new Error('Order tracking could not be verified.');
+                            }
+                            pollingToken = result.data.polling_token;
                         }
                         updateProgress(result.data.status);
                     } catch (error) {

@@ -9347,6 +9347,34 @@ body:not(.app-body):not(:has(#root)) { background-color: var(--cafe-background) 
   padding: var(--space-4);
 }
 
+.app-body .receipt-filter-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+  gap: var(--space-3);
+  margin: var(--space-3) 0;
+}
+
+.app-body .receipt-filter-grid label,
+.app-body .app-content .order form label {
+  display: grid;
+  gap: var(--space-1);
+  color: var(--cafe-coffee);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.app-body .receipt-filter-grid input,
+.app-body .app-content .order form input {
+  width: 100%;
+  min-height: 40px;
+  padding: 0 var(--space-3);
+  border: 1px solid var(--cafe-border);
+  border-radius: var(--cafe-radius-control);
+  background: var(--cafe-paper);
+  color: var(--cafe-text);
+  font: inherit;
+}
+
 .app-body .app-content .order-heading,
 .app-body .app-content .summary {
   display: flex;

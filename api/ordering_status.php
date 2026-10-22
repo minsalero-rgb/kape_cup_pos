@@ -44,10 +44,153 @@ function order_status_error(int $statusCode, string $code, string $message): voi
     ]);
 }
 
+function order_status_respond_for_reference(PDO $pdo, string $reference, ?string $pollToken = null): void
+{
+    $referenceStatement = $pdo->prepare(
+        'SELECT order_reference, status
+         FROM orders
+         WHERE order_reference = :order_reference
+         LIMIT 1'
+    );
+    $referenceStatement->execute(['order_reference' => $reference]);
+    $order = $referenceStatement->fetch(PDO::FETCH_ASSOC);
+    if (!$order) {
+        order_status_error(404, 'order_not_found', 'The order could not be found.');
+    }
+
+    if (!in_array($order['status'], ['Pending', 'Paid', 'Preparing', 'Completed'], true)) {
+        error_log('[order-status] Stored order status is outside the approved workflow.');
+        order_status_error(500, 'internal_error', 'Order status is temporarily unavailable.');
+    }
+
+    $data = [
+        'order_reference' => (string) $order['order_reference'],
+        'status' => (string) $order['status'],
+    ];
+    if ($pollToken !== null) {
+        $data['polling_token'] = $pollToken;
+    }
+
+    order_status_json(200, [
+        'success' => true,
+        'data' => $data,
+    ]);
+}
+
+require_once __DIR__ . '/../includes/order_tracking.php';
+
 $requestMethod = isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : '';
 if ($requestMethod !== 'GET') {
     header('Allow: GET');
     order_status_error(405, 'method_not_allowed', 'Only GET requests are allowed.');
+}
+
+$rawReference = isset($_GET['reference']) && is_string($_GET['reference'])
+    ? $_GET['reference']
+    : '';
+$referenceProvided = array_key_exists('reference', $_GET);
+$reference = normalize_order_tracking_reference($rawReference);
+$pollToken = isset($_SERVER['HTTP_X_ORDER_TRACKING_POLL_TOKEN']) &&
+    is_string($_SERVER['HTTP_X_ORDER_TRACKING_POLL_TOKEN'])
+    ? $_SERVER['HTTP_X_ORDER_TRACKING_POLL_TOKEN']
+    : '';
+
+if ($pollToken !== '' && $referenceProvided) {
+    order_status_error(400, 'invalid_tracking_request', 'The tracking request is invalid.');
+}
+
+if ($referenceProvided) {
+    if ($reference === null) {
+        order_status_error(422, 'invalid_reference', 'Enter a valid Order Tracking No.');
+    }
+
+    require_once __DIR__ . '/../includes/customer_session.php';
+    initialize_customer_session();
+
+    try {
+        require __DIR__ . '/../config/db.php';
+        $ipKey = hash('sha256', (string) ($_SERVER['REMOTE_ADDR'] ?? ''));
+        $sessionKey = hash('sha256', session_id());
+        $attemptStatement = $pdo->prepare(
+            "SELECT
+                (SELECT COUNT(*)
+                 FROM order_submission_log
+                 WHERE ip_key = :ip_key
+                   AND event_type = 'tracking_lookup'
+                   AND created_at >= DATE_SUB(NOW(), INTERVAL 10 MINUTE)) AS ip_attempts,
+                (SELECT COUNT(*)
+                 FROM order_submission_log
+                 WHERE session_key = :session_key
+                   AND event_type = 'tracking_lookup'
+                   AND created_at >= DATE_SUB(NOW(), INTERVAL 10 MINUTE)) AS session_attempts"
+        );
+        $attemptStatement->execute([
+            'ip_key' => $ipKey,
+            'session_key' => $sessionKey,
+        ]);
+        $attempts = $attemptStatement->fetch(PDO::FETCH_ASSOC);
+        if ((int) $attempts['ip_attempts'] >= 60 || (int) $attempts['session_attempts'] >= 10) {
+            order_status_error(429, 'lookup_rate_limited', 'Too many tracking lookups. Please wait and try again.');
+        }
+
+        $logStatement = $pdo->prepare(
+            "INSERT INTO order_submission_log (ip_key, session_key, event_type)
+             VALUES (:ip_key, :session_key, 'tracking_lookup')"
+        );
+        $logStatement->execute([
+            'ip_key' => $ipKey,
+            'session_key' => $sessionKey,
+        ]);
+
+        if (random_int(1, 20) === 1) {
+            try {
+                $purgeStatement = $pdo->prepare(
+                    "DELETE FROM order_submission_log
+                     WHERE event_type = 'tracking_lookup'
+                       AND created_at < DATE_SUB(NOW(), INTERVAL 24 HOUR)"
+                );
+                $purgeStatement->execute();
+            } catch (PDOException $exception) {
+                error_log('[order-status] Lookup log cleanup failed.');
+            }
+        }
+
+        order_status_respond_for_reference(
+            $pdo,
+            $reference,
+            create_order_tracking_poll_token($reference)
+        );
+    } catch (PDOException $exception) {
+        error_log('[order-status] Reference lookup failed.');
+        order_status_error(500, 'internal_error', 'Order status is temporarily unavailable.');
+    } catch (Throwable $exception) {
+        error_log('[order-status] Unexpected reference lookup failure.');
+        order_status_error(500, 'internal_error', 'Order status is temporarily unavailable.');
+    }
+}
+
+if ($pollToken !== '') {
+    require_once __DIR__ . '/../includes/customer_session.php';
+    initialize_customer_session();
+    $pollReference = order_tracking_reference_for_poll_token($pollToken);
+    if ($pollReference === null) {
+        order_status_error(401, 'tracking_session_expired', 'Enter your Order Tracking No. again to continue.');
+    }
+    if (!order_tracking_poll_request_allowed($pollToken)) {
+        header('Retry-After: 4');
+        order_status_error(429, 'poll_rate_limited', 'Please wait before refreshing order status again.');
+    }
+
+    try {
+        require __DIR__ . '/../config/db.php';
+        order_status_respond_for_reference($pdo, $pollReference);
+    } catch (PDOException $exception) {
+        error_log('[order-status] Polling lookup failed.');
+        order_status_error(500, 'internal_error', 'Order status is temporarily unavailable.');
+    } catch (Throwable $exception) {
+        error_log('[order-status] Unexpected polling lookup failure.');
+        order_status_error(500, 'internal_error', 'Order status is temporarily unavailable.');
+    }
 }
 
 $rawOrderId = isset($_GET['id']) && is_string($_GET['id']) ? $_GET['id'] : '';
@@ -63,7 +206,6 @@ if ($orderId === false || preg_match('/^[a-f0-9]{64}$/', $trackingToken) !== 1) 
     order_status_error(404, 'order_not_found', 'The order could not be found.');
 }
 
-require __DIR__ . '/../includes/order_tracking.php';
 $secret = order_tracking_secret();
 if ($secret === null) {
     error_log('[order-status] Tracking secret is not configured.');

@@ -68,6 +68,12 @@ if ($username === '' || strcasecmp($username, 'root') === 0 || $password === '')
     exit('Database credentials are not configured. Please check the database setup instructions.');
 }
 
+if (!extension_loaded('pdo_mysql')) {
+    error_log('[database] The PDO MySQL driver is not available.');
+    http_response_code(500);
+    exit('Database service is temporarily unavailable. Please contact support.');
+}
+
 try {
     $pdo = new PDO(
         "mysql:host=$host;dbname=$dbname;charset=utf8mb4",
@@ -81,7 +87,15 @@ try {
         ]
     );
 } catch (PDOException $exception) {
-    error_log('[database] Connection failed: ' . $exception->getMessage());
+    $sqlState = (string) $exception->getCode();
+    if (preg_match('/\A[A-Z0-9]{5}\z/', $sqlState) !== 1) {
+        $sqlState = 'unknown';
+    }
+    $driverCode = is_array($exception->errorInfo) && isset($exception->errorInfo[1])
+        && is_numeric($exception->errorInfo[1])
+        ? (string) (int) $exception->errorInfo[1]
+        : 'unknown';
+    error_log('[database] Connection failed (SQLSTATE ' . $sqlState . ', driver code ' . $driverCode . ').');
     http_response_code(500);
     exit('Database connection failed. Please check the database configuration.');
 }
