@@ -387,13 +387,6 @@ input[type="submit"] {
   border-color: var(--cafe-coffee);
 }
 
-.ui-card {
-  border: 1px solid var(--cafe-border);
-  border-radius: var(--cafe-radius-card);
-  background: var(--cafe-paper);
-  box-shadow: var(--cafe-shadow-subtle);
-}
-
 .ui-badge {
   display: inline-flex;
   min-height: 24px;
@@ -9153,18 +9146,6 @@ body:not(.app-body):not(:has(#root)) { background-color: var(--cafe-background) 
   font-weight: 500;
 }
 
-.app-body .card--link {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-4);
-  padding: var(--space-4);
-  border: 1px solid var(--cafe-border);
-  border-radius: var(--cafe-radius-card);
-  background: var(--cafe-paper);
-  box-shadow: var(--cafe-shadow);
-  transition: transform 150ms ease, box-shadow 150ms ease;
-}
-
 .app-body .card-link-icon {
   display: inline-flex;
   width: 40px;
@@ -9260,11 +9241,6 @@ body:not(.app-body):not(:has(#root)) { background-color: var(--cafe-background) 
   border-color: var(--cafe-success-line);
   background: var(--cafe-success-bg);
   color: var(--cafe-success-text);
-}
-
-.app-body .card--link:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--cafe-shadow-raised);
 }
 
 .app-body .btn-primary,
