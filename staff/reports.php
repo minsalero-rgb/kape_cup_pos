@@ -73,7 +73,7 @@ require __DIR__ . '/../includes/layout/header.php';
 <section class="app-auto-grid" aria-label="Sales summary">
     <article class="card stat"><p>Completed sales</p><p>₱<?= escape_html($summary['sales']) ?></p></article>
     <article class="card stat"><p>Completed orders</p><p><?= (int) $summary['order_count'] ?></p></article>
-    <article class="card stat"><p>Average order</p><p>₱<?= escape_html($summary['average_order']) ?></p></article>
+    <article class="card stat"><p>Average order</p><p>₱<?= escape_html(number_format((float) $summary['average_order'], 2)) ?></p></article>
 </section>
 <section class="card mt-space-lg">
     <h2>Sales by payment method</h2>

@@ -132,46 +132,62 @@ if ($orderIds !== []) {
         <button class="rounded-lg bg-[#3B1F14] px-4 py-2 font-semibold text-white" type="submit">Filter</button>
         <span class="text-sm text-[#74685E]">Latest 100 matching orders</span>
     </form>
-    <?php foreach ($orders as $order): ?>
-        <?php $orderKey = (string) $order['order_id']; ?>
-        <article class="rounded-2xl border border-[#E8DEC9] bg-[#FFFCF6] p-5 shadow-sm">
-            <div class="flex flex-wrap items-start justify-between gap-3 border-b border-[#E8DEC9] pb-4">
-                <div><h2 class="text-xl font-bold text-[#3B1F14]">Order #<?= (int) $order['order_id'] ?> · <?= escape_html($order['customer_name']) ?></h2><p class="mt-1 text-sm text-[#74685E]"><?= escape_html(date('M j, Y g:i A', strtotime($order['created_at']))) ?> · <?= escape_html($order['order_type']) ?><?= $order['table_label'] !== null ? ' · Table ' . escape_html($order['table_label']) : '' ?></p></div>
-                <span class="ui-status-badge ui-status-badge--<?= escape_html(strtolower((string) $order['status'])) ?>"><?= escape_html($order['status']) ?></span>
-            </div>
-            <div class="mt-4 grid gap-2 text-sm sm:grid-cols-2 lg:grid-cols-4">
-                <p>Payment: <strong><?= escape_html($order['payment_method']) ?></strong></p>
-                <p>Total: <strong>₱<?= escape_html($order['total_amount']) ?></strong></p>
-                <?php if ($order['cash_tendered'] !== null): ?><p>Cash tendered: ₱<?= escape_html($order['cash_tendered']) ?></p><p>Change due: ₱<?= escape_html($order['change_due']) ?></p><?php endif; ?>
-                <p>Accepted by: <?= escape_html($order['staff_name']) ?></p><p>Shift: #<?= (int) $order['shift_id'] ?></p>
-            </div>
-            <h3 class="mt-5 font-bold text-[#3B1F14]">Items</h3>
-            <div class="mt-2 divide-y divide-[#E8DEC9]">
-                <?php foreach (isset($itemsByOrder[$orderKey]) ? $itemsByOrder[$orderKey] : [] as $item): ?>
-                    <div class="py-3">
-                        <div class="flex flex-wrap justify-between gap-2"><strong><?= (int) $item['quantity'] ?> × <?= escape_html($item['name']) ?></strong><span>₱<?= escape_html($item['line_total']) ?></span></div>
-                        <p class="mt-1 text-xs text-[#74685E]">Base ₱<?= escape_html($item['base_price']) ?> · Unit ₱<?= escape_html($item['unit_price']) ?></p>
-                        <?php foreach ($item['modifiers'] as $modifier): ?><p class="text-sm text-[#74685E]"><?= escape_html($modifier['group']) ?>: <?= escape_html($modifier['name']) ?> (<?= (float) $modifier['price'] > 0 ? '+' : '' ?>₱<?= escape_html($modifier['price']) ?>)</p><?php endforeach; ?>
-                        <?php if ($item['notes'] !== null && $item['notes'] !== ''): ?><p class="text-sm text-[#74685E]">Note: <?= escape_html($item['notes']) ?></p><?php endif; ?>
+    <div class="orders-receipt-grid">
+        <?php foreach ($orders as $order): ?>
+            <?php $orderKey = (string) $order['order_id']; ?>
+            <article class="orders-receipt-card">
+                <header class="orders-receipt-card__header">
+                    <div class="orders-receipt-card__identity">
+                        <p class="orders-receipt-card__number">Order #<?= (int) $order['order_id'] ?></p>
+                        <h2 class="orders-receipt-card__customer"><?= escape_html($order['customer_name']) ?></h2>
+                        <p class="orders-receipt-card__date"><?= escape_html(date('M j, Y g:i A', strtotime($order['created_at']))) ?></p>
                     </div>
-                <?php endforeach; ?>
-                <?php if (empty($itemsByOrder[$orderKey])): ?><p class="py-3 text-sm text-[#74685E]">No item lines were recorded.</p><?php endif; ?>
-            </div>
-            <div class="mt-4 flex flex-wrap gap-4 border-t border-[#E8DEC9] pt-3 text-xs text-[#74685E]">
-                <?php foreach (['paid_at' => 'Paid', 'preparing_at' => 'Preparing', 'completed_at' => 'Completed'] as $field => $label): ?>
-                    <?php if ($order[$field] !== null): ?><span><?= escape_html($label) ?>: <?= escape_html(date('M j, Y g:i A', strtotime($order[$field]))) ?></span><?php endif; ?>
-                <?php endforeach; ?>
-            </div>
-            <?php $nextStatus = next_order_status((string) $order['status']); ?>
-            <?php if ($nextStatus !== null): ?>
-                <form class="mt-4" method="post" action="dashboard.php?tab=orders" data-confirm="Advance order #<?= (int) $order['order_id'] ?> from <?= escape_html($order['status']) ?> to <?= escape_html($nextStatus) ?>?">
-                    <input type="hidden" name="csrf_token" value="<?= escape_html(csrf_token()) ?>">
-                    <input type="hidden" name="section" value="orders">
-                    <input type="hidden" name="order_id" value="<?= (int) $order['order_id'] ?>">
-                    <input type="hidden" name="expected_status" value="<?= escape_html($order['status']) ?>">
-                    <button class="rounded-lg bg-[#3B1F14] px-4 py-2 font-semibold text-white" type="submit">Advance to <?= escape_html($nextStatus) ?></button>
-                </form>
-            <?php endif; ?>
-        </article>
-    <?php endforeach; ?>
+                    <span class="ui-status-badge ui-status-badge--<?= escape_html(strtolower((string) $order['status'])) ?>"><?= escape_html($order['status']) ?></span>
+                </header>
+                <div class="orders-receipt-card__meta">
+                    <p><span>Order type</span><strong><?= escape_html($order['order_type']) ?><?= $order['table_label'] !== null ? ' · Table ' . escape_html($order['table_label']) : '' ?></strong></p>
+                    <p><span>Payment</span><strong><?= escape_html($order['payment_method']) ?></strong></p>
+                    <?php if ($order['cash_tendered'] !== null): ?>
+                        <p><span>Cash tendered</span><strong>₱<?= escape_html($order['cash_tendered']) ?></strong></p>
+                        <p><span>Change due</span><strong>₱<?= escape_html($order['change_due']) ?></strong></p>
+                    <?php endif; ?>
+                    <p><span>Accepted by</span><strong><?= escape_html($order['staff_name']) ?></strong></p>
+                    <p><span>Shift</span><strong>#<?= (int) $order['shift_id'] ?></strong></p>
+                </div>
+                <section class="orders-receipt-card__items" aria-label="Order items">
+                    <h3>Items</h3>
+                    <?php foreach (isset($itemsByOrder[$orderKey]) ? $itemsByOrder[$orderKey] : [] as $item): ?>
+                        <div class="orders-receipt-card__item">
+                            <div class="orders-receipt-card__item-heading">
+                                <strong><?= (int) $item['quantity'] ?> × <?= escape_html($item['name']) ?></strong>
+                                <span>₱<?= escape_html($item['line_total']) ?></span>
+                            </div>
+                            <p class="orders-receipt-card__item-prices">Base ₱<?= escape_html($item['base_price']) ?> · Unit ₱<?= escape_html($item['unit_price']) ?></p>
+                            <?php foreach ($item['modifiers'] as $modifier): ?>
+                                <p class="orders-receipt-card__item-detail"><?= escape_html($modifier['group']) ?>: <?= escape_html($modifier['name']) ?> (<?= (float) $modifier['price'] > 0 ? '+' : '' ?>₱<?= escape_html($modifier['price']) ?>)</p>
+                            <?php endforeach; ?>
+                            <?php if ($item['notes'] !== null && $item['notes'] !== ''): ?><p class="orders-receipt-card__item-detail">Note: <?= escape_html($item['notes']) ?></p><?php endif; ?>
+                        </div>
+                    <?php endforeach; ?>
+                    <?php if (empty($itemsByOrder[$orderKey])): ?><p class="orders-receipt-card__empty-items">No item lines were recorded.</p><?php endif; ?>
+                </section>
+                <div class="orders-receipt-card__total"><span>Order total</span><strong>₱<?= escape_html($order['total_amount']) ?></strong></div>
+                <div class="orders-receipt-card__timeline">
+                    <?php foreach (['paid_at' => 'Paid', 'preparing_at' => 'Preparing', 'completed_at' => 'Completed'] as $field => $label): ?>
+                        <?php if ($order[$field] !== null): ?><span><?= escape_html($label) ?>: <?= escape_html(date('M j, Y g:i A', strtotime($order[$field]))) ?></span><?php endif; ?>
+                    <?php endforeach; ?>
+                </div>
+                <?php $nextStatus = next_order_status((string) $order['status']); ?>
+                <?php if ($nextStatus !== null): ?>
+                    <form class="orders-receipt-card__action" method="post" action="dashboard.php?tab=orders" data-confirm="Advance order #<?= (int) $order['order_id'] ?> from <?= escape_html($order['status']) ?> to <?= escape_html($nextStatus) ?>?">
+                        <input type="hidden" name="csrf_token" value="<?= escape_html(csrf_token()) ?>">
+                        <input type="hidden" name="section" value="orders">
+                        <input type="hidden" name="order_id" value="<?= (int) $order['order_id'] ?>">
+                        <input type="hidden" name="expected_status" value="<?= escape_html($order['status']) ?>">
+                        <button type="submit">Advance to <?= escape_html($nextStatus) ?></button>
+                    </form>
+                <?php endif; ?>
+            </article>
+        <?php endforeach; ?>
+    </div>
     <?php if ($orders === []): ?><p class="rounded-xl border border-[#E8DEC9] bg-[#FFFCF6] p-8 text-center text-[#74685E]">No matching orders were found.</p><?php endif; ?>

@@ -248,11 +248,11 @@ function deduct_order_inventory(PDO $pdo, array $preparedCart, int $staffId, int
 {
     $updateStatement = $pdo->prepare(
         'UPDATE menu_items
-         SET stock_quantity = stock_quantity - :quantity
+         SET stock_quantity = stock_quantity - :deduct_quantity
          WHERE item_id = :item_id
            AND is_active = 1
            AND is_sold_out = 0
-           AND stock_quantity >= :quantity'
+           AND stock_quantity >= :minimum_quantity'
     );
     $logStatement = $pdo->prepare(
         'INSERT INTO inventory_stock_logs
@@ -265,8 +265,9 @@ function deduct_order_inventory(PDO $pdo, array $preparedCart, int $staffId, int
         $quantity = (int) $item['quantity'];
         $itemId = (int) $item['item_id'];
         $updateStatement->execute([
-            'quantity' => $quantity,
+            'deduct_quantity' => $quantity,
             'item_id' => $itemId,
+            'minimum_quantity' => $quantity,
         ]);
         if ($updateStatement->rowCount() !== 1) {
             throw new OrderSubmissionException(

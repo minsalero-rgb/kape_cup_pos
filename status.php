@@ -7,6 +7,7 @@ header('X-Content-Type-Options: nosniff');
 
 require_once __DIR__ . '/includes/customer_session.php';
 initialize_customer_session();
+require_once __DIR__ . '/includes/auth.php';
 
 $rawOrderId = isset($_GET['id']) && is_string($_GET['id']) ? $_GET['id'] : '';
 $orderId = filter_var($rawOrderId, FILTER_VALIDATE_INT, [

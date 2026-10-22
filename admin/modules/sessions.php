@@ -75,10 +75,10 @@ foreach ($sessions as $session) {
 }
 ?>
 <div><p class="mt-space-xs text-body-sm text-muted-text">Signed in as <?= escape_html($admin['full_name']) ?>. Open sessions are never closed automatically; inspect their start time and resolve them explicitly.</p></div>
-    <div class="grid gap-4 sm:grid-cols-2"><div class="rounded-xl border border-[#E8DEC9] bg-[#FFFCF6] p-5"><p class="text-sm text-[#74685E]">Open sessions in the latest 300 records</p><p class="mt-1 text-3xl font-bold text-[#3B1F14]"><?= $openCount ?></p></div><div class="rounded-xl border border-[#E8DEC9] bg-[#FFFCF6] p-5"><p class="text-sm text-[#74685E]">Resolution rule</p><p class="mt-1 font-semibold text-[#3B1F14]">Close only the session you reviewed</p></div></div>
+    <div class="admin-session-summary grid gap-4 sm:grid-cols-2"><div class="rounded-xl border border-[#E8DEC9] bg-[#FFFCF6] p-5"><p class="text-sm text-[#74685E]">Open sessions in the latest 300 records</p><p class="mt-1 text-3xl font-bold text-[#3B1F14]"><?= $openCount ?></p></div><div class="rounded-xl border border-[#E8DEC9] bg-[#FFFCF6] p-5"><p class="text-sm text-[#74685E]">Resolution rule</p><p class="mt-1 font-semibold text-[#3B1F14]">Close only the session you reviewed</p></div></div>
     <?php if ($success !== ''): ?><p class="rounded-lg bg-green-50 p-4 text-green-900" role="status"><?= escape_html($success) ?></p><?php endif; ?>
     <?php if ($error !== ''): ?><p class="rounded-lg bg-red-50 p-4 text-red-900" role="alert"><?= escape_html($error) ?></p><?php endif; ?>
-    <section class="overflow-hidden rounded-2xl border border-[#E8DEC9] bg-[#FFFCF6] shadow-sm">
+    <section class="admin-session-history overflow-hidden rounded-2xl border border-[#E8DEC9] bg-[#FFFCF6] shadow-sm">
         <div class="border-b border-[#E8DEC9] p-5"><h2 class="text-xl font-bold text-[#3B1F14]">Shift history</h2><p class="mt-1 text-sm text-[#74685E]">Showing up to 300 sessions, newest first. Order records remain attached after resolution.</p></div>
         <div class="overflow-x-auto"><table class="min-w-full divide-y divide-[#E8DEC9] text-left text-sm">
             <thead class="bg-[#F6F3ED] text-[#74685E]"><tr><th class="px-4 py-3">Staff member</th><th class="px-4 py-3">Started</th><th class="px-4 py-3">Ended</th><th class="px-4 py-3">Orders</th><th class="px-4 py-3">State</th><th class="px-4 py-3">Manual action</th></tr></thead>

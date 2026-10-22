@@ -8,7 +8,8 @@ require_once __DIR__ . '/../includes/order_idempotency.php';
 require_once __DIR__ . '/../includes/order_workflow.php';
 require_once __DIR__ . '/../includes/shift.php';
 
-require_role('staff', $pdo);
+$page = isset($_GET['page']) && is_string($_GET['page']) ? $_GET['page'] : 'pos';
+require_role($page === 'stock' ? ['staff', 'admin'] : 'staff', $pdo);
 $user = current_staff_user();
 $basePath = app_base_path();
 
@@ -55,14 +56,14 @@ if (!$hasInventoryColumns || !$hasInventoryLogTable) {
     exit;
 }
 
-$page = isset($_GET['page']) && is_string($_GET['page']) ? $_GET['page'] : 'pos';
 $pageRoutes = [
     'queue' => 'orders.php',
     'reports' => 'reports.php',
     'stock' => 'stock.php',
 ];
 if (isset($pageRoutes[$page])) {
-    header('Location: ' . $basePath . '/staff/' . $pageRoutes[$page], true, 302);
+    $redirectStatus = $page === 'stock' && $_SERVER['REQUEST_METHOD'] === 'POST' ? 307 : 302;
+    header('Location: ' . $basePath . '/staff/' . $pageRoutes[$page], true, $redirectStatus);
     exit;
 }
 if ($page === 'customer') {
@@ -284,6 +285,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['pos_submission_key'] = bin2hex(random_bytes(32));
             $_SESSION['pos_submission_cart_hash'] = hash('sha256', serialize([]));
             set_flash_message('success', 'Order #' . $orderId . ' completed. Total: ₱' . $preparedCart['total_amount'] . '.');
+            $receiptOrderId = $orderId;
             }
         } else {
             throw new OrderSubmissionException('invalid_action', 'That POS action is not available.');
@@ -323,6 +325,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         error_log('[staff-pos] POS action failed.');
         set_flash_message('error', 'The POS action could not be completed. Refresh and try again.');
+    }
+    if (isset($receiptOrderId)) {
+        header('Location: ' . $basePath . '/staff/receipt.php?order_id=' . (int) $receiptOrderId . '&auto=1&return=pos', true, 303);
+        exit;
     }
     header('Location: ' . $basePath . '/staff/offline_pos.php?page=pos', true, 303);
     exit;

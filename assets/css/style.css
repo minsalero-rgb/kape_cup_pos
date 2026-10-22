@@ -46,8 +46,8 @@
   --cafe-focus-ring: #3b1f14;
   --cafe-topbar-surface: rgb(255 252 246 / 96%);
   --cafe-scrim: rgb(34 20 15 / 36%);
-  --cafe-body-font: Inter, "Segoe UI", Arial, sans-serif;
-  --cafe-headline-font: Merriweather, Georgia, "Times New Roman", serif;
+  --cafe-body-font: "Poppins", sans-serif;
+  --cafe-headline-font: "Poppins", sans-serif;
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
@@ -107,19 +107,35 @@
 
 /* ===== Self-hosted fonts and icons (fonts.css; source cascade order preserved) ===== */
 @font-face {
-  font-family: Inter;
+  font-family: Poppins;
   font-style: normal;
-  font-weight: 400 700;
+  font-weight: 400;
   font-display: swap;
-  src: url("../fonts/inter-latin.woff2") format("woff2");
+  src: url("../fonts/poppins-regular.woff2") format("woff2");
 }
 
 @font-face {
-  font-family: Merriweather;
+  font-family: Poppins;
   font-style: normal;
-  font-weight: 400 700;
+  font-weight: 500;
   font-display: swap;
-  src: url("../fonts/merriweather-latin.woff2") format("woff2");
+  src: url("../fonts/poppins-medium.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../fonts/poppins-semibold.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../fonts/poppins-bold.woff2") format("woff2");
 }
 
 @font-face {
@@ -791,7 +807,7 @@ html,
   -o-tab-size: 4;
      tab-size: 4;
   /* 3 */
-  font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: var(--cafe-body-font);
   /* 4 */
   font-feature-settings: normal;
   /* 5 */
@@ -880,7 +896,7 @@ code,
 kbd,
 samp,
 pre {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-family: var(--cafe-body-font);
   /* 1 */
   font-feature-settings: normal;
   /* 2 */
@@ -2614,83 +2630,83 @@ video {
 }
 
 .font-body {
-  font-family: Inter, sans-serif;
+  font-family: var(--cafe-body-font);
 }
 
 .font-body-lg {
-  font-family: Inter;
+  font-family: var(--cafe-body-font);
 }
 
 .font-body-md {
-  font-family: Inter;
+  font-family: var(--cafe-body-font);
 }
 
 .font-body-sm {
-  font-family: Inter;
+  font-family: var(--cafe-body-font);
 }
 
 .font-currency-display {
-  font-family: Inter;
+  font-family: var(--cafe-body-font);
 }
 
 .font-headline {
-  font-family: Merriweather, serif;
+  font-family: var(--cafe-headline-font);
 }
 
 .font-headline-lg {
-  font-family: Merriweather;
+  font-family: var(--cafe-headline-font);
 }
 
 .font-headline-md {
-  font-family: Merriweather;
+  font-family: var(--cafe-headline-font);
 }
 
 .font-headline-sm {
-  font-family: Merriweather;
+  font-family: var(--cafe-headline-font);
 }
 
 .font-headline-xl {
-  font-family: Merriweather;
+  font-family: var(--cafe-headline-font);
 }
 
 .font-label-button {
-  font-family: Inter;
+  font-family: var(--cafe-body-font);
 }
 
 .font-label-lg {
-  font-family: Inter;
+  font-family: var(--cafe-body-font);
 }
 
 .font-label-md {
-  font-family: Inter;
+  font-family: var(--cafe-body-font);
 }
 
 .font-label-sm {
-  font-family: Inter;
+  font-family: var(--cafe-body-font);
 }
 
 .font-price-display {
-  font-family: Inter;
+  font-family: var(--cafe-body-font);
 }
 
 .font-price-row {
-  font-family: Inter;
+  font-family: var(--cafe-body-font);
 }
 
 .font-status-badge {
-  font-family: Inter;
+  font-family: var(--cafe-body-font);
 }
 
 .font-table-header {
-  font-family: Inter;
+  font-family: var(--cafe-body-font);
 }
 
 .font-title-md {
-  font-family: Inter;
+  font-family: var(--cafe-body-font);
 }
 
 .font-title-sm {
-  font-family: Inter;
+  font-family: var(--cafe-body-font);
 }
 
 .text-2xl {
@@ -11422,5 +11438,204 @@ body:not(.app-body):not(:has(#root)) { background-color: var(--cafe-background) 
   .menu-category-list .category-btn,
   .menu-product-footer .menu-select-button {
     min-height: 48px;
+  }
+}
+
+.orders-receipt-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: stretch;
+  gap: var(--space-4);
+}
+
+.orders-receipt-card {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  overflow: hidden;
+  border: 1px solid var(--cafe-line-soft);
+  border-radius: var(--cafe-radius-card);
+  background: var(--cafe-paper);
+  box-shadow: var(--cafe-shadow-subtle);
+  color: var(--cafe-text);
+}
+
+.orders-receipt-card__header {
+  display: flex;
+  min-width: 0;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px dashed var(--cafe-line-soft);
+}
+
+.orders-receipt-card__identity {
+  min-width: 0;
+}
+
+.orders-receipt-card__number,
+.orders-receipt-card__date {
+  margin: 0;
+  color: var(--cafe-muted);
+  font-size: var(--type-12);
+}
+
+.orders-receipt-card__number {
+  color: var(--cafe-coffee);
+  font-weight: 700;
+}
+
+.app-body .app-dashboard-panel .orders-receipt-card h2.orders-receipt-card__customer {
+  margin: var(--space-1) 0;
+  overflow-wrap: anywhere;
+  color: var(--cafe-coffee);
+  font-family: var(--cafe-body-font);
+  font-size: var(--type-16);
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.orders-receipt-card > .ui-status-badge {
+  min-height: 28px;
+  padding: 2px var(--space-2);
+  font-size: var(--type-12);
+}
+
+.orders-receipt-card__meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-2) var(--space-3);
+}
+
+.orders-receipt-card__meta p {
+  min-width: 0;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.orders-receipt-card__meta span,
+.orders-receipt-card__meta strong {
+  display: block;
+}
+
+.orders-receipt-card__meta span {
+  color: var(--cafe-muted);
+  font-size: var(--type-12);
+}
+
+.orders-receipt-card__meta strong {
+  font-size: var(--type-14);
+}
+
+.orders-receipt-card__items {
+  min-width: 0;
+}
+
+.app-body .app-dashboard-panel .orders-receipt-card .orders-receipt-card__items h3 {
+  margin: 0 0 var(--space-2);
+  color: var(--cafe-coffee);
+  font-size: var(--type-14);
+  font-weight: 700;
+}
+
+.orders-receipt-card__item {
+  padding: var(--space-2) 0;
+  border-top: 1px solid var(--cafe-line-soft);
+}
+
+.orders-receipt-card__item-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: var(--space-2);
+  font-size: var(--type-14);
+}
+
+.orders-receipt-card__item-heading strong {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.orders-receipt-card__item-heading span {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.orders-receipt-card__item-prices,
+.orders-receipt-card__item-detail,
+.orders-receipt-card__empty-items {
+  margin: var(--space-1) 0 0;
+  color: var(--cafe-muted);
+  font-size: var(--type-12);
+  overflow-wrap: anywhere;
+}
+
+.orders-receipt-card__total {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin-top: auto;
+  padding-top: var(--space-3);
+  border-top: 1px dashed var(--cafe-line-soft);
+  font-weight: 700;
+}
+
+.orders-receipt-card__total strong {
+  color: var(--cafe-coffee);
+  font-size: var(--type-18);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.orders-receipt-card__timeline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-3);
+  color: var(--cafe-muted);
+  font-size: var(--type-12);
+}
+
+.orders-receipt-card__action {
+  margin-top: var(--space-1);
+}
+
+.orders-receipt-card__action button {
+  width: 100%;
+  min-height: 44px;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--cafe-primary);
+  border-radius: var(--cafe-radius-control);
+  background: var(--cafe-primary);
+  color: var(--cafe-primary-text);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.orders-receipt-card__action button:hover {
+  background: var(--cafe-primary-hover);
+}
+
+.app-dashboard-panel .admin-menu-form-panel + .admin-menu-list-panel {
+  margin-top: var(--space-4);
+}
+
+.app-dashboard-panel .admin-session-summary + .admin-session-history {
+  margin-top: var(--space-4);
+}
+
+@media (max-width: 1199px) {
+  .orders-receipt-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 639px) {
+  .orders-receipt-grid {
+    grid-template-columns: minmax(0, 1fr);
   }
 }

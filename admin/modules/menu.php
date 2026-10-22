@@ -279,7 +279,8 @@ $items = $pdo->query(
     'SELECT menu_items.item_id, menu_items.name, menu_items.base_price'
     . ($menuHasImageColumn ? ', menu_items.image_filename' : '')
     . ',
-            menu_items.is_active, menu_items.is_sold_out, categories.name AS category_name
+            menu_items.is_active, menu_items.is_sold_out, menu_items.stock_quantity,
+            categories.name AS category_name
      FROM menu_items
      INNER JOIN categories ON categories.category_id = menu_items.category_id
      ORDER BY categories.sort_order, categories.name, menu_items.name, menu_items.item_id'
@@ -297,7 +298,7 @@ $items = $pdo->query(
             <p class="rounded-lg bg-red-50 p-4 text-red-900" role="alert"><?= escape_html($error) ?></p>
         <?php endif; ?>
 
-        <section class="rounded-2xl border border-[#E8DEC9] bg-[#FFFCF6] p-6 shadow-sm">
+        <section class="admin-menu-form-panel rounded-2xl border border-[#E8DEC9] bg-[#FFFCF6] p-6 shadow-sm">
             <h2 class="text-xl font-bold text-[#3B1F14]"><?= $form['item_id'] === '' ? 'Create menu item' : 'Update menu item #' . escape_html($form['item_id']) ?></h2>
             <form method="post" action="dashboard.php?tab=menu" enctype="multipart/form-data" class="mt-5 grid gap-4 md:grid-cols-2">
                 <input type="hidden" name="csrf_token" value="<?= escape_html(csrf_token()) ?>"><input type="hidden" name="section" value="menu"><input type="hidden" name="action" value="save">
@@ -356,7 +357,7 @@ $items = $pdo->query(
             </form>
         </section>
 
-        <section class="overflow-hidden rounded-2xl border border-[#E8DEC9] bg-[#FFFCF6] shadow-sm">
+        <section class="admin-menu-list-panel overflow-hidden rounded-2xl border border-[#E8DEC9] bg-[#FFFCF6] shadow-sm">
             <div class="border-b border-[#E8DEC9] p-5">
                 <h2 class="text-xl font-bold text-[#3B1F14]">Current menu items</h2>
             </div>
@@ -382,7 +383,17 @@ $items = $pdo->query(
                                 </td>
                                 <td class="px-4 py-3"><?= escape_html($item['category_name']) ?></td>
                                 <td class="px-4 py-3">₱<?= escape_html($item['base_price']) ?></td>
-                                <td class="px-4 py-3"><?= (int) $item['is_active'] !== 1 ? 'Inactive' : ((int) $item['is_sold_out'] === 1 ? 'Sold out' : 'Available') ?></td>
+                                <td class="px-4 py-3">
+                                    <?php if ((int) $item['is_active'] !== 1): ?>
+                                        Inactive
+                                    <?php elseif ((int) $item['is_sold_out'] === 1): ?>
+                                        Sold out · <?= (int) $item['stock_quantity'] ?> in stock
+                                    <?php elseif ((int) $item['stock_quantity'] < 1): ?>
+                                        Out of stock · 0 in stock
+                                    <?php else: ?>
+                                        Available · <?= (int) $item['stock_quantity'] ?> in stock
+                                    <?php endif; ?>
+                                </td>
                                 <td class="px-4 py-3">
                                     <a class="font-semibold text-[#3B1F14] underline" href="dashboard.php?tab=menu&amp;edit=<?= (int) $item['item_id'] ?>">Edit</a>
                                     <form class="mt-2" method="post" action="dashboard.php?tab=menu" data-confirm="<?= (int) $item['is_active'] === 1 ? 'Deactivate' : 'Activate' ?> this item? Historical orders will remain unchanged.">

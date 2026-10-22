@@ -82,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    header('Location: offline_pos.php?page=stock', true, 303);
+    header('Location: stock.php', true, 303);
     exit;
 }
 
@@ -146,7 +146,7 @@ require __DIR__ . '/../includes/layout/header.php';
                     </td>
                     <td>
                         <?php if ((int) $item['is_active'] === 1): ?>
-                            <form method="post" action="offline_pos.php?page=stock" class="stock-adjust-form">
+                            <form method="post" action="stock.php" class="stock-adjust-form">
                                 <input type="hidden" name="csrf_token" value="<?= escape_html(csrf_token()) ?>">
                                 <input type="hidden" name="item_id" value="<?= (int) $item['item_id'] ?>">
                                 <label>

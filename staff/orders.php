@@ -51,7 +51,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             orders_redirect('error', $message);
         }
 
-        orders_redirect('success', 'Order #' . (int) $orderId . ' advanced to ' . $result['status'] . '.');
+        $successMessage = 'Order #' . (int) $orderId . ' advanced to ' . $result['status'] . '.';
+        if ($result['status'] === 'Paid') {
+            set_flash_message('success', $successMessage);
+            header('Location: receipt.php?order_id=' . (int) $orderId . '&auto=1&return=orders');
+            exit;
+        }
+        orders_redirect('success', $successMessage);
     } catch (Throwable $exception) {
         error_log('[staff-orders] Order status update failed.');
         orders_redirect('error', 'The order could not be updated. Try again.');
@@ -191,6 +197,11 @@ document.querySelectorAll('form[data-confirm]').forEach(function (form) {
                     throw new Error(body.error && body.error.message
                         ? body.error.message
                         : 'The order could not be updated.');
+                }
+                if (body.data.status === 'Paid') {
+                    window.location.href = 'receipt.php?order_id=' +
+                        encodeURIComponent(body.data.order_id) + '&auto=1&return=orders';
+                    return;
                 }
                 window.location.reload();
             });
