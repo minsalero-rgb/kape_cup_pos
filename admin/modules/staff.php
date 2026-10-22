@@ -210,7 +210,7 @@ $inactiveAccountCount = count($accounts) - $activeAccountCount;
             <div class="admin-staff-form-submit"><button type="submit"><span class="material-symbols-outlined" aria-hidden="true">add</span>Create account</button></div>
         </form>
     </section>
-    <section class="admin-staff-card admin-staff-list" aria-labelledby="staff-accounts-heading">
+    <section class="admin-staff-card" aria-labelledby="staff-accounts-heading">
         <div class="admin-staff-card-heading admin-staff-list-heading">
             <div><span>PEOPLE &amp; PERMISSIONS</span><h2 id="staff-accounts-heading">Accounts</h2></div>
             <span class="admin-staff-list-total"><?= count($accounts) ?> <?= count($accounts) === 1 ? 'account' : 'accounts' ?></span>

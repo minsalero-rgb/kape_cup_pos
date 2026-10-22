@@ -1454,7 +1454,7 @@ export function StockItems() {
         </div>
       </div>
 
-      <section className="report-panel stock-table-panel">
+      <section className="report-panel">
         <div className="stock-filters">
           <label className="table-search">
             <Icon>search</Icon>

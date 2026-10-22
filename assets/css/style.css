@@ -6806,6 +6806,18 @@ h3 {
   font-size: 1rem;
 }
 
+.category-label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.customer-site .modifier-option-input {
+  flex: 0 0 auto;
+  margin: 0;
+}
+
 .customer-site .menu-category-list .category-btn.active .material-symbols-outlined {
   color: #e2c187;
   font-variation-settings: "FILL" 1;
@@ -9224,6 +9236,32 @@ body:not(.app-body):not(:has(#root)) { background-color: var(--cafe-background) 
 .app-body .alert--warning { border-color: var(--cafe-warn-bg); background: var(--cafe-warn-bg); }
 .app-body .alert--danger { border-color: var(--cafe-danger-bg); background: var(--cafe-danger-bg); color: var(--cafe-danger-text); }
 
+.app-body .muted,
+.app-body .text-muted {
+  color: var(--cafe-muted);
+}
+
+.app-body .notice {
+  margin: 0 0 var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--cafe-line-soft);
+  border-radius: var(--cafe-radius-control);
+  background: var(--cafe-paper);
+  color: var(--cafe-text);
+}
+
+.app-body .notice[role="alert"] {
+  border-color: var(--cafe-danger-line);
+  background: var(--cafe-danger-bg);
+  color: var(--cafe-danger-text);
+}
+
+.app-body .notice.success {
+  border-color: var(--cafe-success-line);
+  background: var(--cafe-success-bg);
+  color: var(--cafe-success-text);
+}
+
 .app-body .card--link:hover {
   transform: translateY(-2px);
   box-shadow: var(--cafe-shadow-raised);
@@ -9955,6 +9993,10 @@ body:not(.app-body):not(:has(#root)) { background-color: var(--cafe-background) 
   font-size: 13px;
 }
 
+.staff-dashboard-stock {
+  min-width: 0;
+}
+
 .staff-dashboard-stock-list {
   display: flex;
   flex-direction: column;
@@ -10131,6 +10173,12 @@ body:not(.app-body):not(:has(#root)) { background-color: var(--cafe-background) 
   background: var(--cafe-espresso-hover);
 }
 
+.app-body #root .button-primary.button-small {
+  min-height: 32px;
+  padding: 0 var(--space-3);
+  font-size: var(--type-12);
+}
+
 .app-body #root .button-secondary {
   border-color: var(--cafe-border);
   background: var(--cafe-paper);
@@ -10145,6 +10193,34 @@ body:not(.app-body):not(:has(#root)) { background-color: var(--cafe-background) 
   background: var(--cafe-cream);
   color: var(--cafe-coffee);
   font-size: 13px;
+}
+
+.app-body #root .pos-page-content,
+.app-body #root .cart-line-main {
+  min-width: 0;
+}
+
+.app-body #root .cart-line-main {
+  flex: 1 1 auto;
+}
+
+.app-body #root .sidebar-back {
+  display: flex;
+  min-height: 40px;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--cafe-line-soft);
+  border-radius: var(--cafe-radius-control);
+  background: var(--cafe-surface-2);
+  color: var(--cafe-coffee);
+  font-size: var(--type-14);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.app-body #root .sidebar-back:hover {
+  background: var(--cafe-secondary);
 }
 
 .app-body #root .section-heading h2,
@@ -10468,6 +10544,39 @@ body:not(.app-body):not(:has(#root)) { background-color: var(--cafe-background) 
   box-shadow: var(--cafe-shadow);
 }
 
+.app-content .admin-alert-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: var(--space-3) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.app-content .admin-alert-list li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-1) var(--space-3);
+  padding: var(--space-3);
+  border: 1px solid var(--cafe-line-soft);
+  border-radius: var(--cafe-radius-control);
+  background: var(--cafe-paper);
+}
+
+.app-content .admin-alert-list li strong {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  color: var(--cafe-coffee);
+  font-size: 13px;
+}
+
+.app-content .admin-alert-list li span {
+  color: var(--cafe-muted);
+  font-size: 12px;
+  text-align: right;
+}
+
 .admin-staff-card-heading {
   display: flex;
   align-items: center;
@@ -10711,6 +10820,15 @@ body:not(.app-body):not(:has(#root)) { background-color: var(--cafe-background) 
 }
 
 .app-content .admin-staff-button:hover { background: var(--cafe-secondary); }
+.app-content .admin-staff-button.is-secondary {
+  border-color: var(--cafe-line-soft);
+  background: var(--cafe-sidebar);
+  color: var(--cafe-coffee);
+}
+.app-content .admin-staff-button.is-secondary:hover {
+  background: var(--cafe-secondary);
+}
+
 .app-content .admin-staff-button.is-danger {
   border-color: var(--cafe-danger-line);
   background: var(--cafe-danger-bg);

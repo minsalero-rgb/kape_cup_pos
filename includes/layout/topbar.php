@@ -16,6 +16,6 @@ $initial = function_exists('mb_substr')
     <div class="app-topbar-user">
         <time datetime="<?= escape_html(date('Y-m-d')) ?>"><?= escape_html(date('D, M j')) ?></time>
         <span class="app-topbar-name"><?= escape_html($user['full_name']) ?></span>
-        <span class="app-avatar app-avatar--top" aria-label="<?= escape_html($user['full_name']) ?>"><?= escape_html($initial) ?></span>
+        <span class="app-avatar" aria-label="<?= escape_html($user['full_name']) ?>"><?= escape_html($initial) ?></span>
     </div>
 </header>
