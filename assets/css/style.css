@@ -10091,6 +10091,7 @@ body:not(.app-body):not(:has(#root)) { background-color: var(--cafe-background) 
 }
 
 .app-body .staff-dashboard-tool {
+  display: flex;
   min-width: 0;
   min-height: 96px;
   align-items: center;
