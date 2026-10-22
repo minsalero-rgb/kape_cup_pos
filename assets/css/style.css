@@ -7221,7 +7221,7 @@ body.customer-site:not(.app-body):not(:has(#root)) .menu-product-copy h3 {
     padding: 0.7rem 0.65rem 0.6rem;
   }
 
-.menu-product-copy h3 {
+ .menu-product-copy h3 {
     font-size: 0.86rem !important;
   }
 
