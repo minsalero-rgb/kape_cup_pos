@@ -8444,6 +8444,12 @@ body:not(.app-body):not(:has(#root)) { background-color: var(--cafe-background) 
   }
 }
 
+@media (max-width: 480px) {
+  .store-product-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .store-button-primary,
   .store-product-card,
