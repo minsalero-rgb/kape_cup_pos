@@ -8056,6 +8056,8 @@ body:not(.app-body):not(:has(#root)) { background-color: var(--cafe-background) 
 }
 
 .store-product-card {
+  display: flex;
+  flex-direction: column;
   min-width: 0;
   overflow: hidden;
   border: 1px solid #e8ddcf;
@@ -8110,6 +8112,9 @@ body:not(.app-body):not(:has(#root)) { background-color: var(--cafe-background) 
 }
 
 .store-product-copy {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
   padding: 1.1rem 1.15rem 1rem;
 }
 
@@ -8145,6 +8150,7 @@ body:not(.app-body):not(:has(#root)) { background-color: var(--cafe-background) 
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem;
+  margin-top: auto;
   padding-top: 0.8rem;
   border-top: 1px solid #eee5d9;
 }
